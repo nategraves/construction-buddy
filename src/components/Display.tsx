@@ -1,21 +1,6 @@
 import React from "react";
 
-enum CalculatorMode {
-  pitch = "pitch",
-}
-
-type MetricValue = {
-  km: number;
-  m: number;
-  cm: number;
-  mm: number;
-};
-
-type ImperialValue = {
-  ft: number;
-  in: number;
-  th: number;
-};
+import type { CalculatorMode, ImperialValue, MetricValue } from "../types";
 
 type BaseDisplayProps = {
   calculatorMode?: CalculatorMode;
@@ -34,6 +19,7 @@ type ImperialDisplayProps = BaseDisplayProps & {
 type DisplayProps = MetricDisplayProps | ImperialDisplayProps;
 
 export function Display(props: DisplayProps) {
+  const { currentValue, units } = props;
   return (
     <div
       style={{
@@ -46,7 +32,9 @@ export function Display(props: DisplayProps) {
         width: "100%",
       }}
     >
-      12 ft - 4 in - 3/32"
+      {units === "standard"
+        ? `${currentValue.ft}ft - ${currentValue.in}in - ${currentValue.th}/64"`
+        : `${currentValue.m}m - ${currentValue.cm}cm - ${currentValue.mm}mm`}
     </div>
   );
 }

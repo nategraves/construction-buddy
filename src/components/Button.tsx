@@ -1,16 +1,22 @@
-import React from "react";
+import React, { FC, ReactElement } from "react";
 
 interface ButtonProps {
   altFnColor?: string;
   altFnText?: string;
   bgColor?: string;
-  text: string;
   textColor?: string;
   action: (currentValue?: number) => void;
+  children: ReactElement | string;
 }
 
-export function Button(props: ButtonProps) {
-  const { altFnColor, altFnText, bgColor, text, textColor = "#fff" } = props;
+export const Button: FC<ButtonProps> = (props) => {
+  const {
+    altFnColor,
+    altFnText,
+    bgColor,
+    children,
+    textColor = "#fff",
+  } = props;
   return (
     <button className="button" style={{ display: "flex" }}>
       {altFnText != null && (
@@ -29,8 +35,8 @@ export function Button(props: ButtonProps) {
           borderRadius: "4px",
         }}
       >
-        <span style={{ color: textColor }}>{text}</span>
+        <span style={{ color: textColor }}>{children}</span>
       </div>
     </button>
   );
-}
+};

@@ -1,8 +1,16 @@
-import * as React from "react";
+import React, { useEffect, useState } from "react";
 
-import { Button, Display } from "./components";
+import { Button, Digits, Display } from "./components";
+// import { ImperialValue, MetricValue } from "./types";
 
 function App() {
+  // const [value, setValue] = useState<MetricValue | ImperialValue>();
+  const [value, setValue] = useState<number>(0);
+  const [action, setAction] = useState<string>("");
+
+  useEffect(() => {
+    localStorage.setItem("value", JSON.stringify(value));
+  }, [value]);
   return (
     <div
       style={{
@@ -37,38 +45,7 @@ function App() {
           th: 14,
         }}
       />
-      <div
-        style={{
-          padding: "10px",
-          display: "flex",
-          flexFlow: "row wrap",
-          alignItems: "space-between",
-          justifyContent: "flex-start",
-        }}
-      >
-        <Button text="Rise" action={() => console.log("hi")} bgColor="#666" />
-        <Button text="Rise" action={() => console.log("hi")} bgColor="#666" />
-        <Button text="Rise" action={() => console.log("hi")} bgColor="#666" />
-        <Button text="Rise" action={() => console.log("hi")} bgColor="#666" />
-        <Button text="Rise" action={() => console.log("hi")} bgColor="#666" />
-        <Button text="Rise" action={() => console.log("hi")} bgColor="#666" />
-        <Button text="Rise" action={() => console.log("hi")} bgColor="#666" />
-        <Button text="Rise" action={() => console.log("hi")} bgColor="#666" />
-        <Button text="Rise" action={() => console.log("hi")} bgColor="#666" />
-        <Button text="Rise" action={() => console.log("hi")} bgColor="#666" />
-        <Button text="Rise" action={() => console.log("hi")} bgColor="#666" />
-        <Button text="Rise" action={() => console.log("hi")} bgColor="#666" />
-        <Button text="Rise" action={() => console.log("hi")} bgColor="#666" />
-        <Button text="Rise" action={() => console.log("hi")} bgColor="#666" />
-        <Button text="Rise" action={() => console.log("hi")} bgColor="#666" />
-        <Button text="Rise" action={() => console.log("hi")} bgColor="#666" />
-        <Button text="Rise" action={() => console.log("hi")} bgColor="#666" />
-        <Button text="Rise" action={() => console.log("hi")} bgColor="#666" />
-        <Button text="Rise" action={() => console.log("hi")} bgColor="#666" />
-        <Button text="Rise" action={() => console.log("hi")} bgColor="#666" />
-        <Button text="Rise" action={() => console.log("hi")} bgColor="#666" />
-        <Button text="Rise" action={() => console.log("hi")} bgColor="#666" />
-      </div>
+      <Digits setValue={(v) => setValue(v)} />
     </div>
   );
 }
