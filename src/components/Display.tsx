@@ -1,25 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
 
-import type { CalculatorMode, ImperialValue, MetricValue } from "../types";
+import { ValueMode } from "../types";
+import { ValueContext } from "../contexts";
 
-type BaseDisplayProps = {
-  calculatorMode?: CalculatorMode;
-};
-
-type MetricDisplayProps = BaseDisplayProps & {
-  units: "metric";
-  currentValue: MetricValue;
-};
-
-type ImperialDisplayProps = BaseDisplayProps & {
-  units: "standard";
-  currentValue: ImperialValue;
-};
-
-type DisplayProps = MetricDisplayProps | ImperialDisplayProps;
-
-export function Display(props: DisplayProps) {
-  const { currentValue, units } = props;
+export function Display() {
+  const { value, mode } = useContext(ValueContext);
   return (
     <div
       style={{
@@ -32,9 +17,9 @@ export function Display(props: DisplayProps) {
         width: "100%",
       }}
     >
-      {units === "standard"
-        ? `${currentValue.ft}ft - ${currentValue.in}in - ${currentValue.th}/64"`
-        : `${currentValue.m}m - ${currentValue.cm}cm - ${currentValue.mm}mm`}
+      {mode === ValueMode.imperial
+        ? `${value.imperial.ft}ft - ${value.imperial.in}in - ${value.imperial.fi}/64"`
+        : `${value.metric.m}m - ${value.metric.cm}cm - ${value.metric.mm}mm`}
     </div>
   );
 }

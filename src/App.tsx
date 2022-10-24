@@ -1,52 +1,56 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 
+import { ValueContext, defaultValue } from "./contexts";
 import { Button, Digits, Display } from "./components";
-import { ImperialValue, MetricValue } from "./types";
+import { ImperialValue, MetricValue, ValueMode } from "./types";
 
 function App() {
-  const [value, setValue] = useState<MetricValue | ImperialValue>();
-  // const [value, setValue] = useState<number>(0);
-  // const [action, setAction] = useState<string>("");
+  const [value, setValue] = React.useState(defaultValue);
+  const [valueMode, setValueMode] = React.useState(ValueMode.imperial);
 
-  useEffect(() => {
-    localStorage.setItem("value", JSON.stringify(value));
-  }, [value]);
+  const toggleValueMode = () =>
+    setValueMode(
+      valueMode === ValueMode.imperial ? ValueMode.metric : ValueMode.imperial
+    );
+
   return (
-    <div
-      style={{
-        alignItems: "flex-start",
-        display: "flex",
-        flexDirection: "row",
-        flexWrap: "wrap",
-        maxHeight: "100vh",
-        justifyContent: "flex-start",
-        overflow: "hidden",
-        width: "100vw",
+    <ValueContext.Provider
+      value={{
+        value,
+        mode: valueMode,
+        setValue,
+        toggleValueMode,
       }}
     >
-      <div style={{ width: "100%" }}>
-        <h1
-          style={{
-            fontSize: "16px",
-            fontWeight: "bold",
-            height: "16px",
-            marginLeft: "10px",
-            textTransform: "uppercase",
-          }}
-        >
-          Construction Buddy
-        </h1>
-      </div>
-      <Display
-        units="standard"
-        currentValue={{
-          ft: 1,
-          in: 3,
-          fr: 14,
+      <div
+        style={{
+          alignItems: "flex-start",
+          display: "flex",
+          flexDirection: "row",
+          flexWrap: "wrap",
+          maxHeight: "100vh",
+          justifyContent: "flex-start",
+          overflow: "hidden",
+          width: "100vw",
         }}
-      />
-      <Digits setValue={(v) => setValue(v)} />
-    </div>
+      >
+        <div style={{ width: "100%" }}>
+          <h1
+            style={{
+              fontSize: "16px",
+              fontWeight: "bold",
+              height: "16px",
+              marginLeft: "10px",
+              textTransform: "uppercase",
+            }}
+          >
+            Construction Buddy
+          </h1>
+        </div>
+        <Display />
+        <Digits />
+      </div>
+    </ValueContext.Provider>
   );
 }
 

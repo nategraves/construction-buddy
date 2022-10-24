@@ -1,13 +1,15 @@
-import * as React from "react";
+import React, { useContext } from "react";
 
+import { ValueContext } from "../contexts";
 import { Button } from "./Button";
 
-interface DigitsProps {
-  setValue: (value: number) => void;
-}
+export function Digits() {
+  const { setValue, value } = useContext(ValueContext);
+  const handleButtonPress = (num: number) => {
+    value.imperial.ft = num;
+    setValue(value);
+  };
 
-export function Digits(props: DigitsProps) {
-  const { setValue } = props;
   return (
     <div
       style={{
@@ -20,7 +22,7 @@ export function Digits(props: DigitsProps) {
       }}
     >
       {Array.from(Array(10).keys()).map((_, i) => (
-        <Button action={() => setValue(i)}>{String(i)}</Button>
+        <Button action={() => handleButtonPress(i)}>{String(i)}</Button>
       ))}
     </div>
   );
