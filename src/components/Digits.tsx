@@ -6,8 +6,9 @@ import { Button } from "./Button";
 export function Digits() {
   const { setValue, value } = useContext(ValueContext);
   const handleButtonPress = (num: number) => {
-    value.imperial.ft = num;
-    setValue(value);
+    console.log({ pressed: num });
+    value.imperial.ft = parseInt(`${value.imperial.ft}${num}`, 10);
+    setValue({ ...value });
   };
 
   return (
@@ -21,8 +22,10 @@ export function Digits() {
         width: "100$",
       }}
     >
-      {Array.from(Array(10).keys()).map((_, i) => (
-        <Button action={() => handleButtonPress(i)}>{String(i)}</Button>
+      {Array.from(Array(10).keys()).map((i) => (
+        <Button key={`button-${i}`} action={() => handleButtonPress(i)}>
+          {String(i)}
+        </Button>
       ))}
     </div>
   );

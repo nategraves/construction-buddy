@@ -2,6 +2,18 @@ declare global {
   type Maybe<T> = T | undefined | null;
 }
 
+export enum MetricTarget {
+  m = "m",
+  cm = "cm",
+  mm = "mm",
+}
+
+export enum ImperialTarget {
+  ft = "ft",
+  in = "in",
+  fi = "fi",
+}
+
 export enum CalculatorMode {
   pitch = "pitch",
 }
@@ -12,13 +24,13 @@ export enum ValueMode {
 }
 
 export type MetricValue = {
-  m: number;
-  cm: number;
-  mm: number;
+  [MetricTarget.m]: number;
+  [MetricTarget.cm]: number;
+  [MetricTarget.mm]: number;
 };
 
 export type ImperialValue = {
-  ft: number;
-  in: number;
-  fi: number;
+  [ImperialTarget.ft]: number;
+  [ImperialTarget.in]: number;
+  [ImperialTarget.fi]: number;
 };

@@ -18,7 +18,11 @@ export const Button: FC<ButtonProps> = (props) => {
     textColor = "#fff",
   } = props;
   return (
-    <button className="button" style={{ display: "flex" }}>
+    <button
+      className="button"
+      style={{ display: "flex" }}
+      onClick={() => props.action()}
+    >
       {altFnText != null && (
         <span style={{ color: altFnColor, textTransform: "uppercase" }}>
           {altFnText}
