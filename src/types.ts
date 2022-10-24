@@ -1,18 +1,20 @@
+declare global {
+  type Maybe<T> = T | null | undefined;
+}
+
 export enum CalculatorMode {
   pitch = "pitch",
 }
 
-export type MetricValue = {
-  km: number;
-  m: number;
-  cm: number;
-  mm: number;
+export type Value = {
+  mode: "metric" | "standard";
+  m: Maybe<number>;
+  cm: Maybe<number>;
+  mm: Maybe<number>;
+  ft: Maybe<number>;
+  in: Maybe<number>;
+  fi: Maybe<number>;
+  width: Maybe<number>;
+  height: Maybe<number>;
+  length: Maybe<number>;
 };
-
-export type ImperialValue = {
-  ft: number;
-  in: number;
-  th: number;
-};
-
-// type Maybe<T> = T | undefined | null;

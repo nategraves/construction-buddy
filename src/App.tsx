@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 
 import { Button, Digits, Display } from "./components";
-// import { ImperialValue, MetricValue } from "./types";
+import { ImperialValue, MetricValue } from "./types";
 
 function App() {
-  // const [value, setValue] = useState<MetricValue | ImperialValue>();
-  const [value, setValue] = useState<number>(0);
-  const [action, setAction] = useState<string>("");
+  const [value, setValue] = useState<MetricValue | ImperialValue>();
+  // const [value, setValue] = useState<number>(0);
+  // const [action, setAction] = useState<string>("");
 
   useEffect(() => {
     localStorage.setItem("value", JSON.stringify(value));
@@ -42,7 +42,7 @@ function App() {
         currentValue={{
           ft: 1,
           in: 3,
-          th: 14,
+          fr: 14,
         }}
       />
       <Digits setValue={(v) => setValue(v)} />
