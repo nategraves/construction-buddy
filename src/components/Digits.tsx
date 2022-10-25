@@ -4,11 +4,25 @@ import { ValueContext } from "../contexts";
 import { Button } from "./Button";
 
 export function Digits() {
-  const { setValue, value } = useContext(ValueContext);
-  const handleButtonPress = (num: number) => {
-    console.log({ pressed: num });
-    value.imperial.ft = parseInt(`${value.imperial.ft}${num}`, 10);
-    setValue({ ...value });
+  const {
+    setValue,
+    setValueTargetless,
+    value,
+    valueTarget,
+    valueTargetless,
+    mode,
+  } = useContext(ValueContext);
+
+  const handleButtonPress = (n: number) => {
+    const num = (o: Maybe<number>, n: number) =>
+      parseInt(o != null ? `${o}${n}` : `${n}`, 10);
+
+    if (valueTarget) {
+      value[mode][valueTarget] = num(value[mode][valueTarget], n);
+      setValue({ ...value });
+    } else {
+      setValueTargetless(num(valueTargetless, n));
+    }
   };
 
   return (

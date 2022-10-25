@@ -1,6 +1,13 @@
 import * as React from "react";
 
-import { ValueMode, ImperialValue, MetricValue } from "../types";
+import {
+  ImperialTarget,
+  ImperialValue,
+  MetricTarget,
+  MetricValue,
+  ValueMode,
+  ValueTarget,
+} from "../types";
 
 interface Value {
   [ValueMode.imperial]: ImperialValue;
@@ -10,26 +17,34 @@ interface Value {
 interface ValueContextProps {
   mode: ValueMode;
   value: Value;
+  valueTarget: Maybe<ValueTarget>;
+  valueTargetless: Maybe<number>;
   setValue: (value: Value) => void;
+  setValueTarget: (valueTarget: ValueTarget) => void;
+  setValueTargetless: (value: number) => void;
   toggleValueMode: () => void;
 }
 
 export const defaultValue = {
   [ValueMode.imperial]: {
-    ft: 0,
-    in: 0,
-    fi: 0,
+    [ImperialTarget.ft]: 0,
+    [ImperialTarget.in]: 0,
+    [ImperialTarget.fi]: 0,
   },
   [ValueMode.metric]: {
-    m: 0,
-    cm: 0,
-    mm: 0,
+    [MetricTarget.m]: 0,
+    [MetricTarget.cm]: 0,
+    [MetricTarget.mm]: 0,
   },
 };
 
 export const ValueContext = React.createContext<ValueContextProps>({
   mode: ValueMode.imperial,
   value: defaultValue,
-  setValue: (value: Value) => {},
+  valueTarget: undefined,
+  valueTargetless: undefined,
+  setValue: (value) => {},
+  setValueTarget: (valueTarget) => {},
+  setValueTargetless: (value) => {},
   toggleValueMode: () => {},
 });

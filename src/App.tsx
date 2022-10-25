@@ -1,12 +1,14 @@
-import React, { useEffect, useState, useContext } from "react";
+import React from "react";
 
 import { ValueContext, defaultValue } from "./contexts";
-import { Button, Digits, Display } from "./components";
-import { ImperialValue, MetricValue, ValueMode } from "./types";
+import { Digits, Display, Targets } from "./components";
+import { ValueMode, ValueTarget } from "./types";
 
 function App() {
   const [value, setValue] = React.useState(defaultValue);
   const [valueMode, setValueMode] = React.useState(ValueMode.imperial);
+  const [valueTarget, setValueTarget] = React.useState<ValueTarget>();
+  const [valueTargetless, setValueTargetless] = React.useState<Maybe<number>>();
 
   const toggleValueMode = () =>
     setValueMode(
@@ -16,9 +18,13 @@ function App() {
   return (
     <ValueContext.Provider
       value={{
-        value,
         mode: valueMode,
+        value,
+        valueTarget,
+        valueTargetless,
         setValue,
+        setValueTarget,
+        setValueTargetless,
         toggleValueMode,
       }}
     >
@@ -48,6 +54,7 @@ function App() {
           </h1>
         </div>
         <Display />
+        <Targets />
         <Digits />
       </div>
     </ValueContext.Provider>

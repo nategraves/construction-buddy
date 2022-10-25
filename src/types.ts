@@ -14,6 +14,8 @@ export enum ImperialTarget {
   fi = "fi",
 }
 
+export type ValueTarget = MetricTarget | ImperialTarget;
+
 export enum CalculatorMode {
   pitch = "pitch",
 }

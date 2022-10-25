@@ -6,6 +6,7 @@ interface ButtonProps {
   bgColor?: string;
   textColor?: string;
   action: (currentValue?: number) => void;
+  disabled?: boolean;
   children: ReactElement | string;
 }
 
@@ -15,13 +16,14 @@ export const Button: FC<ButtonProps> = (props) => {
     altFnText,
     bgColor,
     children,
-    textColor = "#fff",
+    disabled,
+    textColor = "#000",
   } = props;
   return (
     <button
       className="button"
-      style={{ display: "flex" }}
-      onClick={() => props.action()}
+      style={{ display: "flex", cursor: disabled ? "pointer" : "default" }}
+      onClick={() => (disabled ? {} : props.action())}
     >
       {altFnText != null && (
         <span style={{ color: altFnColor, textTransform: "uppercase" }}>
