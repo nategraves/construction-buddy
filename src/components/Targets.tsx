@@ -1,20 +1,28 @@
 import * as React from "react";
 
-import { ValueContext } from "../contexts";
-import { ValueMode, ImperialTarget, MetricTarget, ValueTarget } from "../types";
+import { defaultValue, ValueContext } from "../contexts";
+import { Units, ImperialTarget, MetricTarget, ValueTarget } from "../types";
 import { Button } from "./Button";
 
 export const Targets = () => {
   const {
-    mode,
+    units,
     value,
     valueTarget,
     valueTargetless,
     setValue,
     setValueTarget,
     setValueTargetless,
-    toggleValueMode,
+    toggleUnits,
   } = React.useContext(ValueContext);
+
+  const handleToggleUnits = () => {
+    toggleUnits();
+    // TODO: FIX THIS
+    // @ts-ignore
+    value[units] = defaultValue[units];
+    setValue({ ...value });
+  };
 
   const handleTargetPress = (newValueTarget: ValueTarget) => {
     if (newValueTarget != null || valueTargetless == null) {
@@ -22,7 +30,7 @@ export const Targets = () => {
     }
 
     setValueTarget(newValueTarget);
-    value[mode][newValueTarget] = valueTargetless;
+    value[units][newValueTarget] = valueTargetless;
     setValue({ ...value });
     setValueTargetless(undefined);
   };
@@ -38,8 +46,8 @@ export const Targets = () => {
         width: "100%",
       }}
     >
-      <Button action={() => toggleValueMode()}>{mode}</Button>
-      {mode === ValueMode.imperial ? (
+      <Button action={() => handleToggleUnits()}>{units}</Button>
+      {units === Units.imperial ? (
         <>
           <Button
             disabled={valueTarget != null}

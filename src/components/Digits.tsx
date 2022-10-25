@@ -10,7 +10,7 @@ export function Digits() {
     value,
     valueTarget,
     valueTargetless,
-    mode,
+    units,
   } = useContext(ValueContext);
 
   const handleButtonPress = (n: number) => {
@@ -18,7 +18,7 @@ export function Digits() {
       parseInt(o != null ? `${o}${n}` : `${n}`, 10);
 
     if (valueTarget) {
-      value[mode][valueTarget] = num(value[mode][valueTarget], n);
+      value[units][valueTarget] = num(value[units][valueTarget], n);
       setValue({ ...value });
     } else {
       setValueTargetless(num(valueTargetless, n));

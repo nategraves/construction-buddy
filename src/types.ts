@@ -20,7 +20,7 @@ export enum CalculatorMode {
   pitch = "pitch",
 }
 
-export enum ValueMode {
+export enum Units {
   metric = "metric",
   imperial = "imperial",
 }

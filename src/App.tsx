@@ -1,33 +1,11 @@
 import React from "react";
 
-import { ValueContext, defaultValue } from "./contexts";
+import { ValueProvider } from "./contexts";
 import { Digits, Display, Targets } from "./components";
-import { ValueMode, ValueTarget } from "./types";
 
 function App() {
-  const [value, setValue] = React.useState(defaultValue);
-  const [valueMode, setValueMode] = React.useState(ValueMode.imperial);
-  const [valueTarget, setValueTarget] = React.useState<ValueTarget>();
-  const [valueTargetless, setValueTargetless] = React.useState<Maybe<number>>();
-
-  const toggleValueMode = () =>
-    setValueMode(
-      valueMode === ValueMode.imperial ? ValueMode.metric : ValueMode.imperial
-    );
-
   return (
-    <ValueContext.Provider
-      value={{
-        mode: valueMode,
-        value,
-        valueTarget,
-        valueTargetless,
-        setValue,
-        setValueTarget,
-        setValueTargetless,
-        toggleValueMode,
-      }}
-    >
+    <ValueProvider>
       <div
         style={{
           alignItems: "flex-start",
@@ -57,7 +35,7 @@ function App() {
         <Targets />
         <Digits />
       </div>
-    </ValueContext.Provider>
+    </ValueProvider>
   );
 }
 
