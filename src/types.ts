@@ -11,12 +11,13 @@ export enum MetricTarget {
 export enum ImperialTarget {
   ft = "ft",
   in = "in",
-  fi = "fi",
+  fr = "fraction",
 }
 
 export type ValueTarget = MetricTarget | ImperialTarget;
 
-export enum CalculatorMode {
+export enum Mode {
+  addition = "addition",
   pitch = "pitch",
 }
 
@@ -26,13 +27,16 @@ export enum Units {
 }
 
 export type MetricValue = {
-  [MetricTarget.m]: number;
-  [MetricTarget.cm]: number;
-  [MetricTarget.mm]: number;
+  [MetricTarget.m]: Maybe<number>;
+  [MetricTarget.cm]: Maybe<number>;
+  [MetricTarget.mm]: Maybe<number>;
 };
 
 export type ImperialValue = {
-  [ImperialTarget.ft]: number;
-  [ImperialTarget.in]: number;
-  [ImperialTarget.fi]: number;
+  [ImperialTarget.ft]: Maybe<number>;
+  [ImperialTarget.in]: Maybe<number>;
+  n: Maybe<number>;
+  d: Maybe<number>;
 };
+
+export type Value = number | MetricValue | ImperialValue;

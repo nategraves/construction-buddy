@@ -2,17 +2,17 @@ import * as React from "react";
 
 import { defaultValue, ValueContext } from "../contexts";
 import { Units, ImperialTarget, MetricTarget, ValueTarget } from "../types";
-import { Button } from "./Button";
+import { Button } from "./Buttons/Button";
 
 export const Targets = () => {
   const {
     units,
-    value,
-    valueTarget,
-    valueTargetless,
-    setValue,
-    setValueTarget,
-    setValueTargetless,
+    input,
+    // valueTarget,
+    // valueTargetless,
+    // setValue,
+    // setValueTarget,
+    // setValueTargetless,
     toggleUnits,
   } = React.useContext(ValueContext);
 
@@ -21,18 +21,18 @@ export const Targets = () => {
     // TODO: FIX THIS
     // @ts-ignore
     value[units] = defaultValue[units];
-    setValue({ ...value });
+    // setValue({ ...value });
   };
 
   const handleTargetPress = (newValueTarget: ValueTarget) => {
-    if (newValueTarget != null || valueTargetless == null) {
+    if (newValueTarget != null) {
       return;
     }
 
-    setValueTarget(newValueTarget);
-    value[units][newValueTarget] = valueTargetless;
-    setValue({ ...value });
-    setValueTargetless(undefined);
+    // setValueTarget(newValueTarget);
+    // value[units][newValueTarget] = valueTargetless;
+    // setValue({ ...value });
+    // setValueTargetless(undefined);
   };
 
   return (
@@ -46,24 +46,24 @@ export const Targets = () => {
         width: "100%",
       }}
     >
-      <Button action={() => handleToggleUnits()}>{units}</Button>
+      <Button onClick={() => handleToggleUnits()}>{units}</Button>
       {units === Units.imperial ? (
         <>
           <Button
-            disabled={valueTarget != null}
-            action={() => handleTargetPress(ImperialTarget.ft)}
+            // disabled={valueTarget != null}
+            onClick={() => handleTargetPress(ImperialTarget.ft)}
           >
             Feet
           </Button>
           <Button
-            disabled={valueTarget != null}
-            action={() => handleTargetPress(ImperialTarget.in)}
+            // disabled={valueTarget != null}
+            onClick={() => handleTargetPress(ImperialTarget.in)}
           >
             Inches
           </Button>
           <Button
-            disabled={valueTarget != null}
-            action={() => handleTargetPress(ImperialTarget.fi)}
+            // disabled={valueTarget != null}
+            onClick={() => handleTargetPress(ImperialTarget.fr)}
           >
             Frac.
           </Button>
@@ -71,20 +71,20 @@ export const Targets = () => {
       ) : (
         <>
           <Button
-            disabled={valueTarget != null}
-            action={() => handleTargetPress(MetricTarget.m)}
+            // disabled={valueTarget != null}
+            onClick={() => handleTargetPress(MetricTarget.m)}
           >
             Meters
           </Button>
           <Button
-            disabled={valueTarget != null}
-            action={() => handleTargetPress(MetricTarget.cm)}
+            // disabled={valueTarget != null}
+            onClick={() => handleTargetPress(MetricTarget.cm)}
           >
             Centi
           </Button>
           <Button
-            disabled={valueTarget != null}
-            action={() => handleTargetPress(MetricTarget.mm)}
+            // disabled={valueTarget != null}
+            onClick={() => handleTargetPress(MetricTarget.mm)}
           >
             Milli
           </Button>

@@ -1,75 +1,95 @@
-import * as React from "react";
+import React, {
+  createContext,
+  FC,
+  ReactNode,
+  useEffect,
+  useState,
+} from "react";
 
 import {
   ImperialTarget,
   ImperialValue,
   MetricTarget,
   MetricValue,
+  Mode,
   Units,
-  ValueTarget,
+  Value,
 } from "../types";
 
-interface Value {
-  [Units.imperial]: ImperialValue;
-  [Units.metric]: MetricValue;
-}
-
 interface ValueContextProps {
-  units: Units;
-  value: Value;
-  valueTarget: Maybe<ValueTarget>;
-  valueTargetless: Maybe<number>;
-  setValue: (value: Value) => void;
-  setValueTarget: (valueTarget: ValueTarget) => void;
-  setValueTargetless: (value: number) => void;
+  input: Maybe<number>;
+  stored: Maybe<Value>;
+  mode: Maybe<Mode>;
+  total: Maybe<Value>;
+  units: Maybe<Units>;
+  setInput: (value: number) => void;
+  setStored: (inputValue: ImperialValue | MetricValue) => void;
+  setMode: (mode: Mode) => void;
+  setTotal: (totalValue: ImperialValue | MetricValue) => void;
   toggleUnits: () => void;
 }
 
 export const defaultValue = {
   [Units.imperial]: {
-    [ImperialTarget.ft]: 0,
-    [ImperialTarget.in]: 0,
-    [ImperialTarget.fi]: 0,
+    [ImperialTarget.ft]: undefined,
+    [ImperialTarget.in]: undefined,
+    n: undefined,
+    d: undefined,
   },
   [Units.metric]: {
-    [MetricTarget.m]: 0,
-    [MetricTarget.cm]: 0,
-    [MetricTarget.mm]: 0,
+    [MetricTarget.m]: undefined,
+    [MetricTarget.cm]: undefined,
+    [MetricTarget.mm]: undefined,
   },
 };
 
-export const ValueContext = React.createContext<ValueContextProps>({
+export const ValueContext = createContext<ValueContextProps>({
+  input: undefined,
+  stored: undefined,
+  mode: undefined,
+  total: undefined,
   units: Units.imperial,
-  value: defaultValue,
-  valueTarget: undefined,
-  valueTargetless: undefined,
-  setValue: (value) => {},
-  setValueTarget: (valueTarget) => {},
-  setValueTargetless: (value) => {},
+  setInput: () => {},
+  setStored: () => {},
+  setMode: () => {},
+  setTotal: () => {},
   toggleUnits: () => {},
 });
 
-export const ValueProvider: React.FC<{ children?: React.ReactNode }> = ({
-  children,
-}) => {
-  const [value, setValue] = React.useState(defaultValue);
-  const [units, setUnits] = React.useState(Units.imperial);
-  const [valueTarget, setValueTarget] = React.useState<ValueTarget>();
-  const [valueTargetless, setValueTargetless] = React.useState<Maybe<number>>();
+export const ValueProvider: FC<{ children?: ReactNode }> = ({ children }) => {
+  const [input, setInput] = useState<Maybe<number>>();
+  const [stored, setStored] = useState<Maybe<ImperialValue | MetricValue>>();
+  const [mode, setMode] = useState<Maybe<Mode>>();
+  const [total, setTotal] = useState<Maybe<Value>>();
+  const [units, setUnits] = useState(Units.imperial);
 
   const toggleUnits = () =>
     setUnits(units === Units.imperial ? Units.metric : Units.imperial);
 
+  useEffect(() => {
+    if (mode == null) {
+      return;
+    }
+
+    if (mode === Mode.addition) {
+      if (input == null || stored == null) {
+        return;
+      }
+    }
+  }, [input, mode]);
+
   return (
     <ValueContext.Provider
       value={{
+        input,
+        stored,
+        mode,
+        total,
         units,
-        value,
-        valueTarget,
-        valueTargetless,
-        setValue,
-        setValueTarget,
-        setValueTargetless,
+        setInput,
+        setStored,
+        setMode,
+        setTotal,
         toggleUnits,
       }}
     >
