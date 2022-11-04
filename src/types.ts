@@ -27,16 +27,16 @@ export enum Units {
 }
 
 export type MetricValue = {
-  [MetricTarget.m]: Maybe<number>;
-  [MetricTarget.cm]: Maybe<number>;
-  [MetricTarget.mm]: Maybe<number>;
+  [MetricTarget.m]?: Maybe<number>;
+  [MetricTarget.cm]?: Maybe<number>;
+  [MetricTarget.mm]?: Maybe<number>;
 };
 
 export type ImperialValue = {
-  [ImperialTarget.ft]: Maybe<number>;
-  [ImperialTarget.in]: Maybe<number>;
-  n: Maybe<number>;
-  d: Maybe<number>;
+  [ImperialTarget.ft]?: Maybe<number>;
+  [ImperialTarget.in]?: Maybe<number>;
+  n?: Maybe<number>;
+  d?: Maybe<number>;
 };
 
 export type Value = number | MetricValue | ImperialValue;

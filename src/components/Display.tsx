@@ -9,34 +9,24 @@ export function Display() {
   let content = "";
 
   if (input != null || typeof stored === "number") {
-    content = String(input) ?? String(stored);
-  }
-
-  if (stored && isImperial(stored)) {
-    // @ts-expect-error
+    content = input ? String(input) : String(stored);
+  } else if (stored && isImperial(stored)) {
     if ("ft" in stored) {
       content += `${stored.ft}ft`;
     }
-    // @ts-expect-error
     if ("in" in stored) {
       content += ` - ${stored.in}in`;
     }
-    // @ts-expect-error
     if ("n" in stored && "d" in stored) {
       content += ` - ${stored.n}/${stored.d}`;
     }
-  }
-
-  if (stored && isMetric(stored)) {
-    // @ts-expect-error
+  } else if (stored && isMetric(stored)) {
     if ("m" in stored) {
       content += `${stored.m}m`;
     }
-    // @ts-expect-error
     if ("cm" in stored) {
       content += ` - ${stored.cm}cm`;
     }
-    // @ts-expect-error
     if ("mm" in stored) {
       content += ` - ${stored.mm}`;
     }

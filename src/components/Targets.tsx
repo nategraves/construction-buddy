@@ -3,6 +3,7 @@ import * as React from "react";
 import { defaultValue, ValueContext } from "../contexts";
 import { Units, ImperialTarget, MetricTarget, ValueTarget } from "../types";
 import { Button } from "./Buttons/Button";
+import { Feet } from "./Buttons/Functions/Feet";
 
 export const Targets = () => {
   const {
@@ -49,12 +50,7 @@ export const Targets = () => {
       <Button onClick={() => handleToggleUnits()}>{units}</Button>
       {units === Units.imperial ? (
         <>
-          <Button
-            // disabled={valueTarget != null}
-            onClick={() => handleTargetPress(ImperialTarget.ft)}
-          >
-            Feet
-          </Button>
+          <Feet />
           <Button
             // disabled={valueTarget != null}
             onClick={() => handleTargetPress(ImperialTarget.in)}
