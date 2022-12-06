@@ -26,9 +26,15 @@ export const convert = (value: EitherValue) => {
     newValue[ImperialTarget.in] = inches;
     // newValue[ImperialTarget.n] =
     // newValue[ImperialTarget.d] =
-  } else {
-    newValue[MetricTarget.m] = (value.ft ?? 0) * conversions[ImperialTarget.ft];
-    newValue[MetricTarget.cm] =
-      (value.in ?? 0) * conversions[ImperialTarget.in];
+    return newValue as ImperialValue;
   }
+
+  newValue[MetricTarget.m] = (value.ft ?? 0) * conversions[ImperialTarget.ft];
+  newValue[MetricTarget.cm] = (value.in ?? 0) * conversions[ImperialTarget.in];
+  if (typeof value.n === "number" && typeof value.d === "number") {
+    newValue[MetricTarget.mm] =
+      (value.n / value.d) * conversions[ImperialTarget.in] * 10;
+  }
+
+  return newValue as MetricValue;
 };

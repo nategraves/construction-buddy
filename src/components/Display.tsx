@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 
 import { ValueContext } from "../contexts";
+import { ImperialTarget } from "../types";
 import { isImperial, isMetric } from "../utils/types";
 
 export function Display() {
@@ -11,14 +12,17 @@ export function Display() {
   if (input != null || typeof stored === "number") {
     content = input ? String(input) : String(stored);
   } else if (stored && isImperial(stored)) {
-    if ("ft" in stored) {
+    if (ImperialTarget.ft in stored) {
       content += `${stored.ft}ft`;
     }
-    if ("in" in stored) {
+    if (ImperialTarget.in in stored) {
       content += ` - ${stored.in}in`;
     }
-    if ("n" in stored && "d" in stored) {
-      content += ` - ${stored.n}/${stored.d}`;
+    if (ImperialTarget.n in stored && stored[ImperialTarget.n] != null) {
+      content += ` - ${stored.n} / `;
+    }
+    if (ImperialTarget.d in stored && stored[ImperialTarget.d] != null) {
+      content += stored.d;
     }
   } else if (stored && isMetric(stored)) {
     if ("m" in stored) {
