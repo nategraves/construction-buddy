@@ -1,13 +1,6 @@
 import React, { createContext, FC, ReactNode, useState } from "react";
 
-import {
-  ImperialTarget,
-  ImperialValue,
-  MetricTarget,
-  MetricValue,
-  Units,
-  Value,
-} from "../types";
+import { Units } from "../types";
 
 interface ValueContextProps {
   input: Maybe<number>;
@@ -17,6 +10,7 @@ interface ValueContextProps {
   setInput: (value: number) => void;
   setStored: (newStored: number) => void;
   setTotal: (newTotal: number) => void;
+  setUnits: (newUnits: Units) => void;
   toggleUnits: () => void;
 }
 
@@ -28,6 +22,7 @@ export const ValueContext = createContext<ValueContextProps>({
   setInput: () => {},
   setStored: () => {},
   setTotal: () => {},
+  setUnits: () => {},
   toggleUnits: () => {},
 });
 
@@ -59,6 +54,7 @@ export const ValueProvider: FC<{ children?: ReactNode }> = ({ children }) => {
         setInput,
         setStored,
         setTotal,
+        setUnits,
         toggleUnits,
       }}
     >
