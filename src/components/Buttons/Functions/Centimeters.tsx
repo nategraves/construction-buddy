@@ -1,28 +1,26 @@
-import React, { useContext } from "react";
+import React from "react";
 
-import { ValueContext } from "../../../contexts";
-import { MetricTarget } from "../../../types";
-import { useIsImperial } from "../../../utils/types";
+// import { ValueContext } from "../../../contexts";
+// import { Units } from "../../../types";
 import { Button } from "../Button";
 
 export function Centimeters() {
-  const { input, stored, setInput, setStored } = useContext(ValueContext);
+  // const { input, stored, setInput, setStored, setUnits, units } =
+  //   useContext(ValueContext);
 
-  return (
-    <Button
-      onClick={() => {
-        if (input != null) {
-          if (stored == null || (stored != null && useIsImperial(stored))) {
-            setStored({ [MetricTarget.cm]: input });
-          }
-          if (stored != null && useIsImperial(stored)) {
-            setStored({ ...stored, [MetricTarget.cm]: input });
-          }
-          setInput(null);
-        }
-      }}
-    >
-      Centimeters
-    </Button>
-  );
+  const handleClick = () => {
+    throw new Error("Need to implement");
+    // if (input != null) {
+    //   if (units === Units.metric) {
+    //     setStored(input + stored ?? 0);
+    //   } else {
+    //     setUnits(Units.metric);
+    //     setStored(input);
+    //   }
+
+    //   setInput(null);
+    // }
+  };
+
+  return <Button onClick={() => handleClick()}>Centimeters</Button>;
 }

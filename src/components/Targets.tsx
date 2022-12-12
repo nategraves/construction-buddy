@@ -2,7 +2,6 @@ import React, { useContext } from "react";
 
 import { ValueContext } from "../contexts";
 import { Units } from "../types";
-import { Button } from "./Buttons/Button";
 import {
   Add,
   Centimeters,
@@ -14,11 +13,7 @@ import {
 } from "./Buttons/Functions";
 
 export const Targets = () => {
-  const { units, toggleUnits } = useContext(ValueContext);
-
-  const handleToggleUnits = () => {
-    toggleUnits();
-  };
+  const { units } = useContext(ValueContext);
 
   return (
     <div
@@ -31,7 +26,6 @@ export const Targets = () => {
         width: "100%",
       }}
     >
-      <Button onClick={() => handleToggleUnits()}>{units.toUpperCase()}</Button>
       <Add />
       {units === Units.imperial ? (
         <>

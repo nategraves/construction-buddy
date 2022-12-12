@@ -1,16 +1,18 @@
-import { MetricValue, ImperialValue } from "../../types";
-import { useIsMetric } from "../types";
+import { MetricValue, ImperialValue, Resolution } from "../../types";
+import { isMetric } from "../types";
 import { convert } from "./convert";
 
 export const addToImperial = ({
   value,
   toAdd: toAddInitial,
+  resolution,
 }: {
   value: ImperialValue;
   toAdd: MetricValue | ImperialValue;
+  resolution: Resolution;
 }): ImperialValue => {
-  const toAdd = useIsMetric(toAddInitial)
-    ? (convert(toAddInitial) as ImperialValue)
+  const toAdd = isMetric(toAddInitial)
+    ? (convert(toAddInitial, resolution) as ImperialValue)
     : toAddInitial;
 
   if (toAdd.ft || value.ft) {
@@ -25,9 +27,8 @@ export const addToImperial = ({
       value.in = value.in % 12;
     }
 
-    if (typeof toAdd.n === "number" && typeof toAdd.d === "number") {
+    if (typeof toAdd.n === "number") {
       value.n = value.n ?? 0 + toAdd.n ?? 0;
-      value.d = value.d ?? 0 + toAdd.d ?? 0;
     }
   }
 
