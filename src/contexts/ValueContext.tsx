@@ -1,61 +1,53 @@
 import React, { createContext, FC, ReactNode, useState } from "react";
 
-import { Units } from "../types";
+import { Mode, Units } from "../types";
 
 interface ValueContextProps {
   input: Maybe<number>;
+  mode: Maybe<Mode>;
   stored: Maybe<number>;
   total: Maybe<number>;
   units: Maybe<Units>;
-  setInput: (value: number) => void;
-  setStored: (newStored: number) => void;
-  setTotal: (newTotal: number) => void;
-  setUnits: (newUnits: Units) => void;
-  toggleUnits: () => void;
+  setInput: (value?: number) => void;
+  setMode: (mode?: Mode) => void;
+  setStored: (newStored?: number) => void;
+  setTotal: (newTotal?: number) => void;
+  setUnits: (units: Units) => void;
 }
 
 export const ValueContext = createContext<ValueContextProps>({
   input: undefined,
+  mode: undefined,
   stored: undefined,
   total: undefined,
   units: Units.imperial,
   setInput: () => {},
+  setMode: () => {},
   setStored: () => {},
   setTotal: () => {},
   setUnits: () => {},
-  toggleUnits: () => {},
 });
 
 export const ValueProvider: FC<{ children?: ReactNode }> = ({ children }) => {
   const [input, setInput] = useState<Maybe<number>>();
+  const [mode, setMode] = useState<Maybe<Mode>>();
   const [stored, setStored] = useState<Maybe<number>>();
   const [total, setTotal] = useState<Maybe<number>>();
-  const [units, setUnits] = useState(Units.imperial);
-
-  const toggleUnits = () => {
-    const factor = units === Units.imperial ? 2.54 : 0.393701;
-    if (stored != null) {
-      setStored(stored * factor);
-    }
-    if (total != null) {
-      setTotal(total * factor);
-    }
-
-    setUnits(units === Units.imperial ? Units.metric : Units.imperial);
-  };
+  const [units, setUnits] = useState<Maybe<Units>>();
 
   return (
     <ValueContext.Provider
       value={{
         input,
+        mode,
         stored,
         total,
         units,
         setInput,
+        setMode,
         setStored,
         setTotal,
         setUnits,
-        toggleUnits,
       }}
     >
       {children}

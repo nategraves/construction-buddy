@@ -1,14 +1,29 @@
 import React, { useContext } from "react";
+import { Units } from "types";
 
 import { ValueContext } from "../contexts";
-import { Units } from "../types";
 
 export function Display() {
-  const { input, stored, units } = useContext(ValueContext);
+  const { input, mode, stored, units } = useContext(ValueContext);
 
-  let content = input
-    ? `${String(input)}-${units === Units.imperial ? "in" : "cm"}`
-    : String(stored);
+  let value = input;
+  let label = "";
+
+  if (units === Units.imperial) {
+    label = "in";
+  }
+
+  if (units === Units.metric) {
+    label = "cm";
+  }
+
+  if (!mode && stored != null) {
+    value = stored;
+  }
+
+  console.log({ input, stored });
+
+  let content = value != null ? `${value} ${label}` : undefined;
 
   return (
     <div

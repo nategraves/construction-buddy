@@ -1,33 +1,27 @@
 import React, { useContext } from "react";
 
 import { ValueContext } from "../../../contexts";
-import { ImperialTarget, Units } from "../../../types";
-import { useIsImperial, useIsMetric } from "../../../utils/types";
+import { Units } from "../../../types";
+import { useIsImperial } from "../../../utils/types";
 import { Button } from "../Button";
 
 export function Feet() {
   const { input, stored, setInput, setStored, setUnits } =
     useContext(ValueContext);
-  const isMetric = useIsMetric();
   const isImperial = useIsImperial();
 
-  return (
-    <Button
-      onClick={() => {
-        if (input != null) {
-          if (stored == null || (stored != null && isMetric)) {
-            setStored(input);
-            setUnits(Units.imperial);
-          }
+  const handleClick = () => {
+    if (input != null) {
+      if (isImperial) {
+        setStored(stored ?? 0 + input * 12);
+      } else {
+        setUnits(Units.imperial);
+        setStored(input * 12);
+      }
 
-          if (stored != null && isImperial) {
-            setStored(input * 12);
-          }
-          setInput(null);
-        }
-      }}
-    >
-      Feet
-    </Button>
-  );
+      setInput();
+    }
+  };
+
+  return <Button onClick={() => handleClick()}>Feet</Button>;
 }

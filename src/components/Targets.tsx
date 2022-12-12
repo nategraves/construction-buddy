@@ -5,20 +5,21 @@ import { Units } from "../types";
 import { Button } from "./Buttons/Button";
 import {
   Add,
+  Clear,
   Centimeters,
   Feet,
-  Fractional,
+  // Fractional,
   Inches,
   Meters,
   Millimeters,
+  Equals,
+  SelectUnits,
 } from "./Buttons/Functions";
 
 export const Targets = () => {
-  const { units, toggleUnits } = useContext(ValueContext);
+  const { units } = useContext(ValueContext);
 
-  const handleToggleUnits = () => {
-    toggleUnits();
-  };
+  units != null && units.charAt(0).toUpperCase();
 
   return (
     <div
@@ -31,13 +32,15 @@ export const Targets = () => {
         width: "100%",
       }}
     >
-      <Button onClick={() => handleToggleUnits()}>{units.toUpperCase()}</Button>
+      <SelectUnits />
       <Add />
+      <Equals />
+      <Clear />
       {units === Units.imperial ? (
         <>
           <Feet />
           <Inches />
-          <Fractional />
+          {/* <Fractional /> */}
         </>
       ) : (
         <>

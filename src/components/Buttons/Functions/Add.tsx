@@ -1,16 +1,20 @@
 import React, { useContext, FC } from "react";
+import { Mode } from "types";
 
 import { ValueContext } from "../../../contexts";
 import { Button } from "../Button";
 
 export const Add: FC = () => {
-  const { input, setStored, stored } = useContext(ValueContext);
+  const { input, setInput, setMode, setStored, stored } =
+    useContext(ValueContext);
 
-  const onAdd = () => {
-    if (input != null || stored != null) {
+  const handleClick = () => {
+    if (input != null) {
       setStored(input ?? 0 + stored ?? 0);
+      setInput(null);
+      setMode(Mode.addition);
     }
   };
 
-  return <Button onClick={() => onAdd()}>+</Button>;
+  return <Button onClick={() => handleClick()}>+</Button>;
 };

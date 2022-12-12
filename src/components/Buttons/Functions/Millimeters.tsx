@@ -3,27 +3,24 @@ import React, { useContext } from "react";
 import { ValueContext } from "../../../contexts";
 import { Units } from "../../../types";
 import { Button } from "../Button";
+import { useIsMetric } from "utils/types";
 
 export function Millimeters() {
-  const { input, stored, setInput, setStored, setUnits, units } =
+  const { input, stored, setInput, setStored, setUnits } =
     useContext(ValueContext);
+  const isMetric = useIsMetric();
 
-  return (
-    <Button
-      onClick={() => {
-        if (input != null) {
-          if (stored == null || (stored != null && units === Units.imperial)) {
-            setStored(input);
-            setUnits(Units.metric);
-          }
-          if (stored != null && units === Units.metric) {
-            setStored(input);
-          }
-          setInput(null);
-        }
-      }}
-    >
-      Millimeters
-    </Button>
-  );
+  const handleClick = () => {
+    if (input != null) {
+      if (isMetric) {
+        setStored(stored ?? 0 + input);
+      } else {
+        setUnits(Units.metric);
+        setStored(input);
+      }
+      setInput(null);
+    }
+  };
+
+  return <Button onClick={() => handleClick()}> Millimeters </Button>;
 }
