@@ -1,7 +1,7 @@
 import { ImperialTarget } from "./ImperialTarget";
 
 export type ImperialValue = {
-  [ImperialTarget.ft]?: Maybe<number>;
-  [ImperialTarget.in]?: Maybe<number>;
-  [ImperialTarget.n]?: Maybe<number>;
+  [ImperialTarget.ft]: Maybe<number>;
+  [ImperialTarget.ins]: Maybe<number>;
+  [ImperialTarget.n]: Maybe<number>;
 };

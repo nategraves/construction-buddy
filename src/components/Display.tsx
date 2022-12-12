@@ -1,14 +1,40 @@
 import React, { useContext } from "react";
+import { isImperial, isMetric } from "../utils/types";
 
 import { ValueContext } from "../contexts";
-import { Units } from "../types";
 
 export function Display() {
-  const { input, stored, units } = useContext(ValueContext);
+  const { input, resolution, stored } = useContext(ValueContext);
 
-  let content = input
-    ? `${String(input)}-${units === Units.imperial ? "in" : "cm"}`
-    : String(stored);
+  let content = "";
+
+  if (input != null || typeof stored === "number") {
+    content = input ? String(input) : String(stored);
+  } else if (stored) {
+    if (isImperial(stored)) {
+      const { ft, ins, n } = stored;
+      if (ft != null) {
+        content += `${stored.ft}ft`;
+      }
+      if (ins != null) {
+        content += ` - ${stored.ins}in`;
+      }
+      if (n != null) {
+        content += ` - ${stored.n}/${resolution}`;
+      }
+    }
+    if (isMetric(stored)) {
+      if ("m" in stored) {
+        content += `${stored.m}m`;
+      }
+      if ("cm" in stored) {
+        content += ` - ${stored.cm}cm`;
+      }
+      if ("mm" in stored) {
+        content += ` - ${stored.mm}`;
+      }
+    }
+  }
 
   return (
     <div

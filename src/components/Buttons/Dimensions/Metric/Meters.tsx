@@ -1,29 +1,28 @@
 import React from "react";
-// import { useIsImperial } from "utils/types";
 
 // import { ValueContext } from "../../../contexts";
 // import { Units } from "../../../types";
-import { Button } from "../Button";
+// import { useIsMetric } from "../../../utils/types";
+import { Button } from "../../Button";
 
-export function Inches() {
+export function Meters() {
   // const { input, stored, setInput, setStored, setUnits } =
   //   useContext(ValueContext);
 
-  // const isImperial = useIsImperial();
+  // const isMetric = useIsMetric();
 
   const handleClick = () => {
     throw new Error("Implement");
     // if (input != null) {
-    //   if (isImperial) {
-    //     setStored(stored ?? 0 + input);
+    //   if (isMetric) {
+    //     setStored(stored ?? 0 + input * 10);
     //   } else {
-    //     setUnits(Units.imperial);
+    //     setUnits(Units.metric);
     //     setStored(input);
     //   }
-
     //   setInput(null);
     // }
   };
 
-  return <Button onClick={() => handleClick()}>Inches</Button>;
+  return <Button onClick={() => handleClick()}>Meters</Button>;
 }

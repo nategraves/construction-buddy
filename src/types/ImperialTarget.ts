@@ -1,5 +1,5 @@
 export enum ImperialTarget {
   ft = "ft",
-  in = "in",
+  ins = "ins",
   n = "n",
 }

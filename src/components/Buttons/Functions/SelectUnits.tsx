@@ -4,11 +4,13 @@ import { Units } from "types";
 import { ValueContext } from "../../../contexts";
 
 export const SelectUnits = () => {
-  const { units, setUnits } = useContext(ValueContext);
+  const { units, setStored, setTotal, setUnits } = useContext(ValueContext);
 
   const handleChange = (value: Maybe<Units>) => {
     if (value != null) {
       setUnits(value);
+      setStored();
+      setTotal();
     }
   };
 

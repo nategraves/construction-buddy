@@ -19,12 +19,12 @@ export const addToImperial = ({
     value.ft = toAdd.ft ?? 0 + value.ft ?? 0;
   }
 
-  if (toAdd.in || value.in) {
-    value.in = toAdd.in ?? 0 + value.in ?? 0;
+  if (toAdd.ins || value.ins) {
+    value.ins = toAdd.ins ?? 0 + value.ins ?? 0;
 
-    if (value.in >= 12) {
-      value.ft += Math.round(value.in / 12);
-      value.in = value.in % 12;
+    if (value.ins >= 12) {
+      value.ft += Math.round(value.ins / 12);
+      value.ins = value.ins % 12;
     }
 
     if (typeof toAdd.n === "number") {

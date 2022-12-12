@@ -4,16 +4,21 @@ import { ValueContext } from "../contexts";
 import { Units } from "../types";
 import {
   Add,
+  Clear,
   Centimeters,
   Feet,
   Fractional,
   Inches,
   Meters,
   Millimeters,
+  Equals,
+  SelectUnits,
 } from "./Buttons/Functions";
 
 export const Targets = () => {
   const { units } = useContext(ValueContext);
+
+  units != null && units.charAt(0).toUpperCase();
 
   return (
     <div
@@ -26,14 +31,18 @@ export const Targets = () => {
         width: "100%",
       }}
     >
+      <SelectUnits />
       <Add />
-      {units === Units.imperial ? (
+      <Equals />
+      <Clear />
+      {units === Units.imperial && (
         <>
           <Feet />
           <Inches />
           <Fractional />
         </>
-      ) : (
+      )}
+      {units === Units.metric && (
         <>
           <Meters />
           <Centimeters />
