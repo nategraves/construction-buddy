@@ -11,7 +11,8 @@ export enum MetricTarget {
 export enum ImperialTarget {
   ft = "ft",
   in = "in",
-  fr = "fraction",
+  n = "n",
+  d = "d",
 }
 
 export type ValueTarget = MetricTarget | ImperialTarget;
@@ -35,8 +36,8 @@ export type MetricValue = {
 export type ImperialValue = {
   [ImperialTarget.ft]?: Maybe<number>;
   [ImperialTarget.in]?: Maybe<number>;
-  n?: Maybe<number>;
-  d?: Maybe<number>;
+  [ImperialTarget.n]?: Maybe<number>;
+  [ImperialTarget.d]?: Maybe<number>;
 };
 
 export type Value = number | MetricValue | ImperialValue;

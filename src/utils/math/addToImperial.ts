@@ -1,5 +1,5 @@
 import { MetricValue, ImperialValue } from "../../types";
-import { isMetric } from "../types";
+import { useIsMetric } from "../types";
 import { convert } from "./convert";
 
 export const addToImperial = ({
@@ -9,7 +9,7 @@ export const addToImperial = ({
   value: ImperialValue;
   toAdd: MetricValue | ImperialValue;
 }): ImperialValue => {
-  const toAdd = isMetric(toAddInitial)
+  const toAdd = useIsMetric(toAddInitial)
     ? (convert(toAddInitial) as ImperialValue)
     : toAddInitial;
 

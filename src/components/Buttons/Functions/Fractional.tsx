@@ -1,32 +1,30 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 
 import { ValueContext } from "../../../contexts";
-import { ImperialTarget } from "../../../types";
-import { isImperial, isMetric } from "../../../utils/types";
+import { Units } from "../../../types";
+import { useIsImperial } from "../../../utils/types";
 import { Button } from "../Button";
 
 export function Fractional() {
-  const { input, stored, setInput, setStored } = useContext(ValueContext);
+  const [numerator, setNumerator] = useState<Maybe<number>>();
+  const { input, stored, setInput, setStored, setUnits, units } =
+    useContext(ValueContext);
+  const isImperial = useIsImperial();
 
-  return (
-    <Button
-      onClick={() => {
-        if (input != null) {
-          if (stored == null || (stored != null && isMetric(stored))) {
-            setStored({ [ImperialTarget.n]: input });
-          }
-          if (stored != null && isImperial(stored)) {
-            const key =
-              stored[ImperialTarget.n] == null
-                ? ImperialTarget.n
-                : ImperialTarget.d;
-            setStored({ ...stored, [key]: input });
-          }
-          setInput(null);
-        }
-      }}
-    >
-      /
-    </Button>
-  );
+  const handleClick = () => {
+    if (input != null) {
+      if (numerator != null) {
+        setStored(stored ?? +(numerator / input));
+      } else {
+        setNumerator(input);
+      }
+
+      if (!isImperial) {
+        setUnits(Units.imperial);
+      }
+      setInput(null);
+    }
+  };
+
+  return <Button onClick={() => handleClick()}> / </Button>;
 }

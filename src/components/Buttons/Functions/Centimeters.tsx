@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 
 import { ValueContext } from "../../../contexts";
 import { MetricTarget } from "../../../types";
-import { isImperial } from "../../../utils/types";
+import { useIsImperial } from "../../../utils/types";
 import { Button } from "../Button";
 
 export function Centimeters() {
@@ -12,10 +12,10 @@ export function Centimeters() {
     <Button
       onClick={() => {
         if (input != null) {
-          if (stored == null || (stored != null && isImperial(stored))) {
+          if (stored == null || (stored != null && useIsImperial(stored))) {
             setStored({ [MetricTarget.cm]: input });
           }
-          if (stored != null && isImperial(stored)) {
+          if (stored != null && useIsImperial(stored)) {
             setStored({ ...stored, [MetricTarget.cm]: input });
           }
           setInput(null);
