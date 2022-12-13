@@ -1,27 +1,21 @@
-import React from "react";
+import React, { useContext } from "react";
 
-// import { ValueContext } from "../../../contexts";
-// import { Units } from "../../../types";
-// import { useIsImperial } from "../../../utils/types";
+import { ValueContext } from "../../../../contexts";
+import { isImperial } from "../../../../utils/types";
 import { Button } from "../../Button";
 
 export function Feet() {
-  // const { input, stored, setInput, setStored, setUnits } =
-  //   useContext(ValueContext);
-  // const isImperial = useIsImperial();
+  const { input, stored, setInput, setStored } = useContext(ValueContext);
 
   const handleClick = () => {
-    throw new Error("Implement");
-    // if (input != null) {
-    //   if (isImperial) {
-    //     setStored(stored ?? 0 + input * 12);
-    //   } else {
-    //     setUnits(Units.imperial);
-    //     setStored(input * 12);
-    //   }
-
-    //   setInput();
-    // }
+    if (input != null) {
+      if (isImperial(stored)) {
+        setStored({ ...stored, ft: input });
+      } else {
+        setStored({ ft: input, ins: undefined, n: undefined });
+      }
+      setInput();
+    }
   };
 
   return <Button onClick={() => handleClick()}>Feet</Button>;
