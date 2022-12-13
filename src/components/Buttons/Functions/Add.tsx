@@ -1,6 +1,6 @@
 import React, { useContext, FC } from "react";
-import { isImperial, isMetric } from "utils/types";
-import { Mode } from "types";
+import { isImperial, isMetric } from "../../../utils/types";
+import { Mode } from "../../../types";
 
 import { ValueContext } from "../../../contexts";
 import { Button } from "../Button";

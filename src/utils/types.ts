@@ -19,15 +19,21 @@ export function useIsMetric(): boolean {
 }
 
 export function isImperial(value: Maybe<Value>): value is ImperialValue {
-  if (value && typeof value === "object") {
-    return value.constructor?.name === "ImperialValue";
+  if (value == null || typeof value === "number") {
+    return false;
   }
-  return false;
+
+  return value.constructor?.name === "ImperialValue";
 }
 
 export function isMetric(value: Value): value is MetricValue {
-  if (value && typeof value === "object") {
-    return value.constructor?.name === "MetricValue";
+  if (value == null || typeof value === "number") {
+    return false;
   }
-  return false;
+
+  return value.constructor?.name === "MetricValue";
+}
+
+export function isNumber(value: Value): value is number {
+  return typeof value === "number";
 }

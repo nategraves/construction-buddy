@@ -17,29 +17,29 @@ export class ImperialValue {
     this.n = n;
   }
 
-  add = (value: ImperialValue) => {
+  add(value: ImperialValue) {
     this.ft = this.ft ?? 0 + value.ft ?? 0;
     this.ins = this.ins ?? 0 + value.ins ?? 0;
     this.n = this.n ?? 0 + value.n ?? 0;
-  };
+  }
 
-  subtract = (value: ImperialValue) => {
+  subtract(value: ImperialValue) {
     this.ft = this.ft ?? 0 - value.ft ?? 0;
     this.ins = this.ins ?? 0 - value.ins ?? 0;
     this.n = this.n ?? 0 - value.n ?? 0;
-  };
+  }
 
-  multiply = (value: ImperialValue) => {
+  multiply(value: ImperialValue) {
     this.ft = this.ft ?? 0 * value.ft ?? 0;
     this.ins = this.ins ?? 0 * value.ins ?? 0;
     this.n = this.n ?? 0 * value.n ?? 0;
-  };
+  }
 
-  divide = (value: ImperialValue) => {
+  divide(value: ImperialValue) {
     this.ft = this.ft ?? 0 / value.ft ?? 0;
     this.ins = this.ins ?? 0 / value.ins ?? 0;
     this.n = this.n ?? 0 / value.n ?? 0;
-  };
+  }
 }
 
 export type TImperialValue = typeof ImperialValue;

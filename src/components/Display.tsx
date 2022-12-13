@@ -4,7 +4,7 @@ import { isImperial, isMetric } from "../utils/types";
 import { ValueContext } from "../contexts";
 
 export function Display() {
-  const { input, resolution, stored } = useContext(ValueContext);
+  const { input, resolution, stored, total } = useContext(ValueContext);
 
   let content = "";
 
@@ -32,6 +32,30 @@ export function Display() {
       }
       if ("mm" in stored) {
         content += ` - ${stored.mm}`;
+      }
+    }
+  } else if (total) {
+    if (isImperial(total)) {
+      const { ft, ins, n } = total;
+      if (ft != null) {
+        content += `${total.ft}ft`;
+      }
+      if (ins != null) {
+        content += ` - ${total.ins}in`;
+      }
+      if (n != null) {
+        content += ` - ${total.n}/${resolution}`;
+      }
+    }
+    if (isMetric(total)) {
+      if ("m" in total) {
+        content += `${total.m}m`;
+      }
+      if ("cm" in total) {
+        content += ` - ${total.cm}cm`;
+      }
+      if ("mm" in total) {
+        content += ` - ${total.mm}`;
       }
     }
   }
