@@ -1,14 +1,16 @@
 import React, { createContext, FC, ReactNode, useState } from "react";
 
-import { Mode, Resolution, Units, Value } from "../types";
+import { Mode, Resolution, Units, Value, DisplayValue } from "../types";
 
 interface ValueContextProps {
+  displayValue: DisplayValue;
   input: Maybe<number>;
   stored: Maybe<Value>;
   mode: Maybe<Mode>;
   resolution: Maybe<Resolution>;
   total: Maybe<Value>;
   units: Maybe<Units>;
+  setDisplayValue: (displayValue: DisplayValue) => void;
   setInput: (value?: number) => void;
   setMode: (mode?: Mode) => void;
   setResolution: (newResolution?: Resolution) => void;
@@ -18,12 +20,14 @@ interface ValueContextProps {
 }
 
 export const ValueContext = createContext<ValueContextProps>({
+  displayValue: DisplayValue.input,
   input: undefined,
   mode: undefined,
   resolution: undefined,
   stored: undefined,
   total: undefined,
   units: Units.imperial,
+  setDisplayValue: () => {},
   setInput: () => {},
   setMode: () => {},
   setResolution: () => {},
@@ -33,6 +37,9 @@ export const ValueContext = createContext<ValueContextProps>({
 });
 
 export const ValueProvider: FC<{ children?: ReactNode }> = ({ children }) => {
+  const [displayValue, setDisplayValue] = useState<DisplayValue>(
+    DisplayValue.input
+  );
   const [input, setInput] = useState<Maybe<number>>();
   const [mode, setMode] = useState<Maybe<Mode>>();
   const [resolution, setResolution] = useState<Maybe<Resolution>>();
@@ -43,12 +50,14 @@ export const ValueProvider: FC<{ children?: ReactNode }> = ({ children }) => {
   return (
     <ValueContext.Provider
       value={{
+        displayValue,
         input,
         mode,
         resolution,
         stored,
         total,
         units,
+        setDisplayValue,
         setInput,
         setMode,
         setResolution,

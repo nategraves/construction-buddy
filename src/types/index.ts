@@ -1,3 +1,4 @@
+export * from "./DisplayValue";
 export * from "./ImperialTarget";
 export * from "./ImperialValue";
 export * from "./MetricTarget";
