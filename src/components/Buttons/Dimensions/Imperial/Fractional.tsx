@@ -1,21 +1,18 @@
 import React, { useContext } from "react";
 
 import { ValueContext } from "../../../../contexts";
-import { ImperialValue, Units } from "../../../../types";
 import { isImperial } from "../../../../utils/types";
 import { Button } from "../../Button";
 
 export function Fractional() {
-  const { input, setInput, setStored, setUnits, stored } =
-    useContext(ValueContext);
+  const { input, setInput, setStored, stored } = useContext(ValueContext);
 
   const handleClick = () => {
     if (input != null) {
       if (isImperial(stored)) {
-        const newStored: ImperialValue = { ...stored, n: input };
-        setStored(newStored);
+        setStored({ ...stored, n: input });
       } else {
-        setUnits(Units.imperial);
+        setStored({ ft: undefined, ins: undefined, n: input });
       }
 
       setInput(null);

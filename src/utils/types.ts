@@ -18,8 +18,8 @@ export function useIsMetric(): boolean {
   return units === Units.metric;
 }
 
-export function isImperial(value: Value): value is ImperialValue {
-  if (typeof value === "number") {
+export function isImperial(value: Maybe<Value>): value is ImperialValue {
+  if (value == null || typeof value === "number") {
     return false;
   }
 

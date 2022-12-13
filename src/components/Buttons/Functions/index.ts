@@ -7,4 +7,5 @@ export * from "../Dimensions/Imperial/Fractional";
 export * from "../Dimensions/Imperial/Inches";
 export * from "../Dimensions/Metric/Meters";
 export * from "../Dimensions/Metric/Millimeters";
+export * from "./SelectRoles";
 export * from "./SelectUnits";

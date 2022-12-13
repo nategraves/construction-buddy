@@ -1,28 +1,22 @@
-import React from "react";
-// import { useIsImperial } from "utils/types";
+import React, { useContext } from "react";
+import { isImperial } from "utils/types";
 
-// import { ValueContext } from "../../../contexts";
-// import { Units } from "../../../types";
+import { ValueContext } from "../../../../contexts";
 import { Button } from "../../Button";
 
 export function Inches() {
-  // const { input, stored, setInput, setStored, setUnits } =
-  //   useContext(ValueContext);
-
-  // const isImperial = useIsImperial();
+  const { input, stored, setInput, setStored } = useContext(ValueContext);
 
   const handleClick = () => {
-    throw new Error("Implement");
-    // if (input != null) {
-    //   if (isImperial) {
-    //     setStored(stored ?? 0 + input);
-    //   } else {
-    //     setUnits(Units.imperial);
-    //     setStored(input);
-    //   }
+    if (input != null) {
+      if (isImperial(stored)) {
+        setStored({ ...stored, ins: input });
+      } else {
+        setStored({ ft: undefined, ins: input, n: undefined });
+      }
 
-    //   setInput(null);
-    // }
+      setInput(null);
+    }
   };
 
   return <Button onClick={() => handleClick()}>Inches</Button>;
