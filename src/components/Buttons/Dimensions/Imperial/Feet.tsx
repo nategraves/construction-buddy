@@ -1,4 +1,5 @@
 import React, { useContext } from "react";
+import { ImperialValue } from "types";
 
 import { ValueContext } from "../../../../contexts";
 import { isImperial } from "../../../../utils/types";
@@ -10,9 +11,14 @@ export function Feet() {
   const handleClick = () => {
     if (input != null) {
       if (isImperial(stored)) {
-        setStored({ ...stored, ft: input });
+        stored.ft = input;
       } else {
-        setStored({ ft: input, ins: undefined, n: undefined });
+        const newStored = new ImperialValue({
+          ft: input,
+          ins: undefined,
+          n: undefined,
+        });
+        setStored(newStored);
       }
       setInput();
     }

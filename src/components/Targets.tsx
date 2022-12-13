@@ -12,7 +12,7 @@ import {
   Meters,
   Millimeters,
   Equals,
-  SelectRoles,
+  SelectResolution,
   SelectUnits,
 } from "./Buttons/Functions";
 
@@ -33,7 +33,7 @@ export const Targets = () => {
       }}
     >
       <SelectUnits />
-      <SelectRoles />
+      {units === Units.imperial && <SelectResolution />}
       <Add />
       <Equals />
       <Clear />

@@ -1,12 +1,11 @@
 import {
   ImperialTarget,
   MetricTarget,
+  Value,
   ImperialValue,
   MetricValue,
 } from "../../types";
-import { isMetric } from "../types";
-
-type EitherValue = ImperialValue | MetricValue;
+import { isImperial, isMetric } from "../types";
 
 const conversions = {
   [MetricTarget.m]: 3.28, // To feet
@@ -16,26 +15,24 @@ const conversions = {
   [ImperialTarget.ins]: 2.54, // To cm/mm
 };
 
-export const convert = (value: EitherValue, resolution: number) => {
-  let newValue: EitherValue;
-
+export const convert = (value: Value, resolution: number) => {
   if (isMetric(value)) {
-    newValue[ImperialTarget.ft] = (value.m ?? 0) * conversions[MetricTarget.m];
-    let inches = (value.cm ?? 0) * conversions[MetricTarget.cm];
-    inches += (value.mm ?? 0) * conversions[MetricTarget.mm];
-    newValue[ImperialTarget.ins] = inches;
-    // newValue[ImperialTarget.n] =
-    // newValue[ImperialTarget.d] =
-    return newValue as ImperialValue;
+    const newValue = new ImperialValue({
+      ft: (value.m ?? 0) * conversions[MetricTarget.m],
+      ins:
+        (value.cm ?? 0) * conversions[MetricTarget.cm] +
+        (value.mm ?? 0) * conversions[MetricTarget.mm],
+      n: undefined,
+    });
+    return newValue;
   }
 
-  newValue[MetricTarget.m] = (value.ft ?? 0) * conversions[ImperialTarget.ft];
-  newValue[MetricTarget.cm] =
-    (value.ins ?? 0) * conversions[ImperialTarget.ins];
-  if (typeof value.n === "number") {
-    newValue[MetricTarget.mm] =
-      (value.n / resolution) * conversions[ImperialTarget.ins] * 10;
+  if (isImperial(value)) {
+    const newValue = new MetricValue({
+      m: (value.ft ?? 0) * conversions[ImperialTarget.ft],
+      cm: (value.ins ?? 0) * conversions[ImperialTarget.ins],
+      mm: (value.n / resolution ?? 0) * conversions[ImperialTarget.ins],
+    });
+    return newValue;
   }
-
-  return newValue as MetricValue;
 };

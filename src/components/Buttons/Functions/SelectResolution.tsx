@@ -3,14 +3,21 @@ import { Resolution } from "types";
 
 import { ValueContext } from "../../../contexts";
 
-export const SelectRoles = () => {
+export const SelectResolution = () => {
   const { resolution, setResolution } = useContext(ValueContext);
 
   const handleChange = (value: Maybe<Resolution>) => {
-    if (value != null) {
-      setResolution(value);
-    }
+    setResolution(value);
   };
+
+  const resolutionValues = Object.values(Resolution);
+  const options = resolutionValues
+    .splice(resolutionValues.length / 2)
+    .map((resolution) => (
+      <option value={resolution} key={resolution}>
+        {resolution}
+      </option>
+    ));
 
   return (
     <select
@@ -24,11 +31,7 @@ export const SelectRoles = () => {
       value={resolution}
     >
       <option value="" key="0"></option>
-      {Object.keys(Resolution).map((resolution) => (
-        <option value={resolution} key={resolution}>
-          {resolution}
-        </option>
-      ))}
+      {options}
     </select>
   );
 };

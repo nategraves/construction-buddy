@@ -15,6 +15,11 @@ export const SelectUnits = () => {
   };
 
   units != null && units.charAt(0);
+  const options = Object.values(Units).map((unit) => (
+    <option value={unit} key={unit}>
+      {unit}
+    </option>
+  ));
 
   return (
     <select
@@ -26,11 +31,7 @@ export const SelectUnits = () => {
       value={units}
     >
       <option value="" key="0"></option>
-      {Object.values(Units).map((unit) => (
-        <option value={unit} key={unit}>
-          {unit}
-        </option>
-      ))}
+      {options}
     </select>
   );
 };
