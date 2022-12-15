@@ -1,12 +1,13 @@
 import React, { useContext } from "react";
-import { ImperialValue } from "types";
+import { DisplayValue, ImperialValue } from "types";
 
 import { ValueContext } from "../../../../contexts";
 import { isImperial } from "../../../../utils/types";
 import { Button } from "../../Button";
 
 export function Feet() {
-  const { input, stored, setInput, setStored } = useContext(ValueContext);
+  const { input, stored, setInput, setStored, setDisplayValue } =
+    useContext(ValueContext);
 
   const handleClick = () => {
     if (input != null) {
@@ -21,6 +22,7 @@ export function Feet() {
         setStored(newStored);
       }
       setInput();
+      setDisplayValue(DisplayValue.stored);
     }
   };
 

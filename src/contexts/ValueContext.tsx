@@ -1,4 +1,10 @@
-import React, { createContext, FC, ReactNode, useState } from "react";
+import React, {
+  createContext,
+  FC,
+  ReactNode,
+  useState,
+  useEffect,
+} from "react";
 
 import { Mode, Resolution, Units, Value, DisplayValue } from "../types";
 
@@ -41,11 +47,17 @@ export const ValueProvider: FC<{ children?: ReactNode }> = ({ children }) => {
     DisplayValue.input
   );
   const [input, setInput] = useState<Maybe<number>>();
-  const [mode, setMode] = useState<Maybe<Mode>>();
-  const [resolution, setResolution] = useState<Maybe<Resolution>>();
   const [stored, setStored] = useState<Maybe<Value>>();
   const [total, setTotal] = useState<Maybe<Value>>();
+  const [mode, setMode] = useState<Maybe<Mode>>();
+  const [resolution, setResolution] = useState<Maybe<Resolution>>();
   const [units, setUnits] = useState<Maybe<Units>>();
+
+  useEffect(() => {
+    console.log({ input });
+    console.log(JSON.stringify(stored, null, 2));
+    console.log(JSON.stringify(total, null, 2));
+  }, [input, stored, total]);
 
   return (
     <ValueContext.Provider

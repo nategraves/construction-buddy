@@ -9,6 +9,10 @@ export const Equals = () => {
   const { input, mode, setInput, setMode, setStored, setTotal, stored, total } =
     useContext(ValueContext);
   const handleClick = () => {
+    if (input == null) {
+      return;
+    }
+
     switch (mode) {
       case Mode.addition:
         if (isImperial(total) && isImperial(stored)) {
@@ -21,8 +25,9 @@ export const Equals = () => {
           setStored();
         }
 
-        if (isNumber(input) && isNumber(stored)) {
+        if (isNumber(stored) && input != null) {
           setTotal(input + stored);
+          setStored();
           setInput();
         }
 
