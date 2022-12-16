@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 
-import { ValueContext } from "contexts";
+import { ValueContext } from "../../../contexts";
 import { Button } from "../Button";
 
 export const Clear = () => {
