@@ -17,6 +17,15 @@ export class ImperialValue {
     this.n = n;
   }
 
+  toString() {
+    const measurement = [
+      this.ft ? `${this.ft}` : "",
+      this.ins ? `${this.ft}` : "",
+      this.n ? `${this.n}` : "",
+    ];
+    return measurement.join("-");
+  }
+
   add(value: ImperialValue) {
     this.ft = this.ft ?? 0 + value.ft ?? 0;
     this.ins = this.ins ?? 0 + value.ins ?? 0;

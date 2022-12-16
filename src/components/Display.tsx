@@ -1,38 +1,47 @@
 import React, { useContext } from "react";
 import { isImperial, isMetric, isNumber } from "../utils/types";
 
+import { Mode } from "../types";
+
 import { ValueContext } from "../contexts";
 
 export function Display() {
-  const { input, resolution, stored, total } = useContext(ValueContext);
+  const { input, mode, resolution, stored, total } = useContext(ValueContext);
 
-  let inputDisplay, storedDisplay, totalDisplay;
+  let inputDisplay = "";
+  let storedDisplay = "";
+  let totalDisplay = "";
 
   if (input != null) {
     inputDisplay = String(input);
   }
 
   if (stored != null) {
+    const measurements = [];
     if (isImperial(stored)) {
-      if ("ft" in stored) {
-        storedDisplay += `${stored.ft}ft`;
+      const { ft, ins, n } = stored;
+      if (ft != null) {
+        measurements.push(`${ft}ft`);
       }
-      if ("ins" in stored) {
-        storedDisplay += ` - ${stored.ins}in`;
+      if (ins != null) {
+        measurements.push(`${ins}in`);
       }
-      if ("n" in stored) {
-        storedDisplay += ` - ${stored.n}/${resolution}`;
+      if (n != null) {
+        measurements.push(`${stored.n}/${resolution}`);
       }
+      storedDisplay = measurements.join(" - ");
     } else if (isMetric(stored)) {
-      if ("m" in stored) {
-        storedDisplay += `${stored.m}m`;
+      const { m, cm, mm } = stored;
+      if (m != null) {
+        measurements.push(`${stored.m}m`);
       }
-      if ("cm" in stored) {
-        storedDisplay += ` - ${stored.cm}cm`;
+      if (cm != null) {
+        measurements.push(`${stored.cm}cm`);
       }
-      if ("mm" in stored) {
-        storedDisplay += ` - ${stored.mm}`;
+      if (mm != null) {
+        measurements.push(`${stored.mm}`);
       }
+      storedDisplay = measurements.join(" - ");
     } else if (isNumber(stored)) {
       storedDisplay = `${stored}`;
     }
@@ -76,9 +85,13 @@ export function Display() {
         width: "100%",
       }}
     >
-      {inputDisplay != null && <div>{inputDisplay}</div>}
-      {storedDisplay != null && <div>{storedDisplay}</div>}
-      {totalDisplay != null && <div>{totalDisplay}</div>}
+      {mode !== Mode.equals && input != null && stored == null && (
+        <div>{inputDisplay}</div>
+      )}
+      {mode !== Mode.equals && input == null && stored != null && (
+        <div>{storedDisplay}</div>
+      )}
+      {mode === Mode.equals && total != null && <div>{totalDisplay}</div>}
     </div>
   );
 }

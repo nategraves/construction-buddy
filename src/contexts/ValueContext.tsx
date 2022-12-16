@@ -55,8 +55,8 @@ export const ValueProvider: FC<{ children?: ReactNode }> = ({ children }) => {
 
   useEffect(() => {
     console.log({ input });
-    console.log(JSON.stringify(stored, null, 2));
-    console.log(JSON.stringify(total, null, 2));
+    console.log({ stored });
+    console.log({ total });
   }, [input, stored, total]);
 
   return (

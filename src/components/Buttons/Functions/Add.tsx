@@ -10,31 +10,39 @@ export const Add: FC = () => {
     useContext(ValueContext);
 
   const handleClick = () => {
-    if (input != null) {
-      setMode(Mode.addition);
-      setStored(input);
-      setInput();
+    if (input == null && stored == null) {
       return;
-    } else {
-      if (isImperial(stored)) {
-        if (isImperial(total)) {
-          total.add(stored);
-        } else {
-          setTotal(stored);
-        }
+    }
 
-        setStored();
-      } else if (isMetric(stored)) {
-        if (isMetric(total)) {
-          total.add(stored);
-        } else {
-          setTotal(stored);
-        }
-        setStored();
-      } else if (isNumber(stored)) {
-        setStored(stored ?? 0 + input);
-        setInput(null);
+    setMode(Mode.addition);
+
+    if (isNumber(input)) {
+      setInput();
+      if (isNumber(total)) {
+        setTotal(input + total);
+      } else {
+        setStored(input);
       }
+      return;
+    }
+
+    if (isImperial(stored)) {
+      if (isImperial(total)) {
+        total.add(stored);
+      } else {
+        setTotal(stored);
+      }
+
+      setStored();
+    }
+
+    if (isMetric(stored)) {
+      if (isMetric(total)) {
+        total.add(stored);
+      } else {
+        setTotal(stored);
+      }
+      setStored();
     }
   };
 

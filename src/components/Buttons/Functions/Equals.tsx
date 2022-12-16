@@ -9,32 +9,33 @@ export const Equals = () => {
   const { input, mode, setInput, setMode, setStored, setTotal, stored, total } =
     useContext(ValueContext);
   const handleClick = () => {
-    if (input == null) {
-      return;
-    }
-
     switch (mode) {
       case Mode.addition:
         if (isImperial(total) && isImperial(stored)) {
+          console.log("Adding imperials");
           total.add(stored);
           setStored();
         }
 
         if (isMetric(total) && isMetric(stored)) {
+          console.log("Adding metrics");
           total.add(stored);
           setStored();
         }
 
-        if (isNumber(stored) && input != null) {
+        if (isNumber(stored) && isNumber(input)) {
+          console.log("Adding numbers");
           setTotal(input + stored);
           setStored();
           setInput();
         }
 
-        setMode();
         break;
       default:
     }
+
+    setMode(Mode.equals);
   };
+
   return <Button onClick={() => handleClick()}>=</Button>;
 };
