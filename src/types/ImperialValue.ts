@@ -7,9 +7,9 @@ export type ImperialValueState = {
 };
 
 export class ImperialValue {
-  ft: Maybe<number>;
-  ins: Maybe<number>;
-  n: Maybe<number>;
+  ft?: number;
+  ins?: number;
+  n?: number;
 
   constructor({ ft, ins, n }: ImperialValueState) {
     this.ft = ft;
@@ -17,37 +17,28 @@ export class ImperialValue {
     this.n = n;
   }
 
-  toString() {
-    const measurement = [
-      this.ft ? `${this.ft}` : "",
-      this.ins ? `${this.ft}` : "",
-      this.n ? `${this.n}` : "",
-    ];
-    return measurement.join("-");
-  }
-
   add(value: ImperialValue) {
-    this.ft = this.ft ?? 0 + value.ft ?? 0;
-    this.ins = this.ins ?? 0 + value.ins ?? 0;
     this.n = this.n ?? 0 + value.n ?? 0;
+    this.ins = this.ins ?? 0 + value.ins ?? 0;
+    this.ft = this.ft ?? 0 + value.ft ?? 0;
   }
 
   subtract(value: ImperialValue) {
-    this.ft = this.ft ?? 0 - value.ft ?? 0;
-    this.ins = this.ins ?? 0 - value.ins ?? 0;
     this.n = this.n ?? 0 - value.n ?? 0;
+    this.ins = this.ins ?? 0 - value.ins ?? 0;
+    this.ft = this.ft ?? 0 - value.ft ?? 0;
   }
 
   multiply(value: ImperialValue) {
-    this.ft = this.ft ?? 0 * value.ft ?? 0;
-    this.ins = this.ins ?? 0 * value.ins ?? 0;
     this.n = this.n ?? 0 * value.n ?? 0;
+    this.ins = this.ins ?? 0 * value.ins ?? 0;
+    this.ft = this.ft ?? 0 * value.ft ?? 0;
   }
 
   divide(value: ImperialValue) {
-    this.ft = this.ft ?? 0 / value.ft ?? 0;
-    this.ins = this.ins ?? 0 / value.ins ?? 0;
     this.n = this.n ?? 0 / value.n ?? 0;
+    this.ins = this.ins ?? 0 / value.ins ?? 0;
+    this.ft = this.ft ?? 0 / value.ft ?? 0;
   }
 }
 
