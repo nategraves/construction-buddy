@@ -1,45 +1,59 @@
 import { MetricTarget } from "./MetricTarget";
 
-export type MetricValueState = {
-  [MetricTarget.m]: Maybe<number>;
-  [MetricTarget.cm]: Maybe<number>;
-  [MetricTarget.mm]: Maybe<number>;
+export type MetricValue = {
+  [MetricTarget.m]?: number;
+  [MetricTarget.cm]?: number;
+  [MetricTarget.mm]?: number;
 };
 
-export class MetricValue {
-  m: Maybe<number>;
-  cm: Maybe<number>;
-  mm: Maybe<number>;
+export const add = (v0: MetricValue, v1: MetricValue) => {
+  const mm = v0.mm ?? 0 + v1.mm ?? 0;
+  const cm = v0.cm ?? 0 + v1.cm ?? 0;
+  const m = v0.m ?? 0 + v1.m ?? 0;
 
-  constructor({ m, cm, mm }: MetricValueState) {
-    this.m = m;
-    this.cm = cm;
-    this.mm = mm;
-  }
-
-  add = (value: MetricValue) => {
-    this.m = this.m ?? 0 + value.m ?? 0;
-    this.cm = this.cm ?? 0 + value.cm ?? 0;
-    this.mm = this.mm ?? 0 + value.mm ?? 0;
+  return {
+    mm,
+    cm,
+    m,
   };
+};
 
-  subtract = (value: MetricValue) => {
-    this.m = this.m ?? 0 - value.m ?? 0;
-    this.cm = this.cm ?? 0 - value.cm ?? 0;
-    this.mm = this.mm ?? 0 - value.mm ?? 0;
+export const subtract = (v0: MetricValue, v1: MetricValue) => {
+  const mm = v0.mm ?? 0 - v1.mm ?? 0;
+  const cm = v0.cm ?? 0 - v1.cm ?? 0;
+  const m = v0.m ?? 0 - v1.m ?? 0;
+
+  return {
+    mm,
+    cm,
+    m,
   };
+};
 
-  multiply = (value: MetricValue) => {
-    this.m = this.m ?? 0 * value.m ?? 0;
-    this.cm = this.cm ?? 0 * value.cm ?? 0;
-    this.mm = this.mm ?? 0 * value.mm ?? 0;
+export const multiply = (v0: MetricValue, v1: MetricValue) => {
+  const mm = v0.mm ?? 0 * v1.mm ?? 0;
+  const cm = v0.cm ?? 0 * v1.cm ?? 0;
+  const m = v0.m ?? 0 * v1.m ?? 0;
+
+  return {
+    mm,
+    cm,
+    m,
   };
+};
 
-  divide = (value: MetricValue) => {
-    this.m = this.m ?? 0 / value.m ?? 0;
-    this.cm = this.cm ?? 0 / value.cm ?? 0;
-    this.mm = this.mm ?? 0 / value.mm ?? 0;
+export const divide = (v0: MetricValue, v1: MetricValue) => {
+  const mm = v0.mm ?? 0 / v1.mm ?? 0;
+  const cm = v0.cm ?? 0 / v1.cm ?? 0;
+  const m = v0.m ?? 0 / v1.m ?? 0;
+
+  return {
+    mm,
+    cm,
+    m,
   };
-}
+};
 
-export type TMetricValue = typeof MetricValue;
+export const square = (v0: MetricValue) => {
+  return multiply(v0, v0);
+};

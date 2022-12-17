@@ -2,10 +2,10 @@ import {
   ImperialTarget,
   MetricTarget,
   Value,
-  ImperialValue,
-  MetricValue,
+  // ImperialValue,
+  // MetricValue,
 } from "../../types";
-import { isImperial, isMetric } from "../types";
+// import { isImperial, isMetric } from "../types";
 
 const conversions = {
   [MetricTarget.m]: 3.28, // To feet
@@ -16,23 +16,24 @@ const conversions = {
 };
 
 export const convert = (value: Value, resolution: number) => {
-  if (isMetric(value)) {
-    const newValue = new ImperialValue({
-      ft: (value.m ?? 0) * conversions[MetricTarget.m],
-      ins:
-        (value.cm ?? 0) * conversions[MetricTarget.cm] +
-        (value.mm ?? 0) * conversions[MetricTarget.mm],
-      n: undefined,
-    });
-    return newValue;
-  }
+  // if (isMetric(value)) {
+  //   const newValue = ImperialValue({
+  //     ft: (value.m ?? 0) * conversions[MetricTarget.m],
+  //     ins:
+  //       (value.cm ?? 0) * conversions[MetricTarget.cm] +
+  //       (value.mm ?? 0) * conversions[MetricTarget.mm],
+  //     n: undefined,
+  //   });
+  //   return newValue;
+  // }
 
-  if (isImperial(value)) {
-    const newValue = new MetricValue({
-      m: (value.ft ?? 0) * conversions[ImperialTarget.ft],
-      cm: (value.ins ?? 0) * conversions[ImperialTarget.ins],
-      mm: (value.n / resolution ?? 0) * conversions[ImperialTarget.ins],
-    });
-    return newValue;
-  }
+  // if (isImperial(value)) {
+  //   const newValue = MetricValue({
+  //     m: (value.ft ?? 0) * conversions[ImperialTarget.ft],
+  //     cm: (value.ins ?? 0) * conversions[ImperialTarget.ins],
+  //     mm: (value.n / resolution ?? 0) * conversions[ImperialTarget.ins],
+  //   });
+  //   return newValue;
+  // }
+  console.log(conversions);
 };

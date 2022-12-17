@@ -1,45 +1,65 @@
 import { ImperialTarget } from "./ImperialTarget";
 
-export type ImperialValueState = {
-  [ImperialTarget.ft]: Maybe<number>;
-  [ImperialTarget.ins]: Maybe<number>;
-  [ImperialTarget.n]: Maybe<number>;
+export type ImperialValue = {
+  [ImperialTarget.ft]?: number;
+  [ImperialTarget.ins]?: number;
+  [ImperialTarget.n]?: number;
 };
 
-export class ImperialValue {
-  ft?: number;
-  ins?: number;
-  n?: number;
+export const add = (v0: ImperialValue, v1: ImperialValue): ImperialValue => {
+  const n = v0.n ?? 0 + v1.n ?? 0;
+  const ins = v0.ins ?? 0 + v1.ins ?? 0;
+  const ft = v0.ft ?? 0 + v1.ft ?? 0;
 
-  constructor({ ft, ins, n }: ImperialValueState) {
-    this.ft = ft;
-    this.ins = ins;
-    this.n = n;
-  }
+  return {
+    n,
+    ins,
+    ft,
+  };
+};
 
-  add(value: ImperialValue) {
-    this.n = this.n ?? 0 + value.n ?? 0;
-    this.ins = this.ins ?? 0 + value.ins ?? 0;
-    this.ft = this.ft ?? 0 + value.ft ?? 0;
-  }
+export const subtract = (
+  v0: ImperialValue,
+  v1: ImperialValue
+): ImperialValue => {
+  const n = v0.n ?? 0 - v1.n ?? 0;
+  const ins = v0.ins ?? 0 - v1.ins ?? 0;
+  const ft = v0.ft ?? 0 - v1.ft ?? 0;
 
-  subtract(value: ImperialValue) {
-    this.n = this.n ?? 0 - value.n ?? 0;
-    this.ins = this.ins ?? 0 - value.ins ?? 0;
-    this.ft = this.ft ?? 0 - value.ft ?? 0;
-  }
+  return {
+    n,
+    ins,
+    ft,
+  };
+};
 
-  multiply(value: ImperialValue) {
-    this.n = this.n ?? 0 * value.n ?? 0;
-    this.ins = this.ins ?? 0 * value.ins ?? 0;
-    this.ft = this.ft ?? 0 * value.ft ?? 0;
-  }
+export const multiply = (
+  v0: ImperialValue,
+  v1: ImperialValue
+): ImperialValue => {
+  const n = v0.n ?? 0 * v1.n ?? 0;
+  const ins = v0.ins ?? 0 * v1.ins ?? 0;
+  const ft = v0.ft ?? 0 * v1.ft ?? 0;
 
-  divide(value: ImperialValue) {
-    this.n = this.n ?? 0 / value.n ?? 0;
-    this.ins = this.ins ?? 0 / value.ins ?? 0;
-    this.ft = this.ft ?? 0 / value.ft ?? 0;
-  }
-}
+  return {
+    n,
+    ft,
+    ins,
+  };
+};
 
-export type TImperialValue = typeof ImperialValue;
+export const divide = (v0: ImperialValue, v1: ImperialValue): ImperialValue => {
+  const n = v0.n ?? 0 / v1.n ?? 0;
+  const ins = v0.ins ?? 0 / v1.ins ?? 0;
+  const ft = v0.ft ?? 0 / v1.ft ?? 0;
+
+  return {
+    n,
+    ins,
+    ft,
+  };
+};
+
+export const square = (v0: ImperialValue): ImperialValue => {
+  return multiply(v0, v0);
+};

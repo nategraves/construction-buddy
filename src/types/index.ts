@@ -2,7 +2,7 @@ export * from "./DisplayValue";
 export * from "./ImperialTarget";
 export * from "./ImperialValue";
 export * from "./MetricTarget";
-export * from "./MetricValue";
+export * as MetricValue from "./MetricValue";
 export * from "./Mode";
 export * from "./Resolution";
 export * from "./Units";
