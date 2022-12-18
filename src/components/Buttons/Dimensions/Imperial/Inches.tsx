@@ -1,6 +1,5 @@
 import React, { useContext } from "react";
-import { ImperialValue } from "types";
-import { isImperial } from "utils/types";
+import { isImperial } from "data/Value";
 
 import { ValueContext } from "../../../../contexts";
 import { Button } from "../../Button";
@@ -13,9 +12,7 @@ export function Inches() {
       if (isImperial(stored)) {
         stored.ins = input;
       } else {
-        setStored(
-          new ImperialValue({ ft: undefined, ins: input, n: undefined })
-        );
+        setStored({ ft: undefined, ins: input, n: undefined });
       }
 
       setInput(null);

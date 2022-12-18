@@ -1,10 +1,10 @@
 import {
   ImperialTarget,
   MetricTarget,
-  Value,
   // ImperialValue,
   // MetricValue,
 } from "../../types";
+import { Value } from "data/Value";
 // import { isImperial, isMetric } from "../types";
 
 const conversions = {

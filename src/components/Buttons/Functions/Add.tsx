@@ -1,5 +1,5 @@
 import React, { useContext, FC } from "react";
-import { isImperial, isMetric, isNumber } from "../../../utils/types";
+import { add, isImperial, isMetric, isNumber } from "../../../data/Value";
 import { Mode } from "../../../types";
 
 import { ValueContext } from "../../../contexts";
@@ -19,7 +19,8 @@ export const Add: FC = () => {
     if (isNumber(input)) {
       setInput();
       if (isNumber(total)) {
-        setTotal(input + total);
+        throw new Error("Todo");
+        // setTotal(input + total);
       } else {
         setStored(input);
       }
@@ -28,7 +29,7 @@ export const Add: FC = () => {
 
     if (isImperial(stored)) {
       if (isImperial(total)) {
-        total.add(stored);
+        setTotal(add(total, stored));
       } else {
         setTotal(stored);
       }
@@ -38,7 +39,7 @@ export const Add: FC = () => {
 
     if (isMetric(stored)) {
       if (isMetric(total)) {
-        total.add(stored);
+        setTotal(add(total, stored));
       } else {
         setTotal(stored);
       }

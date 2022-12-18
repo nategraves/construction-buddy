@@ -6,7 +6,8 @@ import React, {
   useEffect,
 } from "react";
 
-import { Mode, Resolution, Units, Value, DisplayValue } from "../types";
+import { Mode, Resolution, Units, DisplayValue } from "../types";
+import { Value } from "data/Value";
 
 interface ValueContextProps {
   displayValue: DisplayValue;

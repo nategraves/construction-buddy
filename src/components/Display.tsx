@@ -1,7 +1,5 @@
 import React, { useContext } from "react";
-import { isImperial, isMetric, isNumber } from "../utils/types";
-
-import { Mode } from "../types";
+import { isImperial, isMetric, isNumber } from "../data/Value";
 
 import { ValueContext } from "../contexts";
 
@@ -18,6 +16,7 @@ export function Display() {
 
   if (stored != null) {
     const measurements = [];
+    console.log("Stored imperial", isImperial(stored));
     if (isImperial(stored)) {
       const { ft, ins, n } = stored;
       if (ft != null) {
@@ -72,26 +71,33 @@ export function Display() {
       totalDisplay = `${total}`;
     }
   }
+  const showInput = input != null;
+  const showStored = input == null && stored != null;
+  const showTotal = input == null && stored == null && total != null;
+
+  console.log({ showInput, inputDisplay });
+  console.log({ showStored, storedDisplay });
+  console.log({ showTotal, totalDisplay });
 
   return (
     <div
       style={{
-        alignItems: "center",
+        alignContent: "center",
         background: "#eee",
         backgroundColor: "#d4d4d4",
         display: "flex",
         justifyContent: "center",
+        flexWrap: "wrap",
         height: "150px",
         width: "100%",
       }}
     >
-      {mode !== Mode.equals && input != null && stored == null && (
-        <div>{inputDisplay}</div>
-      )}
-      {mode !== Mode.equals && input == null && stored != null && (
-        <div>{storedDisplay}</div>
-      )}
-      {mode === Mode.equals && total != null && <div>{totalDisplay}</div>}
+      <div style={{ width: "100%", display: "flex", justifyContent: "center" }}>
+        Mode: {mode}
+      </div>
+      {showInput && <div>Input: {inputDisplay}</div>}
+      {showStored && <div>Stored: {storedDisplay}</div>}
+      {showTotal && <div>Total: {totalDisplay}</div>}
     </div>
   );
 }

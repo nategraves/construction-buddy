@@ -1,8 +1,8 @@
 import React, { useContext } from "react";
-import { DisplayValue, ImperialValue } from "types";
+import { DisplayValue } from "types";
 
-import { ValueContext } from "../../../../contexts";
-import { isImperial } from "../../../../utils/types";
+import { ValueContext } from "contexts";
+import { isImperial } from "data/Value";
 import { Button } from "../../Button";
 
 export function Feet() {
@@ -14,12 +14,7 @@ export function Feet() {
       if (isImperial(stored)) {
         stored.ft = input;
       } else {
-        const newStored = new ImperialValue({
-          ft: input,
-          ins: undefined,
-          n: undefined,
-        });
-        setStored(newStored);
+        setStored({ ft: input });
       }
       setInput();
       setDisplayValue(DisplayValue.stored);

@@ -3,7 +3,7 @@ import React, { useContext } from "react";
 
 import { Button } from "../Button";
 import { Mode } from "../../../types";
-import { isImperial, isMetric, isNumber } from "../../../utils/types";
+import { add, isImperial, isMetric, isNumber } from "../../../data/Value";
 
 export const Equals = () => {
   const { input, mode, setInput, setMode, setStored, setTotal, stored, total } =
@@ -13,13 +13,15 @@ export const Equals = () => {
       case Mode.addition:
         if (isImperial(total) && isImperial(stored)) {
           console.log("Adding imperials");
-          total.add(stored);
+          const newTotal = add(total, stored);
+          console.log({ newTotal });
+          setTotal(newTotal);
           setStored();
         }
 
         if (isMetric(total) && isMetric(stored)) {
           console.log("Adding metrics");
-          total.add(stored);
+          setTotal(add(total, stored));
           setStored();
         }
 
