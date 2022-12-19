@@ -7,7 +7,7 @@ import React, {
 } from "react";
 
 import { Mode, Resolution, Units, DisplayValue } from "../types";
-import { Value } from "data/Value";
+import type { Value } from "../data/Value";
 
 interface ValueContextProps {
   displayValue: DisplayValue;

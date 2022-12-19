@@ -13,6 +13,7 @@ describe("Add correctly adds", () => {
     const expected: ImperialValue = { ft: 2, ins: 2, n: 2, d: 16 };
     const toAdd: ImperialValue = { ft: 1, ins: 1, n: 1, d: 16 };
     const result = add(toAdd, toAdd);
+    console.log(result);
     expect(result).toBe(expected);
   });
 });
