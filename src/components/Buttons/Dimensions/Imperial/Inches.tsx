@@ -5,14 +5,19 @@ import { ValueContext } from "../../../../contexts";
 import { Button } from "../../Button";
 
 export function Inches() {
-  const { input, stored, setInput, setStored } = useContext(ValueContext);
+  const { input, resolution, stored, setInput, setStored } =
+    useContext(ValueContext);
 
   const handleClick = () => {
     if (input != null) {
       if (isImperial(stored)) {
         stored.ins = input;
       } else {
-        setStored({ ft: undefined, ins: input, n: undefined });
+        setStored({
+          ft: undefined,
+          ins: input,
+          fr: { n: undefined, d: resolution },
+        });
       }
 
       setInput(null);

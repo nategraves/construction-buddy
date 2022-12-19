@@ -18,7 +18,11 @@ export function Display() {
     const measurements = [];
     console.log("Stored imperial", isImperial(stored));
     if (isImperial(stored)) {
-      const { ft, ins, n } = stored;
+      const {
+        ft,
+        ins,
+        fr: { n },
+      } = stored;
       if (ft != null) {
         measurements.push(`${ft}ft`);
       }
@@ -26,7 +30,7 @@ export function Display() {
         measurements.push(`${ins}in`);
       }
       if (n != null) {
-        measurements.push(`${stored.n}/${resolution}`);
+        measurements.push(`${stored.fr.n}/${resolution}`);
       }
       storedDisplay = measurements.join(" - ");
     } else if (isMetric(stored)) {

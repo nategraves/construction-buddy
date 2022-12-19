@@ -5,14 +5,19 @@ import { isImperial } from "data/Value";
 import { Button } from "../../Button";
 
 export function Fractional() {
-  const { input, setInput, setStored, stored } = useContext(ValueContext);
+  const { input, resolution, setInput, setStored, stored } =
+    useContext(ValueContext);
 
   const handleClick = () => {
     if (input != null) {
       if (isImperial(stored)) {
-        stored.n = input;
+        stored.fr.n = input;
       } else {
-        setStored({ ft: undefined, ins: undefined, n: input });
+        setStored({
+          ft: undefined,
+          ins: undefined,
+          fr: { n: input, d: resolution },
+        });
       }
 
       setInput(null);
