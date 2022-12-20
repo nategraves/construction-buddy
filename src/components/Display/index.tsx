@@ -1,10 +1,10 @@
 import React, { useContext } from "react";
-import { isImperial, isMetric, isNumber } from "../data/Value";
+import { isImperial, isMetric, isNumber } from "../../data/Value";
 
-import { ValueContext } from "../contexts";
+import { ValueContext } from "../../contexts";
 
 export function Display() {
-  const { input, mode, resolution, stored, total } = useContext(ValueContext);
+  const { input, mode, stored, total } = useContext(ValueContext);
 
   let inputDisplay = "";
   let storedDisplay = "";
@@ -18,19 +18,15 @@ export function Display() {
     const measurements = [];
     console.log("Stored imperial", isImperial(stored));
     if (isImperial(stored)) {
-      const {
-        ft,
-        ins,
-        fr: { n },
-      } = stored;
+      const { ft, ins, fr } = stored;
       if (ft != null) {
         measurements.push(`${ft}ft`);
       }
       if (ins != null) {
         measurements.push(`${ins}in`);
       }
-      if (n != null) {
-        measurements.push(`${stored.fr.n}/${resolution}`);
+      if (fr != null) {
+        measurements.push(`${stored.fr}`);
       }
       storedDisplay = measurements.join(" - ");
     } else if (isMetric(stored)) {
@@ -58,8 +54,8 @@ export function Display() {
       if ("ins" in total) {
         totalDisplay += ` - ${total.ins}in`;
       }
-      if ("n" in total) {
-        totalDisplay += ` - ${total.n}/${resolution}`;
+      if ("fr" in total) {
+        totalDisplay += ` - ${total.fr}`;
       }
     } else if (isMetric(total)) {
       if ("m" in total) {

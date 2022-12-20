@@ -1,7 +1,7 @@
 import React from "react";
 
 import { ValueProvider } from "./contexts";
-import { Digits, Display, Targets } from "./components";
+import { Display, PrimaryButtons } from "./components";
 
 function App() {
   return (
@@ -13,7 +13,7 @@ function App() {
           flexDirection: "row",
           flexWrap: "wrap",
           maxHeight: "100vh",
-          justifyContent: "flex-start",
+          justifyContent: "center",
           overflow: "hidden",
           width: "100vw",
         }}
@@ -32,8 +32,7 @@ function App() {
           </h1>
         </div>
         <Display />
-        <Targets />
-        <Digits />
+        <PrimaryButtons />
       </div>
     </ValueProvider>
   );

@@ -8,6 +8,7 @@ interface ButtonProps {
   onClick: (currentValue?: number) => void;
   disabled?: boolean;
   children: ReactElement | string;
+  size?: number;
 }
 
 export const Button: FC<ButtonProps> = (props) => {
@@ -18,11 +19,17 @@ export const Button: FC<ButtonProps> = (props) => {
     children,
     disabled,
     textColor = "#000",
+    size = 48,
   } = props;
   return (
     <button
       className="button"
-      style={{ display: "flex", cursor: disabled ? "pointer" : "default" }}
+      style={{
+        display: "flex",
+        cursor: disabled ? "pointer" : "default",
+        width: `${size}px`,
+        height: `${size}px`,
+      }}
       onClick={() => (disabled ? {} : props.onClick())}
     >
       {altFnText != null && (
