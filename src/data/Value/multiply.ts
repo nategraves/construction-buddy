@@ -1,37 +1,38 @@
+import { multiply as _multiply } from "mathjs";
+
 import { Value } from "./Value";
 import { isMetric } from "./isMetric";
 import { isNumber } from "./isNumber";
 import { isImperial } from "./isImperial";
+import { flatten } from "./flatten";
+import { ImperialTarget, MetricTarget } from "types";
 
-export const multiply = (v0: Value, v1: Value) => {
-  if (isMetric(v0) && isMetric(v1)) {
-    const mm = (v0.mm ?? 0) * (v1.mm ?? 0);
-    const cm = (v0.cm ?? 0) * (v1.cm ?? 0);
-    const m = (v0.m ?? 0) * (v1.m ?? 0);
+type EitherTarget = ImperialTarget | MetricTarget;
 
-    return {
-      mm,
-      cm,
-      m,
-    };
+export const multiply = ({
+  value,
+  toAdd,
+  target,
+}: {
+  value: Value;
+  toAdd: Value;
+  target?: Maybe<EitherTarget>;
+}): Value => {
+  if (isMetric(value) && isMetric(toAdd)) {
+    return flatten(value) * flatten(toAdd);
   }
-  if (isImperial(v0) && isImperial(v1)) {
-    let fr;
+  if (isImperial(value) && isImperial(toAdd)) {
+    const valueCm = flatten(value);
+    const toAddCm = flatten(toAdd);
 
-    if (v0.fr && v1.fr) {
-      v0.fr.multiply(v1);
+    if (target) {
+      throw new Error("Unimplemented");
     }
-    const ins = (v0.ins ?? 0) * (v1.ins ?? 0);
-    const ft = (v0.ft ?? 0) * (v1.ft ?? 0);
 
-    return {
-      ...(fr ? { fr } : {}),
-      ft,
-      ins,
-    };
+    return valueCm * toAddCm;
   }
 
-  if (isNumber(v0) && isNumber(v1)) {
-    return v0 ?? 0 * v1 ?? 0;
+  if (isNumber(value) && isNumber(toAdd)) {
+    return value ?? 0 * toAdd ?? 0;
   }
 };

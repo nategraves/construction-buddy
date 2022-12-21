@@ -1,5 +1,6 @@
 export * from "./add";
 export * from "./divide";
+export * from "./flatten";
 export * from "./ImperialValue";
 export * from "./isImperial";
 export * from "./isMetric";

@@ -1,28 +1,44 @@
+import { subtract as _subtract } from 'mathjs';
+import { flatten } from './flatten';
+
 import { isImperial } from "./isImperial";
 import { isMetric } from "./isMetric";
+import { isNumber } from "./isNumber";
 import { Value } from "./Value";
 
-export const subtract = (v0: Value, v1: Value) => {
-  if (isMetric(v0) && isMetric(v1)) {
-    const mm = (v0.mm ?? 0) - (v1.mm ?? 0);
-    const cm = (v0.cm ?? 0) - (v1.cm ?? 0);
-    const m = (v0.m ?? 0) - (v1.m ?? 0);
+export const subtract = ({
+  value,
+  toSubtract,
+}: {
+  value: Value;
+  toSubtract: Value;
+}) => {
+  if (isMetric(value) && isMetric(toSubtract)) {
+    const m = (value.m ?? 0) - (toSubtract.m ?? 0);
+    const cm = (value.cm ?? 0) - (toSubtract.cm ?? 0);
+    const mm = (value.mm ?? 0) - (toSubtract.mm ?? 0);
 
     return {
-      mm,
-      cm,
       m,
+      cm,
+      mm,
     };
   }
-  if (isImperial(v0) && isImperial(v1)) {
-    const fr = (v0.fr.n ?? 0) + (v1.fr.n ?? 0);
-    const ins = (v0.ins ?? 0) + (v1.ins ?? 0);
-    const ft = (v0.ft ?? 0) + (v1.ft ?? 0);
+  if (isImperial(value) && isImperial(toSubtract)) {
+    const valueIns = flatten(value);
+    cosnt toSubtract = flatten(toSubtract);
+    const ft = (value.ft ?? 0) + (toSubtract.ft ?? 0);
+    const ins = (value.ins ?? 0) + (toSubtract.ins ?? 0);
+    const fr = value.fr && toSubtract.fr ? subtract(value.fr, toSubtract.fr) : (value.fr ?? toSubtract.fr);
 
     return {
-      fr,
-      ins,
       ft,
+      ins,
+      fr,
     };
+  }
+
+  if (isNumber(value) && isNumber(toSubtract)) {
+    return value - toSubtract;
   }
 };

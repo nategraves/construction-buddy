@@ -1,8 +1,9 @@
 import React, { useContext } from "react";
 import { isImperial } from "data/Value";
+import { fraction } from "mathjs";
 
-import { ValueContext } from "../../../../contexts";
-import { Button } from "../../Button";
+import { ValueContext } from "contexts";
+import { Button } from "components/Buttons/Button";
 
 export function Inches() {
   const { input, resolution, stored, setInput, setStored } =
@@ -16,7 +17,7 @@ export function Inches() {
         setStored({
           ft: undefined,
           ins: input,
-          fr: { n: undefined, d: resolution },
+          fr: fraction(undefined, resolution),
         });
       }
 

@@ -1,4 +1,5 @@
 import React, { useContext } from "react";
+import { fraction } from "mathjs";
 
 import { ValueContext } from "contexts";
 import { isImperial } from "data/Value";
@@ -16,7 +17,7 @@ export function Fractional() {
         setStored({
           ft: undefined,
           ins: undefined,
-          fr: { n: input, d: resolution },
+          fr: fraction(input, resolution),
         });
       }
 
