@@ -31,21 +31,18 @@ export const PrimaryButtons = () => {
     setInput(num(input, n));
   };
 
-  const handleDecimal = () => {
-    throw new Error("Decimal");
-  };
-
   units != null && units.charAt(0).toUpperCase();
 
   return (
     <>
       <div
         style={{
-          padding: "10px",
+          padding: "10px 0 0",
           display: "flex",
           flexFlow: "row wrap",
-          justifyContent: "center",
+          justifyContent: "space-between",
           width: "400px",
+          alignItems: "center",
         }}
       >
         <SelectUnits />

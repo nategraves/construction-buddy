@@ -23,7 +23,7 @@ export const SelectUnits = () => {
 
   return (
     <select
-      style={{ height: "48px", margin: "8px" }}
+      style={{ height: "48px", margin: "0 8px" }}
       onChange={(event: ChangeEvent<HTMLSelectElement>) =>
         handleChange(
           event.target.value === "" ? undefined : (event.target.value as Units)
