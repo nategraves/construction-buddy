@@ -10,7 +10,7 @@ export const Equals = () => {
     useContext(ValueContext);
   const handleClick = () => {
     switch (mode) {
-      case Mode.addition:
+      case Mode.add:
         if (isImperial(total) && isImperial(stored)) {
           console.log("Adding imperials");
           const newTotal = add(total, stored);

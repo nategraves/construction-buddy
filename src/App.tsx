@@ -15,7 +15,7 @@ function App() {
           maxHeight: "100vh",
           justifyContent: "center",
           overflow: "hidden",
-          width: "100vw",
+          width: "400px",
         }}
       >
         <div style={{ width: "100%" }}>
@@ -24,8 +24,9 @@ function App() {
               fontSize: "16px",
               fontWeight: "bold",
               height: "16px",
-              marginLeft: "10px",
+              padding: "15px 0",
               textTransform: "uppercase",
+              textAlign: "right",
             }}
           >
             Construction Buddy

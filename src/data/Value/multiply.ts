@@ -1,38 +1,29 @@
-import { multiply as _multiply } from "mathjs";
+// import { multiply as _multiply } from "mathjs";
 
 import { Value } from "./Value";
 import { isMetric } from "./isMetric";
 import { isNumber } from "./isNumber";
 import { isImperial } from "./isImperial";
 import { flatten } from "./flatten";
-import { ImperialTarget, MetricTarget } from "types";
-
-type EitherTarget = ImperialTarget | MetricTarget;
 
 export const multiply = ({
   value,
-  toAdd,
-  target,
+  toMultiply,
 }: {
   value: Value;
-  toAdd: Value;
-  target?: Maybe<EitherTarget>;
+  toMultiply: Value;
 }): Value => {
-  if (isMetric(value) && isMetric(toAdd)) {
-    return flatten(value) * flatten(toAdd);
+  if (isMetric(value) && isMetric(toMultiply)) {
+    return flatten(value) * flatten(toMultiply);
   }
-  if (isImperial(value) && isImperial(toAdd)) {
+  if (isImperial(value) && isImperial(toMultiply)) {
     const valueCm = flatten(value);
-    const toAddCm = flatten(toAdd);
-
-    if (target) {
-      throw new Error("Unimplemented");
-    }
+    const toAddCm = flatten(toMultiply);
 
     return valueCm * toAddCm;
   }
 
-  if (isNumber(value) && isNumber(toAdd)) {
-    return value ?? 0 * toAdd ?? 0;
+  if (isNumber(value) && isNumber(toMultiply)) {
+    return value ?? 0 * toMultiply ?? 0;
   }
 };

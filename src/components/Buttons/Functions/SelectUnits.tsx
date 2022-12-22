@@ -17,12 +17,13 @@ export const SelectUnits = () => {
   units != null && units.charAt(0);
   const options = Object.values(Units).map((unit) => (
     <option value={unit} key={unit}>
-      {unit}
+      {unit.toUpperCase()}
     </option>
   ));
 
   return (
     <select
+      style={{ height: "48px", margin: "8px" }}
       onChange={(event: ChangeEvent<HTMLSelectElement>) =>
         handleChange(
           event.target.value === "" ? undefined : (event.target.value as Units)

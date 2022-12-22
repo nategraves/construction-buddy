@@ -83,16 +83,16 @@ export function Display() {
     <div
       style={{
         alignContent: "center",
-        background: "#eee",
-        backgroundColor: "#d4d4d4",
+        backgroundColor: "#e8eced",
         display: "flex",
         justifyContent: "center",
         flexWrap: "wrap",
         height: "150px",
         width: "100%",
+        position: "relative",
       }}
     >
-      <div style={{ width: "100%", display: "flex", justifyContent: "center" }}>
+      <div style={{ position: "absolute", top: "5px", left: "5px" }}>
         Mode: {mode}
       </div>
       {showInput && <div>Input: {inputDisplay}</div>}

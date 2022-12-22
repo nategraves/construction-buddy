@@ -14,7 +14,7 @@ export const Add: FC = () => {
       return;
     }
 
-    setMode(Mode.addition);
+    setMode(Mode.add);
 
     if (isNumber(input)) {
       setInput();

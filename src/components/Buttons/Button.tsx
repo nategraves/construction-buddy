@@ -9,6 +9,8 @@ interface ButtonProps {
   disabled?: boolean;
   children: ReactElement | string;
   size?: number;
+  widthMultiple?: number;
+  heightMultiple?: number;
 }
 
 export const Button: FC<ButtonProps> = (props) => {
@@ -18,8 +20,9 @@ export const Button: FC<ButtonProps> = (props) => {
     bgColor,
     children,
     disabled,
-    textColor = "#000",
+    textColor = "#fff",
     size = 48,
+    widthMultiple = 1.25,
   } = props;
   return (
     <button
@@ -27,8 +30,11 @@ export const Button: FC<ButtonProps> = (props) => {
       style={{
         display: "flex",
         cursor: disabled ? "pointer" : "default",
-        width: `${size}px`,
+        width: `${size * widthMultiple}px`,
         height: `${size}px`,
+        borderRadius: `${size}px`,
+        background: "rgb(47,47,47)",
+        fontWeight: "bold",
       }}
       onClick={() => (disabled ? {} : props.onClick())}
     >

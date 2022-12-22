@@ -24,5 +24,5 @@ export function Meters() {
     // }
   };
 
-  return <Button onClick={() => handleClick()}>Meters</Button>;
+  return <Button onClick={() => handleClick()}>M</Button>;
 }

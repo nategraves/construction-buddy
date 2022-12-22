@@ -6,10 +6,10 @@ import { Value } from "./Value";
 
 export const square = (value: Value) => {
   if (isMetric(value)) {
-    return multiply({ value, toAdd: value });
+    return multiply({ value, toMultiply: value });
   }
   if (isImperial(value)) {
-    return multiply({ value, toAdd: value });
+    return multiply({ value, toMultiply: value });
   }
   if (isNumber(value)) {
     return value * value;
