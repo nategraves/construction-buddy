@@ -6,11 +6,18 @@ import { ValueContext } from "../../../contexts";
 import { Button } from "../Button";
 
 export const Divide: FC = () => {
-  const { input, setInput, updateMode, setStored, setTotal, stored, total } =
-    useContext(ValueContext);
+  const {
+    input,
+    setInput,
+    updateMode,
+    setWorkingValue,
+    setTotalValue,
+    workingValue,
+    totalValue,
+  } = useContext(ValueContext);
 
   const handleClick = () => {
-    if (input == null && stored == null) {
+    if (input == null && workingValue == null) {
       return;
     }
 
@@ -18,32 +25,32 @@ export const Divide: FC = () => {
 
     if (isNumber(input)) {
       setInput();
-      if (isNumber(total)) {
+      if (isNumber(totalValue)) {
         throw new Error("Todo");
-        // setTotal(input + total);
+        // setTotalValue(input + totalValue);
       } else {
-        setStored(input);
+        setWorkingValue(input);
       }
       return;
     }
 
-    if (isImperial(stored)) {
-      if (isImperial(total)) {
-        setTotal(divide({ value: total, toDivide: stored }));
+    if (isImperial(workingValue)) {
+      if (isImperial(totalValue)) {
+        setTotalValue(divide({ value: totalValue, toDivide: workingValue }));
       } else {
-        setTotal(stored);
+        setTotalValue(workingValue);
       }
 
-      setStored();
+      setWorkingValue();
     }
 
-    if (isMetric(stored)) {
-      if (isMetric(total)) {
-        setTotal(divide({ value: total, toDivide: stored }));
+    if (isMetric(workingValue)) {
+      if (isMetric(totalValue)) {
+        setTotalValue(divide({ value: totalValue, toDivide: workingValue }));
       } else {
-        setTotal(stored);
+        setTotalValue(workingValue);
       }
-      setStored();
+      setWorkingValue();
     }
   };
 

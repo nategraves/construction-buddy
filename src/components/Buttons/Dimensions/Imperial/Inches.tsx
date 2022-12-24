@@ -6,15 +6,15 @@ import { ValueContext } from "contexts";
 import { Button } from "components/Buttons/Button";
 
 export function Inches() {
-  const { input, resolution, stored, setInput, setStored } =
+  const { input, resolution, workingValue, setInput, setWorkingValue } =
     useContext(ValueContext);
 
   const handleClick = () => {
     if (input != null) {
-      if (isImperial(stored)) {
-        stored.ins = input;
+      if (isImperial(workingValue)) {
+        workingValue.ins = input;
       } else {
-        setStored({
+        setWorkingValue({
           ft: undefined,
           ins: input,
           fr: fraction(undefined, resolution),

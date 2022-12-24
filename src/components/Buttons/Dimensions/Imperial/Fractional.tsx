@@ -6,15 +6,15 @@ import { isImperial } from "data/Value";
 import { Button } from "../../Button";
 
 export function Fractional() {
-  const { input, resolution, setInput, setStored, stored } =
+  const { input, resolution, setInput, setWorkingValue, workingValue } =
     useContext(ValueContext);
 
   const handleClick = () => {
     if (input != null) {
-      if (isImperial(stored)) {
-        stored.fr.n = input;
+      if (isImperial(workingValue)) {
+        workingValue.fr.n = input;
       } else {
-        setStored({
+        setWorkingValue({
           ft: undefined,
           ins: undefined,
           fr: fraction(input, resolution),

@@ -1,5 +1,5 @@
 export enum DisplayValue {
   input = "input",
-  stored = "stored",
-  total = "total",
+  workingValue = "workingValue",
+  totalValue = "totalValue",
 }

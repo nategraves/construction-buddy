@@ -4,7 +4,7 @@ import { isImperial, isMetric, isNumber } from "../../data/Value";
 import { ValueContext } from "../../contexts";
 
 export function Display() {
-  const { input, mode, stored, total } = useContext(ValueContext);
+  const { input, mode, workingValue, totalValue } = useContext(ValueContext);
 
   let inputDisplay = "";
   let storedDisplay = "";
@@ -14,11 +14,11 @@ export function Display() {
     inputDisplay = String(input);
   }
 
-  if (stored != null) {
+  if (workingValue != null) {
     const measurements = [];
-    console.log("Stored imperial", isImperial(stored));
-    if (isImperial(stored)) {
-      const { ft, ins, fr } = stored;
+    console.log("Stored imperial", isImperial(workingValue));
+    if (isImperial(workingValue)) {
+      const { ft, ins, fr } = workingValue;
       if (ft != null) {
         measurements.push(`${ft}ft`);
       }
@@ -26,58 +26,58 @@ export function Display() {
         measurements.push(`${ins}in`);
       }
       if (fr != null) {
-        measurements.push(`${stored.fr}`);
+        measurements.push(`${workingValue.fr}`);
       }
       storedDisplay = measurements.join(" - ");
-    } else if (isMetric(stored)) {
-      const { m, cm, mm } = stored;
+    } else if (isMetric(workingValue)) {
+      const { m, cm, mm } = workingValue;
       if (m != null) {
-        measurements.push(`${stored.m}m`);
+        measurements.push(`${workingValue.m}m`);
       }
       if (cm != null) {
-        measurements.push(`${stored.cm}cm`);
+        measurements.push(`${workingValue.cm}cm`);
       }
       if (mm != null) {
-        measurements.push(`${stored.mm}`);
+        measurements.push(`${workingValue.mm}`);
       }
       storedDisplay = measurements.join(" - ");
-    } else if (isNumber(stored)) {
-      storedDisplay = `${stored}`;
+    } else if (isNumber(workingValue)) {
+      storedDisplay = `${workingValue}`;
     }
   }
 
-  if (total != null) {
-    if (isImperial(total)) {
-      if ("ft" in total) {
-        totalDisplay += `${total.ft}ft`;
+  if (totalValue != null) {
+    if (isImperial(totalValue)) {
+      if ("ft" in totalValue) {
+        totalDisplay += `${totalValue.ft}ft`;
       }
-      if ("ins" in total) {
-        totalDisplay += ` - ${total.ins}in`;
+      if ("ins" in totalValue) {
+        totalDisplay += ` - ${totalValue.ins}in`;
       }
-      if ("fr" in total) {
-        totalDisplay += ` - ${total.fr}`;
+      if ("fr" in totalValue) {
+        totalDisplay += ` - ${totalValue.fr}`;
       }
-    } else if (isMetric(total)) {
-      if ("m" in total) {
-        totalDisplay += `${total.m}m`;
+    } else if (isMetric(totalValue)) {
+      if ("m" in totalValue) {
+        totalDisplay += `${totalValue.m}m`;
       }
-      if ("cm" in total) {
-        totalDisplay += ` - ${total.cm}cm`;
+      if ("cm" in totalValue) {
+        totalDisplay += ` - ${totalValue.cm}cm`;
       }
-      if ("mm" in total) {
-        totalDisplay += ` - ${total.mm}`;
+      if ("mm" in totalValue) {
+        totalDisplay += ` - ${totalValue.mm}`;
       }
-    } else if (isNumber(total)) {
-      totalDisplay = `${total}`;
+    } else if (isNumber(totalValue)) {
+      totalDisplay = `${totalValue}`;
     }
   }
   const showInput = input != null;
-  const showStored = input == null && stored != null;
-  const showTotal = input == null && stored == null && total != null;
+  const showStored = input == null && workingValue != null;
+  const showTotal = input == null && workingValue == null && totalValue != null;
 
-  console.log({ showInput, inputDisplay });
-  console.log({ showStored, storedDisplay });
-  console.log({ showTotal, totalDisplay });
+  // console.log({ showInput, inputDisplay });
+  // console.log({ showStored, storedDisplay });
+  // console.log({ showTotal, totalDisplay });
 
   return (
     <div

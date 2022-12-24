@@ -6,11 +6,18 @@ import { ValueContext } from "../../../contexts";
 import { Button } from "../Button";
 
 export const Multiply: FC = () => {
-  const { input, setInput, updateMode, setStored, setTotal, stored, total } =
-    useContext(ValueContext);
+  const {
+    input,
+    setInput,
+    updateMode,
+    setWorkingValue,
+    setTotalValue,
+    workingValue,
+    totalValue,
+  } = useContext(ValueContext);
 
   const handleClick = () => {
-    if (input == null && stored == null) {
+    if (input == null && workingValue == null) {
       return;
     }
 
@@ -18,32 +25,36 @@ export const Multiply: FC = () => {
 
     if (isNumber(input)) {
       setInput();
-      if (isNumber(total)) {
+      if (isNumber(totalValue)) {
         throw new Error("Todo");
-        // setTotal(input + total);
+        // setTotalValue(input + totalValue);
       } else {
-        setStored(input);
+        setWorkingValue(input);
       }
       return;
     }
 
-    if (isImperial(stored)) {
-      if (isImperial(total)) {
-        setTotal(multiply({ value: total, toMultiply: stored }));
+    if (isImperial(workingValue)) {
+      if (isImperial(totalValue)) {
+        setTotalValue(
+          multiply({ value: totalValue, toMultiply: workingValue })
+        );
       } else {
-        setTotal(stored);
+        setTotalValue(workingValue);
       }
 
-      setStored();
+      setWorkingValue();
     }
 
-    if (isMetric(stored)) {
-      if (isMetric(total)) {
-        setTotal(multiply({ value: total, toMultiply: stored }));
+    if (isMetric(workingValue)) {
+      if (isMetric(totalValue)) {
+        setTotalValue(
+          multiply({ value: totalValue, toMultiply: workingValue })
+        );
       } else {
-        setTotal(stored);
+        setTotalValue(workingValue);
       }
-      setStored();
+      setWorkingValue();
     }
   };
 

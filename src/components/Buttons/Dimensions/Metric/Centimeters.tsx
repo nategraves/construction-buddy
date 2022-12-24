@@ -5,17 +5,17 @@ import React from "react";
 import { Button } from "../../Button";
 
 export function Centimeters() {
-  // const { input, stored, setInput, setStored, setUnits, units } =
+  // const { input, workingValue, setInput, setWorkingValue, setUnits, units } =
   //   useContext(ValueContext);
 
   const handleClick = () => {
     throw new Error("Need to implement");
     // if (input != null) {
     //   if (units === Units.metric) {
-    //     setStored(input + stored ?? 0);
+    //     setWorkingValue(input + workingValue ?? 0);
     //   } else {
     //     setUnits(Units.metric);
-    //     setStored(input);
+    //     setWorkingValue(input);
     //   }
 
     //   setInput(null);

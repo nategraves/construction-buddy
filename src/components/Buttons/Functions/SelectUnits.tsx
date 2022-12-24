@@ -4,18 +4,19 @@ import { Units } from "types";
 import { ValueContext } from "../../../contexts";
 
 export const SelectUnits = () => {
-  const { units, setStored, setTotal, setUnits } = useContext(ValueContext);
+  const { units, setWorkingValue, setTotalValue, setUnits } =
+    useContext(ValueContext);
 
   const handleChange = (value: Maybe<Units>) => {
     if (value != null) {
       setUnits(value);
-      setStored();
-      setTotal();
+      setWorkingValue();
+      setTotalValue();
     }
   };
 
   units != null && units.charAt(0);
-  const options = Object.values(Units).map((unit) => (
+  const options = Object.values(Units).map((unit: string) => (
     <option value={unit} key={unit}>
       {unit.toUpperCase()}
     </option>

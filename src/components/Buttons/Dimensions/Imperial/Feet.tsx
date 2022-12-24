@@ -6,18 +6,18 @@ import { isImperial } from "data/Value";
 import { Button } from "../../Button";
 
 export function Feet() {
-  const { input, stored, setInput, setStored, setDisplayValue } =
+  const { input, workingValue, setInput, setWorkingValue, setDisplayValue } =
     useContext(ValueContext);
 
   const handleClick = () => {
     if (input != null) {
-      if (isImperial(stored)) {
-        stored.ft = input;
+      if (isImperial(workingValue)) {
+        workingValue.ft = input;
       } else {
-        setStored({ ft: input });
+        setWorkingValue({ ft: input });
       }
       setInput();
-      setDisplayValue(DisplayValue.stored);
+      setDisplayValue(DisplayValue.workingValue);
     }
   };
 

@@ -6,44 +6,51 @@ import { ValueContext } from "../../../contexts";
 import { Button } from "../Button";
 
 export const Add: FC = () => {
-  const { input, setInput, updateMode, setStored, setTotal, stored, total } =
-    useContext(ValueContext);
+  const {
+    input,
+    setInput,
+    updateMode,
+    setWorkingValue,
+    setTotalValue,
+    workingValue,
+    totalValue,
+    toProcess,
+    setToProcess,
+  } = useContext(ValueContext);
 
   const handleClick = () => {
-    if (input == null && stored == null) {
+    if (input == null && workingValue == null && totalValue == null) {
       return;
     }
 
     updateMode(Mode.add);
 
-    if (isNumber(input)) {
-      setInput();
-      if (isNumber(total)) {
-        throw new Error("Todo");
-        // setTotal(input + total);
-      } else {
-        setStored(input);
-      }
+    if (input == null && workingValue == null && totalValue !== null) {
+      setToProcess([totalValue]);
+      setTotalValue();
       return;
     }
 
-    if (isImperial(stored)) {
-      if (isImperial(total)) {
-        setTotal(add(total, stored));
-      } else {
-        setTotal(stored);
-      }
+    const [firstToProcess] = toProcess;
 
-      setStored();
+    const shouldAddNumber =
+      isNumber(input) && (firstToProcess == null || isNumber(firstToProcess));
+    const shouldAddImperial =
+      isImperial(workingValue) &&
+      (firstToProcess == null || isImperial(firstToProcess));
+    const shouldAddMetric =
+      isMetric(workingValue) &&
+      (firstToProcess == null || isMetric(firstToProcess));
+
+    if (shouldAddNumber) {
+      setInput();
+      setToProcess([...toProcess, input]);
+      return;
     }
 
-    if (isMetric(stored)) {
-      if (isMetric(total)) {
-        setTotal(add(total, stored));
-      } else {
-        setTotal(stored);
-      }
-      setStored();
+    if (shouldAddImperial || shouldAddMetric) {
+      setToProcess([...toProcess, workingValue]);
+      setWorkingValue();
     }
   };
 

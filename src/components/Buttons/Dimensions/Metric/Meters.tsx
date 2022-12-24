@@ -6,7 +6,7 @@ import React from "react";
 import { Button } from "../../Button";
 
 export function Meters() {
-  // const { input, stored, setInput, setStored, setUnits } =
+  // const { input, workingValue, setInput, setWorkingValue, setUnits } =
   //   useContext(ValueContext);
 
   // const isMetric = useIsMetric();
@@ -15,10 +15,10 @@ export function Meters() {
     throw new Error("Implement");
     // if (input != null) {
     //   if (isMetric) {
-    //     setStored(stored ?? 0 + input * 10);
+    //     setWorkingValue(workingValue ?? 0 + input * 10);
     //   } else {
     //     setUnits(Units.metric);
-    //     setStored(input);
+    //     setWorkingValue(input);
     //   }
     //   setInput(null);
     // }

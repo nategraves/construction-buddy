@@ -15,26 +15,25 @@ import {
   MetricValue,
 } from "../types";
 import type { Value } from "../data/Value";
-import {} from "../data";
 
-type ToProcess = ImperialValue[] | MetricValue[] | number[];
+export type ToProcess = (ImperialValue | MetricValue | number)[];
 
 interface ValueContextProps {
   displayValue: DisplayValue;
   input: Maybe<number>;
-  stored: Maybe<Value>;
+  workingValue: Maybe<Value>;
   mode: Maybe<Mode>;
   resolution: Maybe<Resolution>;
-  toProcess: Maybe<ToProcess>;
-  total: Maybe<Value>;
+  toProcess: ToProcess;
+  totalValue: Maybe<Value>;
   units: Maybe<Units>;
   setDisplayValue: (displayValue: DisplayValue) => void;
   setInput: (value?: number) => void;
   updateMode: (mode?: Mode) => void;
   setResolution: (newResolution?: Resolution) => void;
-  setStored: (newStored?: Value) => void;
+  setWorkingValue: (newStored?: Value) => void;
   setToProcess: (newToProcess?: ToProcess) => void;
-  setTotal: (newTotal?: Value) => void;
+  setTotalValue: (newTotal?: Value) => void;
   setUnits: (units: Units) => void;
 }
 
@@ -43,17 +42,17 @@ export const ValueContext = createContext<ValueContextProps>({
   input: undefined,
   mode: undefined,
   resolution: undefined,
-  stored: undefined,
+  workingValue: undefined,
   toProcess: [],
-  total: undefined,
+  totalValue: undefined,
   units: Units.imperial,
   setDisplayValue: () => {},
   setInput: () => {},
   updateMode: () => {},
   setResolution: () => {},
-  setStored: () => {},
+  setWorkingValue: () => {},
   setToProcess: () => {},
-  setTotal: () => {},
+  setTotalValue: () => {},
   setUnits: () => {},
 });
 
@@ -62,37 +61,37 @@ export const ValueProvider: FC<{ children: ReactNode }> = ({ children }) => {
     DisplayValue.input
   );
   const [input, setInput] = useState<Maybe<number>>();
-  const [stored, setStored] = useState<Maybe<Value>>();
-  const [toProcess, setToProcess] = useState<ToProcess>();
-  const [total, setTotal] = useState<Maybe<Value>>();
+  const [workingValue, setWorkingValue] = useState<Maybe<Value>>();
+  const [toProcess, setToProcess] = useState<ToProcess>([]);
+  const [totalValue, setTotalValue] = useState<Maybe<Value>>();
   const [mode, setMode] = useState<Maybe<Mode>>();
   const [resolution, setResolution] = useState<Maybe<Resolution>>();
-  const [units, setUnits] = useState<Maybe<Units>>();
+  const [units, setUnits] = useState<Maybe<Units>>(Units.imperial);
 
   const updateMode = (newMode: Mode) => {
     switch (mode) {
       case Mode.add:
-        // setTotal(toProcess.reduce((total, value) => {
+        // setTotalValue(toProcess.reduce((totalValue, value) => {
         //   return
         // });
-        // if (isImperial(total) && isImperial(stored)) {
+        // if (isImperial(totalValue) && isImperial(workingValue)) {
         //   console.log("Adding imperials");
-        //   const newTotal = add(total, stored);
+        //   const newTotal = add(totalValue, workingValue);
         //   console.log({ newTotal });
-        //   setTotal(newTotal);
-        //   setStored();
+        //   setTotalValue(newTotal);
+        //   setWorkingValue();
         // }
 
-        // if (isMetric(total) && isMetric(stored)) {
+        // if (isMetric(totalValue) && isMetric(workingValue)) {
         //   console.log("Adding metrics");
-        //   setTotal(add(total, stored));
-        //   setStored();
+        //   setTotalValue(add(totalValue, workingValue));
+        //   setWorkingValue();
         // }
 
-        // if (isNumber(stored) && isNumber(input)) {
+        // if (isNumber(workingValue) && isNumber(input)) {
         //   console.log("Adding numbers");
-        //   setTotal(input + stored);
-        //   setStored();
+        //   setTotalValue(input + workingValue);
+        //   setWorkingValue();
         //   setInput();
         // }
 
@@ -106,9 +105,10 @@ export const ValueProvider: FC<{ children: ReactNode }> = ({ children }) => {
 
   useEffect(() => {
     console.log({ input });
-    console.log({ stored });
-    console.log({ total });
-  }, [input, stored, total]);
+    console.log({ workingValue });
+    console.log({ toProcess });
+    console.log({ totalValue });
+  }, [input, workingValue, toProcess, totalValue]);
 
   return (
     <ValueContext.Provider
@@ -117,17 +117,17 @@ export const ValueProvider: FC<{ children: ReactNode }> = ({ children }) => {
         input,
         mode,
         resolution,
-        stored,
+        workingValue,
         toProcess,
-        total,
+        totalValue,
         units,
         setDisplayValue,
         setInput,
         updateMode,
         setResolution,
-        setStored,
+        setWorkingValue,
         setToProcess,
-        setTotal,
+        setTotalValue,
         setUnits,
       }}
     >

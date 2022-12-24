@@ -5,29 +5,35 @@ import { isMetric } from "./isMetric";
 import { isNumber } from "./isNumber";
 import { Value } from "./Value";
 
-export const add = (v0: Value, v1: Value): Value => {
-  if (isMetric(v0) && isMetric(v1)) {
+export const add = ({
+  value,
+  toAdd,
+}: {
+  value: Value;
+  toAdd: Value;
+}): Value => {
+  if (isMetric(value) && isMetric(toAdd)) {
     return {
-      m: (v0.m ?? 0) + (v1.m ?? 0),
-      cm: (v0.cm ?? 0) + (v1.cm ?? 0),
-      mm: (v0.mm ?? 0) + (v1.mm ?? 0),
+      m: (value.m ?? 0) + (toAdd.m ?? 0),
+      cm: (value.cm ?? 0) + (toAdd.cm ?? 0),
+      mm: (value.mm ?? 0) + (toAdd.mm ?? 0),
     };
   }
-  if (isImperial(v0) && isImperial(v1)) {
+  if (isImperial(value) && isImperial(toAdd)) {
     let fr: Maybe<Fraction>;
 
-    if (v0.fr && v1.fr) {
-      fr = _add(v0.fr, v1.fr);
+    if (value.fr && toAdd.fr) {
+      fr = _add(value.fr, toAdd.fr);
     }
-    const ins = (v0.ins ?? 0) + (v1.ins ?? 0);
-    const ft = (v0.ft ?? 0) + (v1.ft ?? 0);
+    const ins = (value.ins ?? 0) + (toAdd.ins ?? 0);
+    const ft = (value.ft ?? 0) + (toAdd.ft ?? 0);
 
-    if (v0.fr && !v1.fr) {
-      fr = v0.fr;
+    if (value.fr && !toAdd.fr) {
+      fr = value.fr;
     }
 
-    if (v1.fr && !v0.fr) {
-      fr = v1.fr;
+    if (toAdd.fr && !value.fr) {
+      fr = toAdd.fr;
     }
 
     return {
@@ -36,7 +42,7 @@ export const add = (v0: Value, v1: Value): Value => {
       ...(fr ? { fr } : {}),
     };
   }
-  if (isNumber(v0) && isNumber(v1)) {
-    return v0 + v1;
+  if (isNumber(value) && isNumber(toAdd)) {
+    return value + toAdd;
   }
 };
