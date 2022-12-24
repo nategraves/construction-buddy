@@ -6,8 +6,16 @@ import { Mode } from "../../../types";
 import { add, isImperial, isMetric, isNumber } from "../../../data/Value";
 
 export const Equals = () => {
-  const { input, mode, setInput, setMode, setStored, setTotal, stored, total } =
-    useContext(ValueContext);
+  const {
+    input,
+    mode,
+    setInput,
+    updateMode,
+    setStored,
+    setTotal,
+    stored,
+    total,
+  } = useContext(ValueContext);
   const handleClick = () => {
     switch (mode) {
       case Mode.add:
@@ -36,7 +44,7 @@ export const Equals = () => {
       default:
     }
 
-    setMode(Mode.equals);
+    updateMode(Mode.equals);
   };
 
   return <Button onClick={() => handleClick()}>=</Button>;

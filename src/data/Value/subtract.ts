@@ -1,5 +1,5 @@
-import { subtract as _subtract } from "mathjs";
-import { flatten } from "./flatten";
+// import { subtract as _subtract } from "mathjs";
+// import { flatten } from "./flatten";
 
 import { isImperial } from "./isImperial";
 import { isMetric } from "./isMetric";
@@ -25,10 +25,10 @@ export const subtract = ({
     };
   }
   if (isImperial(value) && isImperial(toSubtract)) {
-    const valueIns = flatten(value);
-    const toSubtractIns = flatten(toSubtract);
+    // const valueIns = flatten(value);
+    // const toSubtractIns = flatten(toSubtract);
 
-    const equals = valueIns - toSubtractIns;
+    // const equals = valueIns - toSubtractIns;
     throw new Error("TODO");
 
     // const ft = (value.ft ?? 0) + (toSubtract.ft ?? 0);

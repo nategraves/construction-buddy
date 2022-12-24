@@ -6,7 +6,7 @@ import { ValueContext } from "contexts";
 import { Button } from "../Button";
 
 export const Subtract: FC = () => {
-  const { input, setInput, setMode, setStored, setTotal, stored, total } =
+  const { input, setInput, updateMode, setStored, setTotal, stored, total } =
     useContext(ValueContext);
 
   const handleClick = () => {
@@ -14,7 +14,7 @@ export const Subtract: FC = () => {
       return;
     }
 
-    setMode(Mode.subtract);
+    updateMode(Mode.subtract);
 
     if (isNumber(input)) {
       setInput();

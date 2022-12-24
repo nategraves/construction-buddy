@@ -6,9 +6,16 @@ import React, {
   useEffect,
 } from "react";
 
-import { Mode, Resolution, Units, DisplayValue, ImperialValue, MetricValue } from "../types";
+import {
+  Mode,
+  Resolution,
+  Units,
+  DisplayValue,
+  ImperialValue,
+  MetricValue,
+} from "../types";
 import type { Value } from "../data/Value";
-import { } from '../data';
+import {} from "../data";
 
 type ToProcess = ImperialValue[] | MetricValue[] | number[];
 
@@ -18,7 +25,7 @@ interface ValueContextProps {
   stored: Maybe<Value>;
   mode: Maybe<Mode>;
   resolution: Maybe<Resolution>;
-  toProcess: Maybe<ToProcess>
+  toProcess: Maybe<ToProcess>;
   total: Maybe<Value>;
   units: Maybe<Units>;
   setDisplayValue: (displayValue: DisplayValue) => void;
@@ -50,7 +57,7 @@ export const ValueContext = createContext<ValueContextProps>({
   setUnits: () => {},
 });
 
-export const ValueProvider: FC<{ children?: ReactNode }> = ({ children }) => {
+export const ValueProvider: FC<{ children: ReactNode }> = ({ children }) => {
   const [displayValue, setDisplayValue] = useState<DisplayValue>(
     DisplayValue.input
   );
@@ -66,7 +73,7 @@ export const ValueProvider: FC<{ children?: ReactNode }> = ({ children }) => {
     switch (mode) {
       case Mode.add:
         // setTotal(toProcess.reduce((total, value) => {
-        //   return 
+        //   return
         // });
         // if (isImperial(total) && isImperial(stored)) {
         //   console.log("Adding imperials");
@@ -91,7 +98,8 @@ export const ValueProvider: FC<{ children?: ReactNode }> = ({ children }) => {
 
         break;
       default:
-
+        break;
+    }
     console.log(newMode);
     setMode(newMode);
   };

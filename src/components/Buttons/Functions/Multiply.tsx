@@ -6,7 +6,7 @@ import { ValueContext } from "../../../contexts";
 import { Button } from "../Button";
 
 export const Multiply: FC = () => {
-  const { input, setInput, setMode, setStored, setTotal, stored, total } =
+  const { input, setInput, updateMode, setStored, setTotal, stored, total } =
     useContext(ValueContext);
 
   const handleClick = () => {
@@ -14,7 +14,7 @@ export const Multiply: FC = () => {
       return;
     }
 
-    setMode(Mode.multiply);
+    updateMode(Mode.multiply);
 
     if (isNumber(input)) {
       setInput();
