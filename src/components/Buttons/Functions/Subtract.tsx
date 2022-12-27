@@ -1,8 +1,8 @@
 import React, { useContext, FC } from "react";
-import { subtract, isImperial, isMetric, isNumber } from "data/Value";
-import { Mode } from "types";
+import { isImperial, isMetric, isNumber } from "../../../data/Value";
+import { Mode } from "../../../types";
 
-import { ValueContext } from "contexts";
+import { ValueContext } from "../../../contexts";
 import { Button } from "../Button";
 
 export const Subtract: FC = () => {
@@ -12,48 +12,44 @@ export const Subtract: FC = () => {
     updateMode,
     setWorkingValue,
     setTotalValue,
+    setToProcess,
     workingValue,
     totalValue,
+    toProcess,
   } = useContext(ValueContext);
 
   const handleClick = () => {
-    if (input == null && workingValue == null) {
+    if (input == null && workingValue == null && totalValue == null) {
       return;
     }
 
     updateMode(Mode.subtract);
 
-    if (isNumber(input)) {
-      setInput();
-      if (isNumber(totalValue)) {
-        throw new Error("Todo");
-        // setTotalValue(input + totalValue);
-      } else {
-        setWorkingValue(input);
-      }
+    if (input == null && workingValue == null && totalValue !== null) {
+      setToProcess([totalValue]);
+      setTotalValue();
       return;
     }
 
-    if (isImperial(workingValue)) {
-      if (isImperial(totalValue)) {
-        setTotalValue(
-          subtract({ value: totalValue, toSubtract: workingValue })
-        );
-      } else {
-        setTotalValue(workingValue);
-      }
+    const [firstToProcess] = toProcess;
 
-      setWorkingValue();
+    const shouldSubtractNumber =
+      isNumber(input) && (firstToProcess == null || isNumber(firstToProcess));
+    const shouldSubtractImperial =
+      isImperial(workingValue) &&
+      (firstToProcess == null || isImperial(firstToProcess));
+    const shouldSubtractMetric =
+      isMetric(workingValue) &&
+      (firstToProcess == null || isMetric(firstToProcess));
+
+    if (shouldSubtractNumber) {
+      setToProcess([...toProcess, input]);
+      setInput();
+      return;
     }
 
-    if (isMetric(workingValue)) {
-      if (isMetric(totalValue)) {
-        setTotalValue(
-          subtract({ value: totalValue, toSubtract: workingValue })
-        );
-      } else {
-        setTotalValue(workingValue);
-      }
+    if (shouldSubtractImperial || shouldSubtractMetric) {
+      setToProcess([...toProcess, workingValue]);
       setWorkingValue();
     }
   };

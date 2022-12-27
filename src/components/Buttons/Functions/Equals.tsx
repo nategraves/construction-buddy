@@ -4,7 +4,15 @@ import { fraction } from "mathjs";
 import { ValueContext } from "../../../contexts";
 import { Button } from "../Button";
 import { Mode } from "../../../types";
-import { add, isImperial, isMetric, isSame, Value } from "../../../data/Value";
+import {
+  add,
+  isImperial,
+  isMetric,
+  isSame,
+  subtract,
+  Value,
+} from "../../../data/Value";
+import { modeMap } from "../../../data/Value/modeMap";
 
 export const Equals = () => {
   const {
@@ -19,7 +27,11 @@ export const Equals = () => {
     setToProcess,
   } = useContext(ValueContext);
   const handleClick = () => {
-    console.log("Equals");
+    if (mode == null) {
+      return;
+    }
+
+    console.log("Equals Activated");
 
     let toProcess = initialToProcess;
 
@@ -45,29 +57,34 @@ export const Equals = () => {
       setTotalValue(firstToProcess);
     }
 
-    switch (mode) {
-      case Mode.add:
-        let initialValue: Value = 0;
+    let initial: Value = 0;
 
-        if (isImperial(firstToProcess)) {
-          initialValue = { ft: 0, ins: 0, fr: fraction(0, 1) };
-        }
-
-        if (isMetric(firstToProcess)) {
-          initialValue = { m: 0, cm: 0, mm: 0 };
-        }
-
-        const total = toProcess.reduce((sum, value) => {
-          const newSum = add({ value: sum, toAdd: value });
-          console.log({ newSum });
-          return newSum;
-        }, initialValue);
-        console.log(total);
-        setTotalValue(total);
-
-        break;
-      default:
+    if (isImperial(firstToProcess)) {
+      initial = { ft: 0, ins: 0, fr: fraction(0, 1) };
     }
+
+    if (isMetric(firstToProcess)) {
+      initial = { m: 0, cm: 0, mm: 0 };
+    }
+
+    console.log(`Computing total`);
+
+    let total;
+
+    if (mode === Mode.add) {
+      total = toProcess.reduce(
+        (sum, value) => add({ value: sum, toApply: value }),
+        initial
+      );
+    } else if (mode === Mode.subtract) {
+      const baseValue = toProcess.shift();
+      total = toProcess.reduce((sum, value) => {
+        return subtract({ value: sum, toApply: value });
+      }, baseValue);
+    }
+
+    console.log(total);
+    setTotalValue(total);
 
     updateMode(Mode.equals);
     setToProcess([]);

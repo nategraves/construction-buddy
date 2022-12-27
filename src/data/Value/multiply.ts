@@ -8,22 +8,22 @@ import { flatten } from "./flatten";
 
 export const multiply = ({
   value,
-  toMultiply,
+  toApply,
 }: {
   value: Value;
-  toMultiply: Value;
+  toApply: Value;
 }): Value => {
-  if (isMetric(value) && isMetric(toMultiply)) {
-    return flatten(value) * flatten(toMultiply);
+  if (isMetric(value) && isMetric(toApply)) {
+    return flatten(value) * flatten(toApply);
   }
-  if (isImperial(value) && isImperial(toMultiply)) {
+  if (isImperial(value) && isImperial(toApply)) {
     const valueCm = flatten(value);
-    const toAddCm = flatten(toMultiply);
+    const toAddCm = flatten(toApply);
 
     return valueCm * toAddCm;
   }
 
-  if (isNumber(value) && isNumber(toMultiply)) {
-    return value ?? 0 * toMultiply ?? 0;
+  if (isNumber(value) && isNumber(toApply)) {
+    return value ?? 0 * toApply ?? 0;
   }
 };

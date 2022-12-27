@@ -4,20 +4,20 @@ interface ButtonProps {
   altFnColor?: string;
   altFnText?: string;
   bgColor?: string;
-  textColor?: string;
-  onClick: (currentValue?: number) => void;
   disabled?: boolean;
-  children: ReactElement | string;
   size?: number;
-  widthMultiple?: number;
+  textColor?: string;
+  children: ReactElement | string;
   heightMultiple?: number;
+  onClick: (currentValue?: number) => void;
+  widthMultiple?: number;
 }
 
 export const Button: FC<ButtonProps> = (props) => {
   const {
     altFnColor,
     altFnText,
-    bgColor,
+    bgColor = "#2f2f2f",
     children,
     disabled,
     textColor = "#fff",
@@ -28,13 +28,9 @@ export const Button: FC<ButtonProps> = (props) => {
     <button
       className="button"
       style={{
+        background: "transparent",
         display: "flex",
-        cursor: disabled ? "pointer" : "default",
-        width: `${size * widthMultiple}px`,
-        height: `${size}px`,
-        borderRadius: `${size}px`,
-        background: "rgb(47,47,47)",
-        fontWeight: "bold",
+        flexDirection: "column",
       }}
       onClick={() => (disabled ? {} : props.onClick())}
     >
@@ -45,13 +41,15 @@ export const Button: FC<ButtonProps> = (props) => {
       )}
       <div
         style={{
-          width: "80px",
-          height: "48px",
-          backgroundColor: bgColor,
+          cursor: disabled ? "default" : "pointer",
+          width: `${size * widthMultiple}px`,
+          height: `${size}px`,
+          background: disabled ? "#6d6d6d" : bgColor,
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
-          borderRadius: "4px",
+          borderRadius: `${size}px`,
+          fontWeight: "bold",
         }}
       >
         <span style={{ color: textColor }}>{children}</span>

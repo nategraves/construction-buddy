@@ -36,9 +36,7 @@ export const Multiply: FC = () => {
 
     if (isImperial(workingValue)) {
       if (isImperial(totalValue)) {
-        setTotalValue(
-          multiply({ value: totalValue, toMultiply: workingValue })
-        );
+        setTotalValue(multiply({ value: totalValue, toApply: workingValue }));
       } else {
         setTotalValue(workingValue);
       }
@@ -48,9 +46,7 @@ export const Multiply: FC = () => {
 
     if (isMetric(workingValue)) {
       if (isMetric(totalValue)) {
-        setTotalValue(
-          multiply({ value: totalValue, toMultiply: workingValue })
-        );
+        setTotalValue(multiply({ value: totalValue, toApply: workingValue }));
       } else {
         setTotalValue(workingValue);
       }

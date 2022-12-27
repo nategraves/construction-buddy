@@ -8,21 +8,21 @@ import { Value } from "./Value";
 
 export const divide = ({
   value,
-  toDivide,
+  toApply,
 }: {
   value: Value;
-  toDivide: Value;
+  toApply: Value;
 }): Value => {
-  if (isMetric(value) && isMetric(toDivide)) {
+  if (isMetric(value) && isMetric(toApply)) {
     const valueCm = flatten(value);
-    const toAddCm = flatten(toDivide);
+    const toAddCm = flatten(toApply);
 
     return valueCm / toAddCm;
   }
 
-  if (isMetric(value) && isNumber(toDivide)) {
+  if (isMetric(value) && isNumber(toApply)) {
     const valueCm = flatten(value);
-    const result = valueCm / toDivide;
+    const result = valueCm / toApply;
     const m = result / 100 > 1 ? Math.round(result / 100) : null;
 
     const xcm = Math.round(result % 100);
@@ -38,22 +38,22 @@ export const divide = ({
     };
   }
 
-  if (isImperial(value) && isImperial(toDivide)) {
+  if (isImperial(value) && isImperial(toApply)) {
     const v0Ins = flatten(value);
-    const v1Ins = flatten(toDivide);
+    const v1Ins = flatten(toApply);
     return v0Ins / v1Ins;
   }
 
-  if (isImperial(value) && isNumber(toDivide)) {
+  if (isImperial(value) && isNumber(toApply)) {
     const { ft, ins, fr } = value;
     return {
-      ...(ft ? { ft: ft / toDivide } : {}),
-      ...(ins ? { ins: ins / toDivide } : {}),
-      ...(fr ? { fr: _divide(fr, toDivide) as Fraction } : {}),
+      ...(ft ? { ft: ft / toApply } : {}),
+      ...(ins ? { ins: ins / toApply } : {}),
+      ...(fr ? { fr: _divide(fr, toApply) as Fraction } : {}),
     };
   }
 
-  if (isNumber(value) && isNumber(toDivide)) {
-    return value / toDivide;
+  if (isNumber(value) && isNumber(toApply)) {
+    return value / toApply;
   }
 };

@@ -1,23 +1,22 @@
 import React, { useContext } from "react";
-import { isImperial } from "data/Value";
-import { fraction } from "mathjs";
 
-import { ValueContext } from "contexts";
-import { Button } from "components/Buttons/Button";
+import { isImperial } from "../../../../data/Value";
+import { ValueContext } from "../../../../contexts";
+import { Button } from "../../../../components/Buttons/Button";
 
 export function Inches() {
-  const { input, resolution, workingValue, setInput, setWorkingValue } =
+  const { input, workingValue, setInput, setWorkingValue } =
     useContext(ValueContext);
 
   const handleClick = () => {
     if (input != null) {
       if (isImperial(workingValue)) {
         workingValue.ins = input;
+        setWorkingValue({ ...workingValue });
       } else {
         setWorkingValue({
-          ft: undefined,
+          ft: 0,
           ins: input,
-          fr: fraction(undefined, resolution),
         });
       }
 
@@ -25,5 +24,5 @@ export function Inches() {
     }
   };
 
-  return <Button onClick={() => handleClick()}>Inches</Button>;
+  return <Button onClick={() => handleClick()}>INS</Button>;
 }

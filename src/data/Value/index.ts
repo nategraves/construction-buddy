@@ -10,4 +10,5 @@ export * from "./MetricValue";
 export * from "./multiply";
 export * from "./square";
 export * from "./subtract";
+export * from "./unflatten";
 export * from "./Value";

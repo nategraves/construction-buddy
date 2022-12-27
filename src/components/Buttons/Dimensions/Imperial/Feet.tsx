@@ -1,8 +1,8 @@
 import React, { useContext } from "react";
-import { DisplayValue } from "types";
 
-import { ValueContext } from "contexts";
-import { isImperial } from "data/Value";
+import { DisplayValue } from "../../../../types";
+import { ValueContext } from "../../../../contexts";
+import { isImperial } from "../../../../data/Value";
 import { Button } from "../../Button";
 
 export function Feet() {
@@ -21,5 +21,5 @@ export function Feet() {
     }
   };
 
-  return <Button onClick={() => handleClick()}>Feet</Button>;
+  return <Button onClick={() => handleClick()}>FT</Button>;
 }

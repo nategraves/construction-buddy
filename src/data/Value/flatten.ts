@@ -1,9 +1,11 @@
 import { number } from "mathjs";
 
-import { isImperial, ImperialValue, MetricValue } from "./index";
+import { isImperial, isNumber, Value } from "./index";
 
-export const flatten = (value: ImperialValue | MetricValue): number => {
-  if (isImperial(value)) {
+export const flatten = (value: Value): number => {
+  if (isNumber(value)) {
+    return value;
+  } else if (isImperial(value)) {
     const { ft, ins, fr } = value;
     let inches = 0;
 

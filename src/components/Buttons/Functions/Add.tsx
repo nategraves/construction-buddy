@@ -1,5 +1,5 @@
 import React, { useContext, FC } from "react";
-import { add, isImperial, isMetric, isNumber } from "../../../data/Value";
+import { isImperial, isMetric, isNumber } from "../../../data/Value";
 import { Mode } from "../../../types";
 
 import { ValueContext } from "../../../contexts";
@@ -43,8 +43,8 @@ export const Add: FC = () => {
       (firstToProcess == null || isMetric(firstToProcess));
 
     if (shouldAddNumber) {
-      setInput();
       setToProcess([...toProcess, input]);
+      setInput();
       return;
     }
 
