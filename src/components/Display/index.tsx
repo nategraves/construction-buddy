@@ -16,7 +16,6 @@ export function Display() {
 
   if (workingValue != null) {
     const measurements = [];
-    console.log("Stored imperial", isImperial(workingValue));
     if (isImperial(workingValue)) {
       const { ft, ins, fr } = workingValue;
       if (ft != null) {
@@ -74,10 +73,6 @@ export function Display() {
   const showInput = input != null;
   const showStored = input == null && workingValue != null;
   const showTotal = input == null && workingValue == null && totalValue != null;
-
-  // console.log({ showInput, inputDisplay });
-  // console.log({ showStored, storedDisplay });
-  // console.log({ showTotal, totalDisplay });
 
   return (
     <div

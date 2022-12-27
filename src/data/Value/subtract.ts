@@ -1,5 +1,3 @@
-import { subtract as _subtract, Fraction } from "mathjs";
-
 import { flatten } from "./flatten";
 import { isImperial } from "./isImperial";
 import { isMetric } from "./isMetric";
@@ -30,7 +28,6 @@ export const subtract = ({
     const flatValue = flatten(value);
     const flatToApply = flatten(toApply);
     const total = flatValue - flatToApply;
-    console.log({ flatValue, flatToApply, total });
     const includeFt = "ft" in value || "ft" in toApply;
     return unflatten({ value: total, units: Units.imperial, includeFt });
   }

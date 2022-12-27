@@ -1,11 +1,7 @@
-import {
-  ImperialTarget,
-  MetricTarget,
-  // ImperialValue,
-  // MetricValue,
-} from "../../types";
-import { Value } from "data/Value";
-// import { isImperial, isMetric } from "../types";
+import { fraction, number } from "mathjs";
+
+import { ImperialTarget, MetricTarget } from "../../types";
+import { isImperial, isMetric, isNumber, Value } from "data/Value";
 
 const conversions = {
   [MetricTarget.m]: 3.28, // To feet
@@ -15,25 +11,29 @@ const conversions = {
   [ImperialTarget.ins]: 2.54, // To cm/mm
 };
 
-export const convert = (value: Value, resolution: number) => {
-  // if (isMetric(value)) {
-  //   const newValue = ImperialValue({
-  //     ft: (value.m ?? 0) * conversions[MetricTarget.m],
-  //     ins:
-  //       (value.cm ?? 0) * conversions[MetricTarget.cm] +
-  //       (value.mm ?? 0) * conversions[MetricTarget.mm],
-  //     n: undefined,
-  //   });
-  //   return newValue;
-  // }
+export const convert = (value: Value, resolution: number): Value => {
+  if (isNumber(value)) {
+    return value;
+  }
+  if (isMetric(value)) {
+    const ft = (value.m ?? 0) * conversions[MetricTarget.m];
+    const ins =
+      (value.cm ?? 0) * conversions[MetricTarget.cm] +
+      (value.mm ?? 0) * conversions[MetricTarget.mm];
+    const decimal = ins % 1;
+    const fr = ins ? fraction(decimal) : null;
+    return {
+      ft,
+      ins,
+      fr,
+    };
+  }
 
-  // if (isImperial(value)) {
-  //   const newValue = MetricValue({
-  //     m: (value.ft ?? 0) * conversions[ImperialTarget.ft],
-  //     cm: (value.ins ?? 0) * conversions[ImperialTarget.ins],
-  //     mm: (value.n / resolution ?? 0) * conversions[ImperialTarget.ins],
-  //   });
-  //   return newValue;
-  // }
-  console.log(conversions);
+  if (isImperial(value)) {
+    return {
+      m: (value.ft ?? 0) * conversions[ImperialTarget.ft],
+      cm: (value.ins ?? 0) * conversions[ImperialTarget.ins],
+      mm: (number(value.fr) ?? 0) * conversions[ImperialTarget.ins],
+    };
+  }
 };

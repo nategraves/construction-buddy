@@ -1,17 +1,9 @@
 import React, { useContext } from "react";
-import { fraction } from "mathjs";
 
 import { ValueContext } from "../../../contexts";
 import { Button } from "../Button";
 import { Mode } from "../../../types";
-import {
-  add,
-  isImperial,
-  isMetric,
-  isSame,
-  subtract,
-  Value,
-} from "../../../data/Value";
+import { isSame } from "../../../data/Value";
 import { modeMap } from "../../../data/Value/modeMap";
 
 export const Equals = () => {
@@ -30,8 +22,6 @@ export const Equals = () => {
     if (mode == null) {
       return;
     }
-
-    console.log("Equals Activated");
 
     let toProcess = initialToProcess;
 
@@ -57,33 +47,12 @@ export const Equals = () => {
       setTotalValue(firstToProcess);
     }
 
-    let initial: Value = 0;
+    const initial = toProcess.shift();
+    const total = toProcess.reduce((sum, value) => {
+      const method = modeMap[mode];
+      return method({ value: sum, toApply: value });
+    }, initial);
 
-    if (isImperial(firstToProcess)) {
-      initial = { ft: 0, ins: 0, fr: fraction(0, 1) };
-    }
-
-    if (isMetric(firstToProcess)) {
-      initial = { m: 0, cm: 0, mm: 0 };
-    }
-
-    console.log(`Computing total`);
-
-    let total;
-
-    if (mode === Mode.add) {
-      total = toProcess.reduce(
-        (sum, value) => add({ value: sum, toApply: value }),
-        initial
-      );
-    } else if (mode === Mode.subtract) {
-      const baseValue = toProcess.shift();
-      total = toProcess.reduce((sum, value) => {
-        return subtract({ value: sum, toApply: value });
-      }, baseValue);
-    }
-
-    console.log(total);
     setTotalValue(total);
 
     updateMode(Mode.equals);

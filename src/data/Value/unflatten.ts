@@ -25,22 +25,29 @@ export const unflatten = ({
 }: UnflattenImperial | UnflattenMetric): ImperialValue | MetricValue => {
   const decimal = value % 1;
   if (units === Units.imperial) {
-    const ft = includeFt ? Math.round(value / 12) : null;
-    const ins = includeFt ? value - ft * 12 - decimal : value - decimal;
+    let ft = includeFt ? Math.round(value / 12) : null;
+    let ins = includeFt ? value - ft * 12 - decimal : value - decimal;
+
+    if (ins < 0) {
+      ft -= 1;
+      ins *= -1;
+    }
+
     const fr = fraction(decimal);
     return {
-      ...(ft ? { ft } : {}),
+      ...(ft != null ? { ft } : {}),
       ins,
       fr,
     };
   } else if (units === Units.metric) {
-    const m = Math.round(value / 100);
-    const cm = value % 100;
+    const m = includeM ? Math.round(value / 100) : null;
+    const cm = includeM ? value - m * 100 - decimal : value - decimal;
+    const mm = Math.round(decimal * 10);
 
     return {
-      m,
+      ...(m != null ? { m } : {}),
       cm,
-      mm: decimal,
+      mm,
     };
   }
 };

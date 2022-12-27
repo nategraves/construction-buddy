@@ -23,8 +23,16 @@ describe("divide correctly adds", () => {
 
   test("ImperialValue,Number", () => {
     const value: ImperialValue = { ft: 8, ins: 8, fr: fraction(1, 2) };
-    const toApply: number = 2;
+    const toApply = 2;
     const expected: ImperialValue = { ft: 4, ins: 4, fr: fraction(1, 4) };
+    const result = divide({ value, toApply }) as ImperialValue;
+    expect(JSON.stringify(result)).toBe(JSON.stringify(expected));
+  });
+
+  test("Handles dividing evenly", () => {
+    const value: ImperialValue = { ft: 5 };
+    const toApply = 5;
+    const expected: ImperialValue = { ft: 1, fr: fraction(0, 1) };
     const result = divide({ value, toApply }) as ImperialValue;
     expect(JSON.stringify(result)).toBe(JSON.stringify(expected));
   });
