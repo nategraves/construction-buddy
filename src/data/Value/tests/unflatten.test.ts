@@ -24,6 +24,16 @@ describe("unflatten correctly converts", () => {
     );
   });
 
+  test("30 to 2 ft 6ins with ft", () => {
+    const value = 30;
+    const result = { ft: 2, ins: 6, fr: fraction(0, 1) };
+    expect(
+      JSON.stringify(
+        unflatten({ value, units: Units.imperial, includeFt: true })
+      )
+    ).toBe(JSON.stringify(result));
+  });
+
   test("111.1 to 1m-11cm-1mm including meters", () => {
     const value = 111.1;
     const expected: MetricValue = { m: 1, cm: 11, mm: 1 };

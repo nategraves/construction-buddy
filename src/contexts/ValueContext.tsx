@@ -99,7 +99,7 @@ export const ValueProvider: FC<{ children: ReactNode }> = ({ children }) => {
       default:
         break;
     }
-    console.log(newMode);
+    // console.log(newMode);
     setMode(newMode);
   };
 

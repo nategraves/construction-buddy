@@ -6,6 +6,7 @@ export * from "./isImperial";
 export * from "./isMetric";
 export * from "./isNumber";
 export * from "./isSame";
+export * from "./modeMap";
 export * from "./MetricValue";
 export * from "./multiply";
 export * from "./square";

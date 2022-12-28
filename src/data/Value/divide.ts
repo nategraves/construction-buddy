@@ -14,6 +14,7 @@ export const divide = ({
   value: Value;
   toApply: Value;
 }): Value => {
+  console.log("made it to divide.ts");
   const flatValue = flatten(value);
   const flatToApply = flatten(toApply);
 
@@ -22,6 +23,7 @@ export const divide = ({
   const bothNumber = isNumber(value) && isNumber(toApply);
 
   const result = flatValue / flatToApply;
+  console.log({ result });
 
   if (bothMetric || bothImperial || bothNumber) {
     return result;

@@ -9,10 +9,10 @@ export const modeMap: Record<
   Partial<Mode>,
   (params: { value: Value; toApply: Value }) => Value
 > = {
-  [Mode.add]: add,
-  [Mode.divide]: divide,
-  [Mode.multiply]: multiply,
-  [Mode.subtract]: subtract,
+  [Mode.add]: ({ value, toApply }) => add({ value, toApply }),
+  [Mode.divide]: ({ value, toApply }) => divide({ value, toApply }),
+  [Mode.multiply]: ({ value, toApply }) => multiply({ value, toApply }),
+  [Mode.subtract]: ({ value, toApply }) => subtract({ value, toApply }),
   [Mode.equals]: () => {
     throw new Error("Unimplemented");
   },

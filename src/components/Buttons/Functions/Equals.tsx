@@ -25,35 +25,36 @@ export const Equals = () => {
 
     let toProcess = initialToProcess;
 
-    if (workingValue || input != null) {
-      if (toProcess.length) {
-        if (isSame(workingValue, toProcess[0]) || isSame(input, toProcess[0])) {
-          toProcess = [...toProcess, workingValue];
-        }
+    if (workingValue) {
+      if (toProcess.length && isSame(workingValue, toProcess[0])) {
+        toProcess = [...toProcess, workingValue];
       } else {
-        toProcess = [workingValue ?? input];
+        toProcess = [workingValue];
       }
       setWorkingValue();
-      setInput();
     }
 
     if (!toProcess.length) {
-      return;
-    }
-
-    const firstToProcess = toProcess[0];
-
-    if (toProcess.length === 1) {
-      setTotalValue(firstToProcess);
+      throw new Error(`Unable to apply '${mode}' because toProcess is empty`);
     }
 
     const initial = toProcess.shift();
-    const total = toProcess.reduce((sum, value) => {
-      const method = modeMap[mode];
-      return method({ value: sum, toApply: value });
-    }, initial);
 
-    setTotalValue(total);
+    if (toProcess.length === 0 && input == null) {
+      console.warn("Only 1 value in toProcess. Setting as total");
+      setTotalValue(initial);
+    } else if (toProcess.length === 0 && input != null) {
+      const total = modeMap[mode]({ value: initial, toApply: input });
+      setInput();
+      setTotalValue(total);
+    } else {
+      console.warn({ initial, toProcess, mode, input });
+      const total = toProcess.reduce((sum, value) => {
+        const newSum = modeMap[mode]({ value: sum, toApply: value });
+        return newSum;
+      }, initial);
+      setTotalValue(total);
+    }
 
     updateMode(Mode.equals);
     setToProcess([]);
