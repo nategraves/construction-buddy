@@ -1,4 +1,3 @@
-import { divide as _divide, Fraction } from "mathjs";
 import { Units } from "../../types";
 
 import { flatten } from "./flatten";

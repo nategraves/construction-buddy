@@ -32,7 +32,7 @@ describe("divide correctly adds", () => {
   test("Handles dividing evenly", () => {
     const value: ImperialValue = { ft: 5 };
     const toApply = 5;
-    const expected: ImperialValue = { ft: 1, fr: fraction(0, 1) };
+    const expected: ImperialValue = { ft: 1, ins: 0, fr: fraction(0, 1) };
     const result = divide({ value, toApply }) as ImperialValue;
     expect(JSON.stringify(result)).toBe(JSON.stringify(expected));
   });
