@@ -34,6 +34,26 @@ describe("unflatten correctly converts", () => {
     ).toBe(JSON.stringify(result));
   });
 
+  test("10.83333333 to 10ins 5/6 without ft", () => {
+    const value = 10.833333333333334;
+    const result = { ins: 10, fr: fraction(5, 6) };
+    expect(
+      JSON.stringify(
+        unflatten({ value, units: Units.imperial, includeFt: false })
+      )
+    ).toBe(JSON.stringify(result));
+  });
+
+  test("10.83333333 to 0ft 10ins 5/6 with ft", () => {
+    const value = 10.833333333333334;
+    const result = { ft: 0, ins: 10, fr: fraction(5, 6) };
+    expect(
+      JSON.stringify(
+        unflatten({ value, units: Units.imperial, includeFt: true })
+      )
+    ).toBe(JSON.stringify(result));
+  });
+
   test("111.1 to 1m-11cm-1mm including meters", () => {
     const value = 111.1;
     const expected: MetricValue = { m: 1, cm: 11, mm: 1 };

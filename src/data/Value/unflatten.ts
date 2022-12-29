@@ -25,7 +25,7 @@ export const unflatten = ({
 }: UnflattenImperial | UnflattenMetric): ImperialValue | MetricValue => {
   const decimal = value % 1;
   if (units === Units.imperial) {
-    let ft = includeFt ? Math.round(value / 12) : null;
+    let ft = includeFt ? Math.floor(value / 12) : null;
     let ins = includeFt ? value - ft * 12 - decimal : value - decimal;
 
     if (ins < 0) {
