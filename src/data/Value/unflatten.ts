@@ -33,12 +33,10 @@ export const unflatten = ({
       ins *= -1;
     }
 
-    const fr = closestTapeMeasure({ decimal });
-    console.log({ fr });
     return {
       ...(ft != null ? { ft } : {}),
       ins,
-      fr,
+      fr: closestTapeMeasure({ decimal }),
     };
   } else if (units === Units.metric) {
     const m = includeM ? Math.round(value / 100) : null;

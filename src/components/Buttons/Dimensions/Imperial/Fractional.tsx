@@ -1,8 +1,8 @@
 import React, { useContext } from "react";
 import { fraction } from "mathjs";
 
-import { ValueContext } from "contexts";
-import { isImperial } from "data/Value";
+import { ValueContext } from "../../../../contexts";
+import { isImperial } from "../../../../data/Value";
 import { Button } from "../../Button";
 
 export function Fractional() {
@@ -25,5 +25,5 @@ export function Fractional() {
     }
   };
 
-  return <Button onClick={() => handleClick()}> / </Button>;
+  return <Button onClick={() => handleClick()}>X / Y</Button>;
 }
