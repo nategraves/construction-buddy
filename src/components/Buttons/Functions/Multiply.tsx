@@ -9,47 +9,47 @@ export const Multiply: FC = () => {
   const {
     input,
     setInput,
-    updateMode,
-    setWorkingValue,
+    setToProcess,
     setTotalValue,
-    workingValue,
+    setWorkingValue,
+    updateMode,
+    toProcess,
     totalValue,
+    workingValue,
   } = useContext(ValueContext);
 
   const handleClick = () => {
-    if (input == null && workingValue == null) {
+    if (input == null && workingValue == null && totalValue == null) {
       return;
     }
 
     updateMode(Mode.multiply);
 
-    if (isNumber(input)) {
-      setInput();
-      if (isNumber(totalValue)) {
-        throw new Error("Todo");
-        // setTotalValue(input + totalValue);
-      } else {
-        setWorkingValue(input);
-      }
+    if (input == null && workingValue == null && totalValue !== null) {
+      setToProcess([totalValue]);
+      setTotalValue();
       return;
     }
 
-    if (isImperial(workingValue)) {
-      if (isImperial(totalValue)) {
-        setTotalValue(multiply({ value: totalValue, toApply: workingValue }));
-      } else {
-        setTotalValue(workingValue);
-      }
+    const [firstToProcess] = toProcess;
 
-      setWorkingValue();
+    const shouldDivideNumber =
+      isNumber(input) && (firstToProcess == null || isNumber(firstToProcess));
+    const shouldDivideImperial =
+      isImperial(workingValue) &&
+      (firstToProcess == null || isImperial(firstToProcess));
+    const shouldDivideMetric =
+      isMetric(workingValue) &&
+      (firstToProcess == null || isMetric(firstToProcess));
+
+    if (shouldDivideNumber) {
+      setToProcess([...toProcess, input]);
+      setInput();
+      return;
     }
 
-    if (isMetric(workingValue)) {
-      if (isMetric(totalValue)) {
-        setTotalValue(multiply({ value: totalValue, toApply: workingValue }));
-      } else {
-        setTotalValue(workingValue);
-      }
+    if (shouldDivideImperial || shouldDivideMetric) {
+      setToProcess([...toProcess, workingValue]);
       setWorkingValue();
     }
   };

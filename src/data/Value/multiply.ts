@@ -5,6 +5,8 @@ import { isMetric } from "./isMetric";
 import { isNumber } from "./isNumber";
 import { isImperial } from "./isImperial";
 import { flatten } from "./flatten";
+import { unflatten } from "./unflatten";
+import { Units } from "../../types";
 
 export const multiply = ({
   value,
@@ -13,17 +15,36 @@ export const multiply = ({
   value: Value;
   toApply: Value;
 }): Value => {
-  if (isMetric(value) && isMetric(toApply)) {
-    return flatten(value) * flatten(toApply);
-  }
-  if (isImperial(value) && isImperial(toApply)) {
-    const valueCm = flatten(value);
-    const toAddCm = flatten(toApply);
+  const flatValue = flatten(value);
+  const flatToApply = flatten(toApply);
 
-    return valueCm * toAddCm;
+  const bothMetric = isMetric(value) && isMetric(toApply);
+  const bothImperial = isImperial(value) && isImperial(toApply);
+  const bothNumber = isNumber(value) && isNumber(toApply);
+
+  const result = flatValue * flatToApply;
+
+  if (bothMetric || bothImperial || bothNumber) {
+    return result;
+  }
+
+  if (isImperial(value) && isNumber(toApply)) {
+    return unflatten({
+      value: result,
+      units: Units.imperial,
+      includeFt: "ft" in value,
+    });
+  }
+
+  if (isMetric(value) && isNumber(toApply)) {
+    return unflatten({
+      value: result,
+      units: Units.metric,
+      includeM: "m" in value,
+    });
   }
 
   if (isNumber(value) && isNumber(toApply)) {
-    return value ?? 0 * toApply ?? 0;
+    return result;
   }
 };

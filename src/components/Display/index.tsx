@@ -24,8 +24,8 @@ export function Display() {
       if (ins != null) {
         measurements.push(`${ins}in`);
       }
-      if (fr != null) {
-        measurements.push(`${workingValue.fr}`);
+      if (fr != null && fr.n !== 0) {
+        measurements.push(`${workingValue.fr.n}/${workingValue.fr.d}`);
       }
       storedDisplay = measurements.join(" - ");
     } else if (isMetric(workingValue)) {
@@ -47,13 +47,14 @@ export function Display() {
 
   if (totalValue != null) {
     if (isImperial(totalValue)) {
-      if ("ft" in totalValue) {
-        totalDisplay += `${totalValue.ft}ft`;
+      const { ft, ins, fr } = totalValue;
+      if (ft != null) {
+        totalDisplay += `${ft}ft`;
       }
-      if ("ins" in totalValue) {
-        totalDisplay += ` - ${totalValue.ins}in`;
+      if (ins != null) {
+        totalDisplay += ` - ${ins}in`;
       }
-      if ("fr" in totalValue) {
+      if (fr != null && fr.n !== 0) {
         totalDisplay += ` - ${totalValue.fr.n}/${totalValue.fr.d}`;
       }
     } else if (isMetric(totalValue)) {
