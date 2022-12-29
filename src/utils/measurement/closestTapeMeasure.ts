@@ -3,7 +3,7 @@ import { Resolution } from "../../types";
 
 export const closestTapeMeasure = ({
   decimal,
-  resolution = Resolution.sixteenth,
+  resolution = Resolution.sixtyFourth,
 }: {
   decimal: number;
   resolution?: Resolution;

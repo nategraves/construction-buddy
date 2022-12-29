@@ -54,7 +54,7 @@ export function Display() {
         totalDisplay += ` - ${totalValue.ins}in`;
       }
       if ("fr" in totalValue) {
-        totalDisplay += ` - ${totalValue.fr}`;
+        totalDisplay += ` - ${totalValue.fr.n}/${totalValue.fr.d}`;
       }
     } else if (isMetric(totalValue)) {
       if ("m" in totalValue) {

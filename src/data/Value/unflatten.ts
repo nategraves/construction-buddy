@@ -1,4 +1,4 @@
-import { fraction } from "mathjs";
+import { closestTapeMeasure } from "utils";
 import { Units } from "../../types";
 import { ImperialValue } from "./ImperialValue";
 import { MetricValue } from "./MetricValue";
@@ -33,7 +33,8 @@ export const unflatten = ({
       ins *= -1;
     }
 
-    const fr = fraction(decimal);
+    const fr = closestTapeMeasure({ decimal });
+    console.log({ fr });
     return {
       ...(ft != null ? { ft } : {}),
       ins,
