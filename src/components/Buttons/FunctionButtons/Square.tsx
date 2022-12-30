@@ -1,5 +1,5 @@
 import React, { useContext, FC } from "react";
-import { multiply } from "../../../data/Value";
+import { square } from "../../../data/Value";
 import { Mode } from "../../../types";
 
 import { ValueContext } from "../../../contexts";
@@ -24,19 +24,19 @@ export const Square: FC = () => {
     updateMode(Mode.square);
 
     if (input != null) {
-      setTotalValue(multiply({ value: input, toApply: input }));
+      setTotalValue(square({ value: input }));
       setInput();
       return;
     }
 
     if (workingValue != null) {
-      setTotalValue(multiply({ value: workingValue, toApply: workingValue }));
+      setTotalValue(square({ value: workingValue }));
       setWorkingValue();
       return;
     }
 
     if (totalValue != null) {
-      setTotalValue(multiply({ value: totalValue, toApply: totalValue }));
+      setTotalValue(square({ value: totalValue }));
       return;
     }
   };

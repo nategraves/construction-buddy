@@ -4,14 +4,7 @@ import { ValueContext } from "../../../contexts";
 import { Units } from "../../../types";
 import {
   Add,
-  Clear,
-  Centimeters,
   Divide,
-  Feet,
-  Fractional,
-  Inches,
-  Meters,
-  Millimeters,
   Multiply,
   Equals,
   SelectResolution,
@@ -19,7 +12,14 @@ import {
   Square,
   Subtract,
 } from "../FunctionButtons";
-
+import {
+  Centimeters,
+  Feet,
+  Fractional,
+  Inches,
+  Meters,
+  Millimeters,
+} from "../DimensionButtons";
 export const BasicModeButtons = () => {
   const { units } = useContext(ValueContext);
 
@@ -32,7 +32,7 @@ export const BasicModeButtons = () => {
           padding: "10px 0 0",
           display: "flex",
           flexFlow: "row wrap",
-          justifyContent: "space-between",
+          justifyContent: "flex-start",
           width: "400px",
           alignItems: "center",
         }}
@@ -53,13 +53,10 @@ export const BasicModeButtons = () => {
             <Millimeters />
           </>
         )}
-      </div>
-      <div>
         <Multiply />
         <Square />
         <Divide />
         <Subtract />
-        <Clear />
         <Equals />
         <Add />
       </div>

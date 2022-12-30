@@ -1,10 +1,10 @@
 export enum Mode {
   add = "add",
-  cube = "cube",
+  // cube = "cube",
   divide = "divide",
   equals = "equals",
   multiply = "multiply",
-  pitch = "pitch",
+  // pitch = "pitch",
   subtract = "substract",
   square = "square",
 }

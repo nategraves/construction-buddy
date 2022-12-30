@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 
 import { Button } from "../Button";
 import { ValueContext } from "../../../contexts";
+import { Clear } from "../FunctionButtons";
 
 export const NumericButtons = () => {
   const { input, setInput } = useContext(ValueContext);
@@ -13,14 +14,17 @@ export const NumericButtons = () => {
     setInput(num(input, n));
   };
 
+  const handleDecimal = () => {
+    throw new Error("Unimplemented");
+  };
+
   return (
     <div
       style={{
         padding: "10px",
         display: "grid",
-        gridTemplateColumns: "1fr 1fr 1fr 1fr",
-        width: "100%",
-        maxWidth: "400px",
+        gridTemplateColumns: "1fr 1fr 1fr",
+        width: "300px",
       }}
     >
       <Button key={`button-${7}`} onClick={() => handleButtonPress(7)}>
@@ -53,13 +57,13 @@ export const NumericButtons = () => {
         {String(3)}
       </Button>
 
-      {/* <Button key={`button-decimal`} onClick={() => handleDecimal()}>
-          .
-        </Button> */}
-
+      <Button key={`button-decimal`} onClick={() => handleDecimal()}>
+        .
+      </Button>
       <Button key={`button-${0}`} onClick={() => handleButtonPress(0)}>
         {String(0)}
       </Button>
+      <Clear />
     </div>
   );
 };

@@ -3,6 +3,7 @@ import { isImperial, isMetric, isNumber } from "../../data/Value";
 
 import { ValueContext } from "../../contexts";
 import { Preview } from "./Preview";
+import { TotalUnits } from "./TotalUnits";
 
 export function Display() {
   const { input, mode, workingValue, totalValue } = useContext(ValueContext);
@@ -104,7 +105,17 @@ export function Display() {
       </div>
       {showInput && <div>Input: {inputDisplay}</div>}
       {showStored && <div>Stored: {storedDisplay}</div>}
-      {showTotal && <div>Total: {totalDisplay}</div>}
+      {showTotal && (
+        <div>
+          <span>Total: {totalDisplay}</span>
+          <TotalUnits />
+        </div>
+      )}
     </div>
   );
 }
+
+export * from "./ImperialValueDisplay";
+export * from "./MetricValueDisplay";
+export * from "./Preview";
+export * from "./TotalUnits";

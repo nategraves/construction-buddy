@@ -23,7 +23,7 @@ export const Cube: FC = () => {
       return;
     }
 
-    updateMode(Mode.cube);
+    // updateMode(Mode.cube);
 
     if (input != null) {
       setTotalValue(multiply({ value: input, toApply: input }));
