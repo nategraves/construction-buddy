@@ -5,8 +5,8 @@ import { Button } from "../Button";
 
 export const Clear = () => {
   const {
-    input,
-    setInput,
+    inputArray: input,
+    setInputArray: setInput,
     setTotalValue,
     setWorkingValue,
     workingValue,

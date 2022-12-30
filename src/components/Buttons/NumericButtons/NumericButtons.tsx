@@ -5,17 +5,11 @@ import { ValueContext } from "../../../contexts";
 import { Clear } from "../FunctionButtons";
 
 export const NumericButtons = () => {
-  const { input, setInput } = useContext(ValueContext);
+  const { inputArray: input, setInputArray: setInput } =
+    useContext(ValueContext);
 
-  const handleButtonPress = (n: number) => {
-    const num = (o: Maybe<number>, n: number) =>
-      parseInt(o != null ? `${o}${n}` : `${n}`, 10);
-
-    setInput(num(input, n));
-  };
-
-  const handleDecimal = () => {
-    throw new Error("Unimplemented");
+  const handleButtonPress = (n: number | ".") => {
+    setInput([...(input ?? []), n]);
   };
 
   return (
@@ -57,7 +51,7 @@ export const NumericButtons = () => {
         {String(3)}
       </Button>
 
-      <Button key={`button-decimal`} onClick={() => handleDecimal()}>
+      <Button key={`button-decimal`} onClick={() => handleButtonPress(".")}>
         .
       </Button>
       <Button key={`button-${0}`} onClick={() => handleButtonPress(0)}>

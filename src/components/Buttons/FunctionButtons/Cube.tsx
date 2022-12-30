@@ -1,6 +1,11 @@
 import React, { useContext, FC } from "react";
-import { multiply, isImperial, isMetric, isNumber } from "../../../data/Value";
-import { Mode } from "../../../types";
+import {
+  multiply,
+  // isImperial,
+  // isMetric,
+  // isNumber
+} from "../../../data/Value";
+// import { Mode } from "../../../types";
 
 import { ValueContext } from "../../../contexts";
 import { Button } from "../Button";
@@ -9,11 +14,11 @@ export const Cube: FC = () => {
   const {
     input,
     setInput,
-    setToProcess,
+    // setToProcess,
     setTotalValue,
     setWorkingValue,
-    updateMode,
-    toProcess,
+    // updateMode,
+    // toProcess,
     totalValue,
     workingValue,
   } = useContext(ValueContext);

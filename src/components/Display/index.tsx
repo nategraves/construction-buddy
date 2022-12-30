@@ -6,7 +6,12 @@ import { Preview } from "./Preview";
 import { TotalUnits } from "./TotalUnits";
 
 export function Display() {
-  const { input, mode, workingValue, totalValue } = useContext(ValueContext);
+  const {
+    inputArray: input,
+    mode,
+    workingValue,
+    totalValue,
+  } = useContext(ValueContext);
 
   let inputDisplay = "";
   let storedDisplay = "";

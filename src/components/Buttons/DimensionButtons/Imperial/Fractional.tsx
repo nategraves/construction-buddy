@@ -17,7 +17,7 @@ export function Fractional() {
 
     if (numerator == null) {
       setNumerator(input);
-      setInput(null);
+      setInput();
       return;
     }
 

@@ -5,8 +5,12 @@ import { ValueContext } from "../../../../contexts";
 import { Button } from "../../Button";
 
 export function Inches() {
-  const { input, workingValue, setInput, setWorkingValue } =
-    useContext(ValueContext);
+  const {
+    input,
+    workingValue,
+    setInputArray: setInput,
+    setWorkingValue,
+  } = useContext(ValueContext);
 
   const handleClick = () => {
     if (input != null) {

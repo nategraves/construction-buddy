@@ -17,9 +17,11 @@ import {
 import type { Value } from "../data/Value";
 
 export type ToProcess = (ImperialValue | MetricValue | number)[];
+export type Input = Maybe<(number | ".")[]>;
 
 interface ValueContextProps {
   displayValue: DisplayValue;
+  inputArray: Input;
   input: Maybe<number>;
   workingValue: Maybe<Value>;
   mode: Maybe<Mode>;
@@ -27,18 +29,20 @@ interface ValueContextProps {
   toProcess: ToProcess;
   totalValue: Maybe<Value>;
   units: Maybe<Units>;
-  setDisplayValue: (displayValue: DisplayValue) => void;
-  setInput: (value?: number) => void;
-  updateMode: (mode?: Mode) => void;
+  setDisplayValue: (newDisplayValue: DisplayValue) => void;
+  setInputArray: (newInputArray?: Input) => void;
+  setInput: (newInput?: Maybe<number>) => void;
+  updateMode: (newMode?: Mode) => void;
   setResolution: (newResolution?: Resolution) => void;
   setWorkingValue: (newStored?: Value) => void;
   setToProcess: (newToProcess?: ToProcess) => void;
   setTotalValue: (newTotal?: Value) => void;
-  setUnits: (units: Units) => void;
+  setUnits: (newUnits: Units) => void;
 }
 
 export const ValueContext = createContext<ValueContextProps>({
   displayValue: DisplayValue.input,
+  inputArray: [],
   input: undefined,
   mode: undefined,
   resolution: undefined,
@@ -47,6 +51,7 @@ export const ValueContext = createContext<ValueContextProps>({
   totalValue: undefined,
   units: Units.imperial,
   setDisplayValue: () => {},
+  setInputArray: () => {},
   setInput: () => {},
   updateMode: () => {},
   setResolution: () => {},
@@ -60,6 +65,7 @@ export const ValueProvider: FC<{ children: ReactNode }> = ({ children }) => {
   const [displayValue, setDisplayValue] = useState<DisplayValue>(
     DisplayValue.input
   );
+  const [inputArray, setInputArray] = useState<Input>([]);
   const [input, setInput] = useState<Maybe<number>>();
   const [workingValue, setWorkingValue] = useState<Maybe<Value>>();
   const [toProcess, setToProcess] = useState<ToProcess>([]);
@@ -104,16 +110,20 @@ export const ValueProvider: FC<{ children: ReactNode }> = ({ children }) => {
   };
 
   useEffect(() => {
-    console.log({ input });
+    console.log({ input: inputArray });
     console.log({ workingValue });
     console.log({ toProcess });
     console.log({ totalValue });
-  }, [input, workingValue, toProcess, totalValue]);
+    if (inputArray && inputArray.length) {
+      setInput(parseInt(inputArray.join(), 10));
+    }
+  }, [inputArray, workingValue, toProcess, totalValue]);
 
   return (
     <ValueContext.Provider
       value={{
         displayValue,
+        inputArray,
         input,
         mode,
         resolution,
@@ -122,6 +132,7 @@ export const ValueProvider: FC<{ children: ReactNode }> = ({ children }) => {
         totalValue,
         units,
         setDisplayValue,
+        setInputArray,
         setInput,
         updateMode,
         setResolution,

@@ -6,8 +6,13 @@ import { isImperial } from "../../../../data/Value";
 import { Button } from "../../Button";
 
 export function Feet() {
-  const { input, workingValue, setInput, setWorkingValue, setDisplayValue } =
-    useContext(ValueContext);
+  const {
+    input,
+    workingValue,
+    setInputArray: setInput,
+    setWorkingValue,
+    setDisplayValue,
+  } = useContext(ValueContext);
 
   const handleClick = () => {
     if (input != null) {
