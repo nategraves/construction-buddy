@@ -1,21 +1,21 @@
 import React, { useContext, FC } from "react";
-import { multiply, isImperial, isMetric, isNumber } from "../../../data/Value";
+import { isImperial, isMetric, isNumber } from "../../../data/Value";
 import { Mode } from "../../../types";
 
 import { ValueContext } from "../../../contexts";
 import { Button } from "../Button";
 
-export const Multiply: FC = () => {
+export const Divide: FC = () => {
   const {
     input,
     setInput,
-    setToProcess,
-    setTotalValue,
-    setWorkingValue,
     updateMode,
+    setWorkingValue,
+    setTotalValue,
+    setToProcess,
+    workingValue,
     toProcess,
     totalValue,
-    workingValue,
   } = useContext(ValueContext);
 
   const handleClick = () => {
@@ -23,7 +23,7 @@ export const Multiply: FC = () => {
       return;
     }
 
-    updateMode(Mode.multiply);
+    updateMode(Mode.divide);
 
     if (input == null && workingValue == null && totalValue !== null) {
       setToProcess([totalValue]);
@@ -54,5 +54,5 @@ export const Multiply: FC = () => {
     }
   };
 
-  return <Button onClick={() => handleClick()}>*</Button>;
+  return <Button onClick={() => handleClick()}>/</Button>;
 };

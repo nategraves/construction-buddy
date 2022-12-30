@@ -1,3 +1,2 @@
-export * from "./Buttons/Button";
+export * from "./Buttons";
 export * from "./Display";
-export * from "./PrimaryButtons";

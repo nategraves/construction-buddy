@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import { isImperial, isMetric, isNumber } from "../../data/Value";
 
 import { ValueContext } from "../../contexts";
+import { Preview } from "./Preview";
 
 export function Display() {
   const { input, mode, workingValue, totalValue } = useContext(ValueContext);
@@ -90,6 +91,16 @@ export function Display() {
     >
       <div style={{ position: "absolute", top: "5px", left: "5px" }}>
         Mode: {mode}
+      </div>
+      <div
+        style={{
+          position: "absolute",
+          top: "5px",
+          right: "5px",
+          width: "200px",
+        }}
+      >
+        <Preview />
       </div>
       {showInput && <div>Input: {inputDisplay}</div>}
       {showStored && <div>Stored: {storedDisplay}</div>}

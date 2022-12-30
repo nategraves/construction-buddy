@@ -1,7 +1,7 @@
 import React from "react";
 
 import { ValueProvider } from "./contexts";
-import { Display, PrimaryButtons } from "./components";
+import { Display, BasicModeButtons, NumericButtons } from "./components";
 
 function App() {
   return (
@@ -33,7 +33,8 @@ function App() {
           </h1>
         </div>
         <Display />
-        <PrimaryButtons />
+        <BasicModeButtons />
+        <NumericButtons />
       </div>
     </ValueProvider>
   );

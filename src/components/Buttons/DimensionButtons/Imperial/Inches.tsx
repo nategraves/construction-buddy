@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 
 import { isImperial } from "../../../../data/Value";
 import { ValueContext } from "../../../../contexts";
-import { Button } from "../../../../components/Buttons/Button";
+import { Button } from "../../Button";
 
 export function Inches() {
   const { input, workingValue, setInput, setWorkingValue } =

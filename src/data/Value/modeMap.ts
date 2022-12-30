@@ -7,19 +7,14 @@ import { Value } from "./Value";
 
 export const modeMap: Record<
   Partial<Mode>,
-  (params: { value: Value; toApply: Value }) => Value
+  ((params: { value: Value; toApply: Value }) => Value) | (() => null)
 > = {
   [Mode.add]: ({ value, toApply }) => add({ value, toApply }),
+  [Mode.cube]: () => undefined,
   [Mode.divide]: ({ value, toApply }) => divide({ value, toApply }),
+  [Mode.equals]: () => {},
   [Mode.multiply]: ({ value, toApply }) => multiply({ value, toApply }),
+  [Mode.pitch]: () => {},
+  [Mode.square]: () => {},
   [Mode.subtract]: ({ value, toApply }) => subtract({ value, toApply }),
-  [Mode.equals]: () => {
-    throw new Error("Unimplemented");
-  },
-  [Mode.square]: () => {
-    throw new Error("Unimplemented");
-  },
-  [Mode.pitch]: () => {
-    throw new Error("Unimplemented");
-  },
 };
