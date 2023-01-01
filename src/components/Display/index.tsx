@@ -74,7 +74,7 @@ export function Display() {
       totalDisplay = `${totalValue}`;
     }
   }
-  const showInput = inputString != null;
+  const showInput = inputDisplay != null;
   const showStored = inputString == null && workingValue != null;
   const showTotal =
     inputString == null && workingValue == null && totalValue != null;
@@ -105,8 +105,18 @@ export function Display() {
       >
         <Preview />
       </div>
-      {showInput && <div>Input: {inputDisplay}</div>}
-      {showStored && <div>Stored: {storedDisplay}</div>}
+      {showInput && (
+        <>
+          <div>Input: {inputDisplay}</div>
+          <br />
+        </>
+      )}
+      {showStored && (
+        <>
+          <div>Stored: {storedDisplay}</div>
+          <br />
+        </>
+      )}
       {showTotal && (
         <div>
           <span>Total: {totalDisplay}</span>

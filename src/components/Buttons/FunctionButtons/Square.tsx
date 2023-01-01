@@ -39,6 +39,8 @@ export const Square: FC = () => {
       setTotalValue(square({ value: totalValue }));
       return;
     }
+
+    updateMode(Mode.equals);
   };
 
   return (

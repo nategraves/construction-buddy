@@ -4,25 +4,14 @@ import { ValueContext } from "../../../contexts";
 import { Button } from "../Button";
 
 export const Clear = () => {
-  const {
-    inputString,
-    setInputString,
-    setTotalValue,
-    setWorkingValue,
-    workingValue,
-    totalValue,
-  } = useContext(ValueContext);
+  const { setInputString, setTotalValue, setToProcess, setWorkingValue } =
+    useContext(ValueContext);
 
   const handleClick = () => {
-    if (inputString != null) {
-      setInputString();
-      return;
-    } else if (workingValue != null) {
-      setWorkingValue();
-      return;
-    } else if (totalValue != null) {
-      setTotalValue();
-    }
+    setInputString();
+    setToProcess([]);
+    setWorkingValue();
+    setTotalValue();
   };
 
   return <Button onClick={() => handleClick()}>Clear</Button>;
