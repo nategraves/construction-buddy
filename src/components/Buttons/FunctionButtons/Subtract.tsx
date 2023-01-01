@@ -8,7 +8,7 @@ import { Button } from "../Button";
 export const Subtract: FC = () => {
   const {
     input,
-    setInput,
+    setInputString,
     updateMode,
     setWorkingValue,
     setTotalValue,
@@ -44,7 +44,7 @@ export const Subtract: FC = () => {
 
     if (shouldSubtractNumber) {
       setToProcess([...toProcess, input]);
-      setInput();
+      setInputString();
       return;
     }
 

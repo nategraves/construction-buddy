@@ -10,7 +10,7 @@ export const Equals = () => {
   const {
     input,
     mode,
-    setInput,
+    setInputString,
     updateMode,
     setWorkingValue,
     setTotalValue,
@@ -45,7 +45,7 @@ export const Equals = () => {
       setTotalValue(initial);
     } else if (toProcess.length === 0 && input != null) {
       const total = modeMap[mode]({ value: initial, toApply: input });
-      setInput();
+      setInputString();
       setTotalValue(total);
     } else {
       console.warn({ initial, toProcess, mode, input });

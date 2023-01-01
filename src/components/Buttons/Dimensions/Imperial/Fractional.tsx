@@ -7,8 +7,13 @@ import { Button } from "../../Button";
 
 export function Fractional() {
   const [numerator, setNumerator] = useState<Maybe<number>>();
-  const { input, resolution, setInputString, setWorkingValue, workingValue } =
-    useContext(ValueContext);
+  const {
+    input,
+    resolution,
+    setInput: setInputString,
+    setWorkingValue,
+    workingValue,
+  } = useContext(ValueContext);
 
   const handleClick = () => {
     if (input == null) {

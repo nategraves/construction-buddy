@@ -9,7 +9,7 @@ export function Feet() {
   const {
     input,
     workingValue,
-    setInputArray: setInput,
+    setInputString,
     setWorkingValue,
     setDisplayValue,
   } = useContext(ValueContext);
@@ -21,7 +21,7 @@ export function Feet() {
       } else {
         setWorkingValue({ ft: input });
       }
-      setInput();
+      setInputString();
       setDisplayValue(DisplayValue.workingValue);
     }
   };

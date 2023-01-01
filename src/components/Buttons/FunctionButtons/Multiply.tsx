@@ -8,7 +8,7 @@ import { Button } from "../Button";
 export const Multiply: FC = () => {
   const {
     input,
-    setInput,
+    setInputString,
     setToProcess,
     setTotalValue,
     setWorkingValue,
@@ -44,7 +44,7 @@ export const Multiply: FC = () => {
 
     if (shouldDivideNumber) {
       setToProcess([...toProcess, input]);
-      setInput();
+      setInputString();
       return;
     }
 

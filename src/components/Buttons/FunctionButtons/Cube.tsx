@@ -13,7 +13,7 @@ import { Button } from "../Button";
 export const Cube: FC = () => {
   const {
     input,
-    setInput,
+    setInputString,
     // setToProcess,
     setTotalValue,
     setWorkingValue,
@@ -32,7 +32,7 @@ export const Cube: FC = () => {
 
     if (input != null) {
       setTotalValue(multiply({ value: input, toApply: input }));
-      setInput();
+      setInputString();
       return;
     }
 

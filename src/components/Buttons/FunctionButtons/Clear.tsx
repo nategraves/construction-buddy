@@ -5,8 +5,8 @@ import { Button } from "../Button";
 
 export const Clear = () => {
   const {
-    inputArray: input,
-    setInputArray: setInput,
+    inputString,
+    setInputString,
     setTotalValue,
     setWorkingValue,
     workingValue,
@@ -14,8 +14,8 @@ export const Clear = () => {
   } = useContext(ValueContext);
 
   const handleClick = () => {
-    if (input != null) {
-      setInput();
+    if (inputString != null) {
+      setInputString();
       return;
     } else if (workingValue != null) {
       setWorkingValue();

@@ -8,7 +8,7 @@ import { Button } from "../Button";
 export const Square: FC = () => {
   const {
     input,
-    setInput,
+    setInputString,
     setTotalValue,
     setWorkingValue,
     updateMode,
@@ -25,7 +25,7 @@ export const Square: FC = () => {
 
     if (input != null) {
       setTotalValue(square({ value: input }));
-      setInput();
+      setInputString();
       return;
     }
 

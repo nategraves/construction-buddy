@@ -8,14 +8,14 @@ import { Button } from "../Button";
 export const Add: FC = () => {
   const {
     input,
-    setInput,
-    updateMode,
-    setWorkingValue,
-    setTotalValue,
-    workingValue,
     totalValue,
     toProcess,
+    workingValue,
+    setInputString,
     setToProcess,
+    setTotalValue,
+    setWorkingValue,
+    updateMode,
   } = useContext(ValueContext);
 
   const handleClick = () => {
@@ -44,7 +44,7 @@ export const Add: FC = () => {
 
     if (shouldAddNumber) {
       setToProcess([...toProcess, input]);
-      setInput();
+      setInputString();
       return;
     }
 

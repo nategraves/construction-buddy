@@ -5,11 +5,14 @@ import { ValueContext } from "../../../contexts";
 import { Clear } from "../FunctionButtons";
 
 export const NumericButtons = () => {
-  const { inputArray: input, setInputArray: setInput } =
-    useContext(ValueContext);
+  const { inputString, setInputString } = useContext(ValueContext);
 
   const handleButtonPress = (n: number | ".") => {
-    setInput([...(input ?? []), n]);
+    if (String(n).match(/(:?\d|\.)/g) === null) {
+      return;
+    }
+
+    setInputString(`${inputString}${n}`);
   };
 
   return (

@@ -6,19 +6,15 @@ import { Preview } from "./Preview";
 import { TotalUnits } from "./TotalUnits";
 
 export function Display() {
-  const {
-    inputArray: input,
-    mode,
-    workingValue,
-    totalValue,
-  } = useContext(ValueContext);
+  const { inputString, mode, workingValue, totalValue } =
+    useContext(ValueContext);
 
   let inputDisplay = "";
   let storedDisplay = "";
   let totalDisplay = "";
 
-  if (input != null) {
-    inputDisplay = String(input);
+  if (inputString != null) {
+    inputDisplay = inputString;
   }
 
   if (workingValue != null) {
@@ -78,9 +74,10 @@ export function Display() {
       totalDisplay = `${totalValue}`;
     }
   }
-  const showInput = input != null;
-  const showStored = input == null && workingValue != null;
-  const showTotal = input == null && workingValue == null && totalValue != null;
+  const showInput = inputString != null;
+  const showStored = inputString == null && workingValue != null;
+  const showTotal =
+    inputString == null && workingValue == null && totalValue != null;
 
   return (
     <div

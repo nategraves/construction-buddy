@@ -8,7 +8,7 @@ import { Button } from "../Button";
 export const Divide: FC = () => {
   const {
     input,
-    setInput,
+    setInputString,
     updateMode,
     setWorkingValue,
     setTotalValue,
@@ -44,7 +44,7 @@ export const Divide: FC = () => {
 
     if (shouldDivideNumber) {
       setToProcess([...toProcess, input]);
-      setInput();
+      setInputString();
       return;
     }
 
