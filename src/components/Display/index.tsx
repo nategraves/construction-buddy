@@ -74,7 +74,7 @@ export function Display() {
       totalDisplay = `${totalValue}`;
     }
   }
-  const showInput = inputDisplay != null;
+  const showInput = inputDisplay != null && inputDisplay !== "";
   const showStored = inputString == null && workingValue != null;
   const showTotal =
     inputString == null && workingValue == null && totalValue != null;
@@ -105,24 +105,16 @@ export function Display() {
       >
         <Preview />
       </div>
-      {showInput && (
-        <>
-          <div>Input: {inputDisplay}</div>
-          <br />
-        </>
-      )}
-      {showStored && (
-        <>
-          <div>Stored: {storedDisplay}</div>
-          <br />
-        </>
-      )}
-      {showTotal && (
-        <div>
-          <span>Total: {totalDisplay}</span>
-          <TotalUnits />
-        </div>
-      )}
+      <div style={{ display: "flex", flexDirection: "column" }}>
+        {showInput && <div>Input: {inputDisplay}</div>}
+        {showStored && <div>Stored: {storedDisplay}</div>}
+        {showTotal && (
+          <div>
+            <span>Total: {totalDisplay}</span>
+            <TotalUnits />
+          </div>
+        )}
+      </div>
     </div>
   );
 }

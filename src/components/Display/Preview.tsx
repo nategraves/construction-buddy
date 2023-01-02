@@ -6,5 +6,11 @@ import { modeSymbolMap } from "../../data";
 export const Preview = () => {
   const { toProcess, mode } = useContext(ValueContext);
 
-  return <span>{toProcess.join(` ${modeSymbolMap[mode]} `)}</span>;
+  return (
+    <span>
+      {toProcess
+        .map((v) => (typeof v === "object" ? JSON.stringify(v) : String(v)))
+        .join(` ${modeSymbolMap[mode]} `)}
+    </span>
+  );
 };
