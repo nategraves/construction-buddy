@@ -11,6 +11,7 @@ export * from "./modeSymbolMap";
 export * from "./MetricValue";
 export * from "./multiply";
 export * from "./square";
+export * from "./stringify";
 export * from "./subtract";
 export * from "./unflatten";
 export * from "./Value";

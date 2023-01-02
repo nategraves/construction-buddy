@@ -1,16 +1,13 @@
 import React, { useContext } from "react";
 
 import { ValueContext } from "../../contexts";
-import { modeSymbolMap } from "../../data";
+import { modeSymbolMap, stringify } from "../../data";
 
 export const Preview = () => {
-  const { toProcess, mode } = useContext(ValueContext);
+  const { toProcess, workingValue, mode } = useContext(ValueContext);
 
-  return (
-    <span>
-      {toProcess
-        .map((v) => (typeof v === "object" ? JSON.stringify(v) : String(v)))
-        .join(` ${modeSymbolMap[mode]} `)}
-    </span>
-  );
+  const all = [...toProcess, workingValue]
+    .map((value) => stringify({ value }))
+    .join(modeSymbolMap[mode]);
+  return <span>{all}</span>;
 };
