@@ -40,12 +40,16 @@ export const Equals = () => {
 
     const initial = toProcess.shift();
 
-    if (toProcess.length === 0 && input == null) {
+    if (toProcess.length === 0 && input == null && workingValue == null) {
       console.warn("Only 1 value in toProcess. Setting as total");
       setTotalValue(initial);
     } else if (toProcess.length === 0 && input != null) {
       const total = modeMap[mode]({ value: initial, toApply: input });
       setInputString();
+      setTotalValue(total);
+    } else if (toProcess.length === 0 && workingValue != null) {
+      const total = modeMap[mode]({ value: initial, toApply: workingValue });
+      setWorkingValue();
       setTotalValue(total);
     } else {
       console.warn({ initial, toProcess, mode, input });
