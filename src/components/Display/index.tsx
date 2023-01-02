@@ -4,6 +4,7 @@ import { isImperial, isMetric, isNumber } from "../../data/Value";
 import { ValueContext } from "../../contexts";
 import { Preview } from "./Preview";
 import { TotalUnits } from "./TotalUnits";
+import { FractionDisplay } from "./FractionDisplay";
 
 export function Display() {
   const { inputString, mode, workingValue, totalValue } =
