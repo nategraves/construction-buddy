@@ -5,6 +5,7 @@ export * from "./MetricTarget";
 export * from "../data/Value/MetricValue";
 export * from "./Mode";
 export * from "./Resolution";
+export * from "./TotalUnits";
 export * from "./Units";
 export * from "./ValueTarget";
 

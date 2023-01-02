@@ -12,7 +12,7 @@ export const Add: FC = () => {
     toProcess,
     workingValue,
     setInputString,
-    setToProcess,
+    addToProcess,
     setTotalValue,
     setWorkingValue,
     updateMode,
@@ -26,7 +26,7 @@ export const Add: FC = () => {
     updateMode(Mode.add);
 
     if (input == null && workingValue == null && totalValue !== null) {
-      setToProcess([totalValue]);
+      addToProcess(totalValue);
       setTotalValue();
       return;
     }
@@ -43,13 +43,13 @@ export const Add: FC = () => {
       (firstToProcess == null || isMetric(firstToProcess));
 
     if (shouldAddNumber) {
-      setToProcess([...toProcess, input]);
+      addToProcess(input);
       setInputString();
       return;
     }
 
     if (shouldAddImperial || shouldAddMetric) {
-      setToProcess([...toProcess, workingValue]);
+      addToProcess(workingValue);
       setWorkingValue();
     }
   };

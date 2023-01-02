@@ -4,7 +4,7 @@ import { divide } from "../divide";
 import { ImperialValue } from "../ImperialValue";
 import { MetricValue } from "../MetricValue";
 
-describe("divide correctly adds", () => {
+describe("divide correctly divides", () => {
   test("number, number", () => {
     const value = 8;
     const toApply = 2;

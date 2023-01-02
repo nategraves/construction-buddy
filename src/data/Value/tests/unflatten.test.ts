@@ -35,8 +35,8 @@ describe("unflatten correctly converts", () => {
   });
 
   test("10.83333333 to 10ins 5/6 without ft", () => {
-    const value = 10.833333333333334;
-    const result = { ins: 10, fr: fraction(5, 6) };
+    const value = 10.8333333333333333333333333333;
+    const result = { ins: 10, fr: fraction(53, 64) };
     expect(
       JSON.stringify(
         unflatten({ value, units: Units.imperial, includeFt: false })
@@ -45,8 +45,8 @@ describe("unflatten correctly converts", () => {
   });
 
   test("10.83333333 to 0ft 10ins 5/6 with ft", () => {
-    const value = 10.833333333333334;
-    const result = { ft: 0, ins: 10, fr: fraction(5, 6) };
+    const value = 10.8333333333333333333333333333;
+    const result = { ft: 0, ins: 10, fr: fraction(53, 64) };
     expect(
       JSON.stringify(
         unflatten({ value, units: Units.imperial, includeFt: true })

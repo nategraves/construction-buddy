@@ -12,7 +12,7 @@ export const NumericButtons = () => {
       return;
     }
 
-    setInputString(`${inputString}${n}`);
+    setInputString(`${inputString ?? ""}${n}`);
   };
 
   return (

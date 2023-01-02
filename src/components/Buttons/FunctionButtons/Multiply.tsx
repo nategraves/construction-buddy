@@ -8,8 +8,9 @@ import { Button } from "../Button";
 export const Multiply: FC = () => {
   const {
     input,
+    inputString,
     setInputString,
-    setToProcess,
+    addToProcess,
     setTotalValue,
     setWorkingValue,
     updateMode,
@@ -19,37 +20,65 @@ export const Multiply: FC = () => {
   } = useContext(ValueContext);
 
   const handleClick = () => {
-    if (input == null && workingValue == null && totalValue == null) {
+    if (inputString == null && workingValue == null && totalValue == null) {
       return;
+    }
+
+    // If there's input and we have a working value, assume
+    // that we're filling in the next empty measurement
+    const fillNextMeasurement = inputString != null && workingValue != null;
+    const fillInches =
+      fillNextMeasurement &&
+      isImperial(workingValue) &&
+      workingValue.ft != null &&
+      workingValue.ins == null;
+    const fillCm =
+      fillNextMeasurement &&
+      isMetric(workingValue) &&
+      workingValue.m != null &&
+      workingValue.cm == null;
+    const fillMm =
+      fillNextMeasurement &&
+      isMetric(workingValue) &&
+      workingValue.m != null &&
+      workingValue.cm != null &&
+      workingValue.mm == null;
+
+    if (fillInches) {
+      setWorkingValue({ ...workingValue, ins: input });
+    } else if (fillCm) {
+      setWorkingValue({ ...workingValue, cm: input });
+    } else if (fillMm) {
+      setWorkingValue({ ...workingValue, mm: input });
     }
 
     updateMode(Mode.multiply);
 
-    if (input == null && workingValue == null && totalValue !== null) {
-      setToProcess([totalValue]);
+    if (inputString == null && workingValue == null && totalValue !== null) {
+      addToProcess(totalValue);
       setTotalValue();
       return;
     }
 
     const [firstToProcess] = toProcess;
 
-    const shouldDivideNumber =
+    const shouldMultiplyNumber =
       isNumber(input) && (firstToProcess == null || isNumber(firstToProcess));
-    const shouldDivideImperial =
+    const shouldMultiplyImperial =
       isImperial(workingValue) &&
       (firstToProcess == null || isImperial(firstToProcess));
-    const shouldDivideMetric =
+    const shouldMultiplyMetric =
       isMetric(workingValue) &&
       (firstToProcess == null || isMetric(firstToProcess));
 
-    if (shouldDivideNumber) {
-      setToProcess([...toProcess, input]);
+    if (shouldMultiplyNumber) {
+      addToProcess(input);
       setInputString();
       return;
     }
 
-    if (shouldDivideImperial || shouldDivideMetric) {
-      setToProcess([...toProcess, workingValue]);
+    if (shouldMultiplyImperial || shouldMultiplyMetric) {
+      addToProcess(workingValue);
       setWorkingValue();
     }
   };

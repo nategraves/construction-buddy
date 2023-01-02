@@ -12,7 +12,7 @@ export const Subtract: FC = () => {
     updateMode,
     setWorkingValue,
     setTotalValue,
-    setToProcess,
+    addToProcess,
     workingValue,
     totalValue,
     toProcess,
@@ -26,7 +26,7 @@ export const Subtract: FC = () => {
     updateMode(Mode.subtract);
 
     if (input == null && workingValue == null && totalValue !== null) {
-      setToProcess([totalValue]);
+      addToProcess(totalValue);
       setTotalValue();
       return;
     }
@@ -43,13 +43,13 @@ export const Subtract: FC = () => {
       (firstToProcess == null || isMetric(firstToProcess));
 
     if (shouldSubtractNumber) {
-      setToProcess([...toProcess, input]);
+      addToProcess(input);
       setInputString();
       return;
     }
 
     if (shouldSubtractImperial || shouldSubtractMetric) {
-      setToProcess([...toProcess, workingValue]);
+      addToProcess(workingValue);
       setWorkingValue();
     }
   };

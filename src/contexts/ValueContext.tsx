@@ -9,6 +9,7 @@ import React, {
 import {
   Mode,
   Resolution,
+  TotalUnits,
   Units,
   DisplayValue,
   ImperialValue,
@@ -27,8 +28,10 @@ interface ValueContextProps {
   mode: Maybe<Mode>;
   resolution: Maybe<Resolution>;
   toProcess: ToProcess;
+  totalUnits: Maybe<TotalUnits>;
   totalValue: Maybe<Value>;
   units: Maybe<Units>;
+  addToProcess: (newToProcess?: Value) => void;
   setDisplayValue: (newDisplayValue: DisplayValue) => void;
   setInputString: (newInputString?: string) => void;
   setInput: (newInput?: Maybe<number>) => void;
@@ -36,6 +39,7 @@ interface ValueContextProps {
   setResolution: (newResolution?: Resolution) => void;
   setWorkingValue: (newStored?: Value) => void;
   setToProcess: (newToProcess?: ToProcess) => void;
+  setTotalUnits: (newTotalUnits?: TotalUnits) => void;
   setTotalValue: (newTotal?: Value) => void;
   setUnits: (newUnits: Units) => void;
 }
@@ -48,8 +52,10 @@ export const ValueContext = createContext<ValueContextProps>({
   resolution: undefined,
   workingValue: undefined,
   toProcess: [],
+  totalUnits: undefined,
   totalValue: undefined,
   units: Units.imperial,
+  addToProcess: () => {},
   setDisplayValue: () => {},
   setInputString: () => {},
   setInput: () => {},
@@ -57,6 +63,7 @@ export const ValueContext = createContext<ValueContextProps>({
   setResolution: () => {},
   setWorkingValue: () => {},
   setToProcess: () => {},
+  setTotalUnits: () => {},
   setTotalValue: () => {},
   setUnits: () => {},
 });
@@ -69,6 +76,7 @@ export const ValueProvider: FC<{ children: ReactNode }> = ({ children }) => {
   const [input, setInput] = useState<Maybe<number>>();
   const [workingValue, setWorkingValue] = useState<Maybe<Value>>();
   const [toProcess, setToProcess] = useState<ToProcess>([]);
+  const [totalUnits, setTotalUnits] = useState<Maybe<TotalUnits>>();
   const [totalValue, setTotalValue] = useState<Maybe<Value>>();
   const [mode, setMode] = useState<Maybe<Mode>>();
   const [resolution, setResolution] = useState<Maybe<Resolution>>();
@@ -110,6 +118,7 @@ export const ValueProvider: FC<{ children: ReactNode }> = ({ children }) => {
   };
 
   useEffect(() => {
+    console.log({ inputString });
     console.log({ workingValue });
     console.log({ toProcess });
     console.log({ totalValue });
@@ -119,6 +128,9 @@ export const ValueProvider: FC<{ children: ReactNode }> = ({ children }) => {
       setInput(newInput);
     }
   }, [inputString, workingValue, toProcess, totalValue]);
+
+  const addToProcess = (newToProcess: Value) =>
+    setToProcess([...toProcess, newToProcess]);
 
   return (
     <ValueContext.Provider
@@ -130,8 +142,10 @@ export const ValueProvider: FC<{ children: ReactNode }> = ({ children }) => {
         resolution,
         workingValue,
         toProcess,
+        totalUnits,
         totalValue,
         units,
+        addToProcess,
         setDisplayValue,
         setInputString,
         setInput,
@@ -139,6 +153,7 @@ export const ValueProvider: FC<{ children: ReactNode }> = ({ children }) => {
         setResolution,
         setWorkingValue,
         setToProcess,
+        setTotalUnits,
         setTotalValue,
         setUnits,
       }}

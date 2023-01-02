@@ -8,14 +8,14 @@ import { Button } from "../Button";
 export const Divide: FC = () => {
   const {
     input,
-    setInputString,
-    updateMode,
-    setWorkingValue,
-    setTotalValue,
-    setToProcess,
-    workingValue,
     toProcess,
     totalValue,
+    workingValue,
+    addToProcess,
+    setInputString,
+    setWorkingValue,
+    setTotalValue,
+    updateMode,
   } = useContext(ValueContext);
 
   const handleClick = () => {
@@ -26,7 +26,7 @@ export const Divide: FC = () => {
     updateMode(Mode.divide);
 
     if (input == null && workingValue == null && totalValue !== null) {
-      setToProcess([totalValue]);
+      addToProcess(totalValue);
       setTotalValue();
       return;
     }
@@ -43,13 +43,13 @@ export const Divide: FC = () => {
       (firstToProcess == null || isMetric(firstToProcess));
 
     if (shouldDivideNumber) {
-      setToProcess([...toProcess, input]);
+      addToProcess(input);
       setInputString();
       return;
     }
 
     if (shouldDivideImperial || shouldDivideMetric) {
-      setToProcess([...toProcess, workingValue]);
+      addToProcess(workingValue);
       setWorkingValue();
     }
   };
