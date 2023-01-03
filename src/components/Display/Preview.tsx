@@ -8,6 +8,6 @@ export const Preview = () => {
 
   const all = [...toProcess, workingValue]
     .map((value) => stringify({ value }))
-    .join(modeSymbolMap[mode]);
+    .join(` ${modeSymbolMap[mode]} `);
   return <span>{all}</span>;
 };

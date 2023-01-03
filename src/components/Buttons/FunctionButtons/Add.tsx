@@ -25,7 +25,7 @@ export const Add: FC = () => {
 
     updateMode(Mode.add);
 
-    if (input == null && workingValue == null && totalValue !== null) {
+    if (input == null && workingValue == null && totalValue != null) {
       addToProcess(totalValue);
       setTotalValue();
       return;

@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { isImperial, isMetric, isNumber } from "../../data/Value";
+import { isImperial, isMetric, isNumber, stringify } from "../../data/Value";
 
 import { ValueContext } from "../../contexts";
 import { Preview } from "./Preview";
@@ -10,72 +10,6 @@ export function Display() {
   const { inputString, mode, workingValue, totalValue } =
     useContext(ValueContext);
 
-  let inputDisplay = "";
-  let storedDisplay = "";
-  let totalDisplay = "";
-
-  if (inputString != null) {
-    inputDisplay = inputString;
-  }
-
-  if (workingValue != null) {
-    const measurements = [];
-    if (isImperial(workingValue)) {
-      const { ft, ins, fr } = workingValue;
-      if (ft != null) {
-        measurements.push(`${ft}ft`);
-      }
-      if (ins != null) {
-        measurements.push(`${ins}in`);
-      }
-      if (fr != null && fr.n !== 0) {
-        measurements.push(`${workingValue.fr.n}/${workingValue.fr.d}`);
-      }
-      storedDisplay = measurements.join(" - ");
-    } else if (isMetric(workingValue)) {
-      const { m, cm, mm } = workingValue;
-      if (m != null) {
-        measurements.push(`${workingValue.m}m`);
-      }
-      if (cm != null) {
-        measurements.push(`${workingValue.cm}cm`);
-      }
-      if (mm != null) {
-        measurements.push(`${workingValue.mm}`);
-      }
-      storedDisplay = measurements.join(" - ");
-    } else if (isNumber(workingValue)) {
-      storedDisplay = `${workingValue}`;
-    }
-  }
-
-  if (totalValue != null) {
-    if (isImperial(totalValue)) {
-      const { ft, ins, fr } = totalValue;
-      if (ft != null) {
-        totalDisplay += `${ft}ft`;
-      }
-      if (ins != null) {
-        totalDisplay += ` - ${ins}in`;
-      }
-      if (fr != null && fr.n !== 0) {
-        totalDisplay += ` - ${totalValue.fr.n}/${totalValue.fr.d}`;
-      }
-    } else if (isMetric(totalValue)) {
-      if ("m" in totalValue) {
-        totalDisplay += `${totalValue.m}m`;
-      }
-      if ("cm" in totalValue) {
-        totalDisplay += ` - ${totalValue.cm}cm`;
-      }
-      if ("mm" in totalValue) {
-        totalDisplay += ` - ${totalValue.mm}`;
-      }
-    } else if (isNumber(totalValue)) {
-      totalDisplay = `${totalValue}`;
-    }
-  }
-  const showInput = inputDisplay != null && inputDisplay !== "";
   const showStored = inputString == null && workingValue != null;
   const showTotal =
     inputString == null && workingValue == null && totalValue != null;
@@ -107,11 +41,11 @@ export function Display() {
         <Preview />
       </div>
       <div style={{ display: "flex", flexDirection: "column" }}>
-        {showInput && <div>Input: {inputDisplay}</div>}
-        {showStored && <div>Stored: {storedDisplay}</div>}
+        {inputString && <div>Input: {inputString}</div>}
+        {showStored && <div>Stored: {stringify({ value: workingValue })}</div>}
         {showTotal && (
           <div>
-            <span>Total: {totalDisplay}</span>
+            <span>Total: {stringify({ value: totalValue })}</span>
             <TotalUnits />
           </div>
         )}

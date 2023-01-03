@@ -30,6 +30,7 @@ export function Fractional() {
     if (isImperial(workingValue)) {
       setWorkingValue({
         ...workingValue,
+        ins: workingValue.ins ?? 0,
         fr: fraction(numerator, denominator),
       });
     } else {

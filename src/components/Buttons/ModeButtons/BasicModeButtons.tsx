@@ -11,6 +11,7 @@ import {
   SelectUnits,
   Square,
   Subtract,
+  Percent,
 } from "../FunctionButtons";
 import {
   Centimeters,
@@ -57,8 +58,9 @@ export const BasicModeButtons = () => {
         <Square />
         <Divide />
         <Subtract />
-        <Equals />
         <Add />
+        <Percent />
+        <Equals />
       </div>
     </>
   );
