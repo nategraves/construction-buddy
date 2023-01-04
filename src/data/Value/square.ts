@@ -15,8 +15,7 @@ export const square = ({ value }: { value: Value }) => {
       includeM: `m` in value,
     });
     return;
-  }
-  if (isImperial(value)) {
+  } else if (isImperial(value)) {
     result = unflatten({
       value: result,
       units: Units.imperial,

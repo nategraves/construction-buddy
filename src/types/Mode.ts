@@ -7,4 +7,5 @@ export enum Mode {
   // pitch = "pitch",
   subtract = "substract",
   square = "square",
+  squareRoot = "squareRoot",
 }

@@ -12,6 +12,7 @@ import {
   Square,
   Subtract,
   Percent,
+  SquareRoot,
 } from "../FunctionButtons";
 import {
   Centimeters,
@@ -56,6 +57,7 @@ export const BasicModeButtons = () => {
         )}
         <Multiply />
         <Square />
+        <SquareRoot />
         <Divide />
         <Subtract />
         <Add />
