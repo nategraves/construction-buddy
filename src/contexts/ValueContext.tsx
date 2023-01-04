@@ -15,7 +15,14 @@ import {
   ImperialValue,
   MetricValue,
 } from "../types";
-import type { Value } from "../data/Value";
+import {
+  isImperial,
+  isMetric,
+  isNumber,
+  isSame,
+  modeMap,
+  Value,
+} from "../data/Value";
 
 export type ToProcess = (ImperialValue | MetricValue | number)[];
 export type Input = Maybe<number | [number] | [number, number]>;
@@ -85,46 +92,182 @@ export const ValueProvider: FC<{ children: ReactNode }> = ({ children }) => {
   const updateMode = (newMode: Mode) => {
     switch (mode) {
       case Mode.add:
-        // setTotalValue(toProcess.reduce((totalValue, value) => {
-        //   return
-        // });
-        // if (isImperial(totalValue) && isImperial(workingValue)) {
-        //   console.log("Adding imperials");
-        //   const newTotal = add(totalValue, workingValue);
-        //   console.log({ newTotal });
-        //   setTotalValue(newTotal);
-        //   setWorkingValue();
-        // }
+        if (input == null && workingValue == null && totalValue != null) {
+          addToProcess(totalValue);
+          setTotalValue(null);
+          return;
+        }
 
-        // if (isMetric(totalValue) && isMetric(workingValue)) {
-        //   console.log("Adding metrics");
-        //   setTotalValue(add(totalValue, workingValue));
-        //   setWorkingValue();
-        // }
+        const [firstToProcess] = toProcess;
 
-        // if (isNumber(workingValue) && isNumber(input)) {
-        //   console.log("Adding numbers");
-        //   setTotalValue(input + workingValue);
-        //   setWorkingValue();
-        //   setInput();
-        // }
+        const shouldAddNumber =
+          isNumber(input) &&
+          (firstToProcess == null || isNumber(firstToProcess));
+        const shouldAddImperial =
+          isImperial(workingValue) &&
+          (firstToProcess == null || isImperial(firstToProcess));
+        const shouldAddMetric =
+          isMetric(workingValue) &&
+          (firstToProcess == null || isMetric(firstToProcess));
+
+        if (shouldAddNumber) {
+          addToProcess(input);
+          setInputString(null);
+          return;
+        }
+
+        if (shouldAddImperial || shouldAddMetric) {
+          addToProcess(workingValue);
+          setWorkingValue(null);
+        }
 
         break;
+      case Mode.divide:
+        if (input == null && workingValue == null && totalValue !== null) {
+          addToProcess(totalValue);
+          setTotalValue(null);
+          return;
+        }
+
+        const [firstToDivide] = toProcess;
+
+        const shouldDivideNumber =
+          isNumber(input) && (firstToDivide == null || isNumber(firstToDivide));
+        const shouldDivideImperial =
+          isImperial(workingValue) &&
+          (firstToDivide == null || isImperial(firstToDivide));
+        const shouldDivideMetric =
+          isMetric(workingValue) &&
+          (firstToDivide == null || isMetric(firstToDivide));
+
+        if (shouldDivideNumber) {
+          addToProcess(input);
+          setInputString(null);
+          return;
+        }
+
+        if (shouldDivideImperial || shouldDivideMetric) {
+          addToProcess(workingValue);
+          setWorkingValue(null);
+        }
+        break;
+      case Mode.equals:
+        let process = [...toProcess];
+
+        if (workingValue) {
+          if (process.length && isSame(workingValue, process[0])) {
+            process = [...process, workingValue];
+          } else {
+            process = [workingValue];
+          }
+          setWorkingValue(null);
+        }
+
+        if (!process.length) {
+          throw new Error(
+            `Unable to apply '${mode}' because toProcess is empty`
+          );
+        }
+
+        const initial = process.shift();
+
+        if (process.length === 0 && input == null && workingValue == null) {
+          console.warn("Only 1 value in toProcess. Setting as total");
+          setTotalValue(initial);
+        } else if (process.length === 0 && input != null) {
+          const total = modeMap[mode]({ value: initial, toApply: input });
+          setInputString(null);
+          setTotalValue(total);
+        } else if (toProcess.length === 0 && workingValue != null) {
+          const total = modeMap[mode]({
+            value: initial,
+            toApply: workingValue,
+          });
+          setWorkingValue(null);
+          setTotalValue(total);
+        } else {
+          console.warn({ initial, toProcess, mode, input });
+          const total = toProcess.reduce((sum, value) => {
+            const newSum = modeMap[mode]({ value: sum, toApply: value });
+            return newSum;
+          }, initial);
+          setTotalValue(total);
+        }
+
+        setToProcess([]);
+        break;
+      case Mode.multiply:
+        // If there's input and we have a working value, assume
+        // that we're filling in the next empty measurement
+        const fillNextMeasurement = inputString != null && workingValue != null;
+        const fillInches =
+          fillNextMeasurement &&
+          isImperial(workingValue) &&
+          workingValue.ft != null &&
+          workingValue.ins == null;
+        const fillCm =
+          fillNextMeasurement &&
+          isMetric(workingValue) &&
+          workingValue.m != null &&
+          workingValue.cm == null;
+        const fillMm =
+          fillNextMeasurement &&
+          isMetric(workingValue) &&
+          workingValue.m != null &&
+          workingValue.cm != null &&
+          workingValue.mm == null;
+
+        if (fillInches) {
+          setWorkingValue({ ...workingValue, ins: input });
+        } else if (fillCm) {
+          setWorkingValue({ ...workingValue, cm: input });
+        } else if (fillMm) {
+          setWorkingValue({ ...workingValue, mm: input });
+        }
+        if (
+          inputString == null &&
+          workingValue == null &&
+          totalValue !== null
+        ) {
+          addToProcess(totalValue);
+          setTotalValue(null);
+          return;
+        }
+
+        const [firstToMultiply] = toProcess;
+
+        const shouldMultiplyNumber =
+          isNumber(input) &&
+          (firstToMultiply == null || isNumber(firstToMultiply));
+        const shouldMultiplyImperial =
+          isImperial(workingValue) &&
+          (firstToMultiply == null || isImperial(firstToMultiply));
+        const shouldMultiplyMetric =
+          isMetric(workingValue) &&
+          (firstToMultiply == null || isMetric(firstToMultiply));
+
+        if (shouldMultiplyNumber) {
+          addToProcess(input);
+          setInputString(null);
+          return;
+        }
+
+        if (shouldMultiplyImperial || shouldMultiplyMetric) {
+          addToProcess(workingValue);
+          setWorkingValue(null);
+        }
+        break;
+
       default:
+        console.log({ newMode });
         break;
     }
-    // console.log(newMode);
     setMode(newMode);
   };
 
   useEffect(() => {
-    // console.log({ inputString });
-    // console.log({ workingValue });
-    // console.log({ toProcess });
-    // console.log({ totalValue });
     if (inputString != null && inputString !== "") {
       const newInput = parseFloat(inputString);
-      // console.log({ input: newInput });
       setInput(newInput);
     } else {
       setInput(null);

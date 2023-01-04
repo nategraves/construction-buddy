@@ -1,27 +1,29 @@
-import React from "react";
+import React, { useContext } from "react";
 
-// import { ValueContext } from "../../../contexts";
-// import { Units } from "../../../types";
-// import { useIsMetric } from "../../../utils/types";
+import { ValueContext } from "../../../../contexts";
+import { DisplayValue } from "../../../../types";
+import { isMetric } from "../../../../data";
 import { Button } from "../../Button";
 
 export function Meters() {
-  // const { input, workingValue, setInput, setWorkingValue, setUnits } =
-  //   useContext(ValueContext);
-
-  // const isMetric = useIsMetric();
+  const {
+    input,
+    workingValue,
+    setInputString,
+    setWorkingValue,
+    setDisplayValue,
+  } = useContext(ValueContext);
 
   const handleClick = () => {
-    throw new Error("Implement");
-    // if (input != null) {
-    //   if (isMetric) {
-    //     setWorkingValue(workingValue ?? 0 + input * 10);
-    //   } else {
-    //     setUnits(Units.metric);
-    //     setWorkingValue(input);
-    //   }
-    //   setInput(null);
-    // }
+    if (input != null) {
+      if (isMetric(workingValue)) {
+        workingValue.m = input;
+      } else {
+        setWorkingValue({ m: input });
+      }
+      setInputString();
+      setDisplayValue(DisplayValue.workingValue);
+    }
   };
 
   return <Button onClick={() => handleClick()}>M</Button>;
