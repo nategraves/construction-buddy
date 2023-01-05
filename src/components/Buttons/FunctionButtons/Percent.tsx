@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 
 import { Button } from "../Button";
 import { ValueContext } from "../../../contexts";
-import { isNumber, isSame, modeMap } from "../../../data";
+import { isSame, modeMap } from "../../../data";
 import { Mode } from "../../../types";
 
 export function Percent() {

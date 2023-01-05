@@ -1,6 +1,5 @@
 import React from "react";
-import { stringify } from "../../data/Value/stringify";
-import { ImperialValue } from "../../types";
+import { ImperialValue, stringify } from "../../data";
 
 export const ImperialValueDisplay = ({ value }: { value: ImperialValue }) => {
   return <div>Value: {stringify({ value })}</div>;

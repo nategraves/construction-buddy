@@ -1,10 +1,9 @@
 import React, { useContext } from "react";
-import { isImperial, isMetric, isNumber, stringify } from "../../data/Value";
+import { stringify } from "../../data/Value";
 
 import { ValueContext } from "../../contexts";
 import { Preview } from "./Preview";
 import { TotalUnits } from "./TotalUnits";
-import { FractionDisplay } from "./FractionDisplay";
 
 export function Display() {
   const { inputString, mode, workingValue, totalValue } =
