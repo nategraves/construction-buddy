@@ -8,12 +8,12 @@ import { Button } from "../Button";
 export const Square: FC = () => {
   const {
     input,
+    totalValue,
+    workingValue,
     setInputString,
     setTotalValue,
     setWorkingValue,
     updateMode,
-    totalValue,
-    workingValue,
   } = useContext(ValueContext);
 
   const handleClick = () => {

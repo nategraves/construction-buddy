@@ -30,7 +30,7 @@ export const stringify = ({ value }: { value: Value }): string => {
       measurements.push(`${value.cm}cm`);
     }
     if (mm != null) {
-      measurements.push(`${value.mm}`);
+      measurements.push(`${value.mm}mm`);
     }
     return measurements.join(" - ");
   }

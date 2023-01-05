@@ -282,8 +282,13 @@ export const ValueProvider: FC<{ children: ReactNode }> = ({ children }) => {
   };
 
   useEffect(() => {
+    console.log({ inputString });
+    console.log({ workingValue });
+    console.log({ toProcess });
+    console.log({ totalValue });
     if (inputString != null && inputString !== "") {
       const newInput = parseFloat(inputString);
+      console.log({ input: newInput });
       setInput(newInput);
     } else {
       setInput(null);
