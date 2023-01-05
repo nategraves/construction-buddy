@@ -4,18 +4,11 @@ import { ValueContext } from "../../../contexts";
 import { Button } from "../Button";
 
 export function MemoryAdd() {
-  const {
-    input,
-    totalValue,
-    workingValue,
-    addMemory,
-    setInput,
-    setTotalValue,
-    setWorkingValue,
-  } = useContext(ValueContext);
+  const { input, workingValue, addMemory, setInput, setWorkingValue } =
+    useContext(ValueContext);
 
   const handleClick = () => {
-    if (input == null && totalValue == null && workingValue) {
+    if (input == null && workingValue == null) {
       return;
     }
 
@@ -28,12 +21,6 @@ export function MemoryAdd() {
     if (workingValue != null) {
       addMemory(workingValue);
       setWorkingValue();
-      return;
-    }
-
-    if (totalValue != null) {
-      addMemory(totalValue);
-      setTotalValue();
       return;
     }
   };

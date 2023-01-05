@@ -5,14 +5,17 @@ import { Units } from "../../../types";
 import {
   Add,
   Divide,
-  Multiply,
   Equals,
+  MemoryAdd,
+  MemoryClear,
+  MemoryRecall,
+  Multiply,
+  Percent,
   SelectResolution,
   SelectUnits,
   Square,
-  Subtract,
-  Percent,
   SquareRoot,
+  Subtract,
 } from "../FunctionButtons";
 import {
   Centimeters,
@@ -63,6 +66,9 @@ export const BasicModeButtons = () => {
         <Add />
         <Percent />
         <Equals />
+        <MemoryAdd />
+        <MemoryRecall />
+        <MemoryClear />
       </div>
     </>
   );
