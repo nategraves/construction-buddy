@@ -3,6 +3,7 @@ export * from "./ImperialTarget";
 export * from "./MetricTarget";
 export * from "./Mode";
 export * from "./Resolution";
+export * from "./RightAngle";
 export * from "./TotalUnits";
 export * from "./Units";
 export * from "./ValueTarget";

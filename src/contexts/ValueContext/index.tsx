@@ -6,7 +6,15 @@ import React, {
   useEffect,
 } from "react";
 
-import { Mode, Resolution, TotalUnits, Units, DisplayValue } from "../types";
+import {
+  Mode,
+  Resolution,
+  TotalUnits,
+  Units,
+  DisplayValue,
+  RightAngle,
+  EmptyRightAngle,
+} from "../../types";
 import {
   ImperialValue,
   isImperial,
@@ -16,7 +24,7 @@ import {
   MetricValue,
   modeMap,
   Value,
-} from "../data/Value";
+} from "../../data/Value";
 
 export type ToProcess = (ImperialValue | MetricValue | number)[];
 export type Input = Maybe<number | [number] | [number, number]>;
@@ -29,6 +37,7 @@ interface ValueContextProps {
   memory: Value[];
   mode: Maybe<Mode>;
   resolution: Maybe<Resolution>;
+  rightAngle: Maybe<RightAngle>;
   toProcess: ToProcess;
   totalUnits: Maybe<TotalUnits>;
   totalValue: Maybe<Value>;
@@ -41,6 +50,7 @@ interface ValueContextProps {
   setInput: (newInput?: Maybe<number>) => void;
   setMemory: (newMemory?: Maybe<Value[]>) => void;
   setResolution: (newResolution?: Resolution) => void;
+  setRightAngle: (newRightAngle: RightAngle) => void;
   setToProcess: (newToProcess?: ToProcess) => void;
   setTotalUnits: (newTotalUnits?: TotalUnits) => void;
   setTotalValue: (newTotal?: Value) => void;
@@ -56,6 +66,7 @@ export const ValueContext = createContext<ValueContextProps>({
   memory: [],
   mode: undefined,
   resolution: undefined,
+  rightAngle: EmptyRightAngle,
   workingValue: undefined,
   toProcess: [],
   totalUnits: undefined,
@@ -69,6 +80,7 @@ export const ValueContext = createContext<ValueContextProps>({
   setInput: () => {},
   setMemory: () => {},
   setResolution: () => {},
+  setRightAngle: (newRightAngle) => {},
   setWorkingValue: () => {},
   setToProcess: () => {},
   setTotalUnits: () => {},
@@ -87,10 +99,41 @@ export const ValueProvider: FC<{ children: ReactNode }> = ({ children }) => {
   const [mode, setMode] = useState<Maybe<Mode>>();
   const [workingValue, setWorkingValue] = useState<Maybe<Value>>();
   const [resolution, setResolution] = useState<Maybe<Resolution>>();
+  const [rightAngle, setRightAngle] = useState<RightAngle>(EmptyRightAngle);
   const [toProcess, setToProcess] = useState<ToProcess>([]);
   const [totalUnits, setTotalUnits] = useState<Maybe<TotalUnits>>();
   const [totalValue, setTotalValue] = useState<Maybe<Value>>();
   const [units, setUnits] = useState<Maybe<Units>>(Units.imperial);
+
+  const addMemory = (newValue: Value) => {
+    const newMemory = [...memory, newValue];
+    setMemory(newMemory);
+    return newMemory;
+  };
+
+  const recallMemory = () => {
+    const memoryDup = [...memory];
+    const lastMemory = memoryDup.pop();
+    setMemory(memoryDup);
+    return lastMemory;
+  };
+
+  useEffect(() => {
+    console.log({ inputString });
+    console.log({ workingValue });
+    console.log({ toProcess });
+    console.log({ totalValue });
+    if (inputString != null && inputString !== "") {
+      const newInput = parseFloat(inputString);
+      console.log({ input: newInput });
+      setInput(newInput);
+    } else {
+      setInput(null);
+    }
+  }, [inputString, workingValue, toProcess, totalValue]);
+
+  const addToProcess = (newToProcess: Value) =>
+    setToProcess([...(toProcess ?? []), newToProcess]);
 
   const updateMode = (newMode: Mode) => {
     switch (mode) {
@@ -268,36 +311,6 @@ export const ValueProvider: FC<{ children: ReactNode }> = ({ children }) => {
     setMode(newMode);
   };
 
-  const addMemory = (newValue: Value) => {
-    const newMemory = [...memory, newValue];
-    setMemory(newMemory);
-    return newMemory;
-  };
-
-  const recallMemory = () => {
-    const memoryDup = [...memory];
-    const lastMemory = memoryDup.pop();
-    setMemory(memoryDup);
-    return lastMemory;
-  };
-
-  useEffect(() => {
-    console.log({ inputString });
-    console.log({ workingValue });
-    console.log({ toProcess });
-    console.log({ totalValue });
-    if (inputString != null && inputString !== "") {
-      const newInput = parseFloat(inputString);
-      console.log({ input: newInput });
-      setInput(newInput);
-    } else {
-      setInput(null);
-    }
-  }, [inputString, workingValue, toProcess, totalValue]);
-
-  const addToProcess = (newToProcess: Value) =>
-    setToProcess([...(toProcess ?? []), newToProcess]);
-
   return (
     <ValueContext.Provider
       value={{
@@ -307,6 +320,7 @@ export const ValueProvider: FC<{ children: ReactNode }> = ({ children }) => {
         memory,
         mode,
         resolution,
+        rightAngle,
         workingValue,
         toProcess,
         totalUnits,
@@ -320,6 +334,7 @@ export const ValueProvider: FC<{ children: ReactNode }> = ({ children }) => {
         setInput,
         setMemory,
         setResolution,
+        setRightAngle,
         setToProcess,
         setTotalUnits,
         setTotalValue,

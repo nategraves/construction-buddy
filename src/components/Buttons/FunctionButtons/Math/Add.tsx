@@ -1,21 +1,21 @@
 import React, { useContext, FC } from "react";
-import { isImperial, isMetric, isNumber } from "../../../data/Value";
-import { Mode } from "../../../types";
+import { isImperial, isMetric, isNumber } from "../../../../data/Value";
+import { Mode } from "../../../../types";
 
-import { ValueContext } from "../../../contexts";
-import { Button } from "../Button";
+import { ValueContext } from "../../../../contexts";
+import { Button } from "../../Button";
 
-export const Subtract: FC = () => {
+export const Add: FC = () => {
   const {
     input,
-    setInputString,
-    updateMode,
-    setWorkingValue,
-    setTotalValue,
-    addToProcess,
-    workingValue,
     totalValue,
     toProcess,
+    workingValue,
+    setInputString,
+    addToProcess,
+    setTotalValue,
+    setWorkingValue,
+    updateMode,
   } = useContext(ValueContext);
 
   const handleClick = () => {
@@ -23,9 +23,9 @@ export const Subtract: FC = () => {
       return;
     }
 
-    updateMode(Mode.subtract);
+    updateMode(Mode.add);
 
-    if (input == null && workingValue == null && totalValue !== null) {
+    if (input == null && workingValue == null && totalValue != null) {
       addToProcess(totalValue);
       setTotalValue();
       return;
@@ -33,26 +33,26 @@ export const Subtract: FC = () => {
 
     const [firstToProcess] = toProcess;
 
-    const shouldSubtractNumber =
+    const shouldAddNumber =
       isNumber(input) && (firstToProcess == null || isNumber(firstToProcess));
-    const shouldSubtractImperial =
+    const shouldAddImperial =
       isImperial(workingValue) &&
       (firstToProcess == null || isImperial(firstToProcess));
-    const shouldSubtractMetric =
+    const shouldAddMetric =
       isMetric(workingValue) &&
       (firstToProcess == null || isMetric(firstToProcess));
 
-    if (shouldSubtractNumber) {
+    if (shouldAddNumber) {
       addToProcess(input);
       setInputString();
       return;
     }
 
-    if (shouldSubtractImperial || shouldSubtractMetric) {
+    if (shouldAddImperial || shouldAddMetric) {
       addToProcess(workingValue);
       setWorkingValue();
     }
   };
 
-  return <Button onClick={() => handleClick()}>-</Button>;
+  return <Button onClick={() => handleClick()}>+</Button>;
 };

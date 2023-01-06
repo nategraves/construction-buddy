@@ -1,21 +1,21 @@
 import React, { useContext, FC } from "react";
-import { isImperial, isMetric, isNumber } from "../../../data/Value";
-import { Mode } from "../../../types";
+import { isImperial, isMetric, isNumber } from "../../../../data/Value";
+import { Mode } from "../../../../types";
 
-import { ValueContext } from "../../../contexts";
-import { Button } from "../Button";
+import { ValueContext } from "../../../../contexts";
+import { Button } from "../../Button";
 
-export const Divide: FC = () => {
+export const Subtract: FC = () => {
   const {
     input,
-    toProcess,
-    totalValue,
-    workingValue,
-    addToProcess,
     setInputString,
+    updateMode,
     setWorkingValue,
     setTotalValue,
-    updateMode,
+    addToProcess,
+    workingValue,
+    totalValue,
+    toProcess,
   } = useContext(ValueContext);
 
   const handleClick = () => {
@@ -23,7 +23,7 @@ export const Divide: FC = () => {
       return;
     }
 
-    updateMode(Mode.divide);
+    updateMode(Mode.subtract);
 
     if (input == null && workingValue == null && totalValue !== null) {
       addToProcess(totalValue);
@@ -33,26 +33,26 @@ export const Divide: FC = () => {
 
     const [firstToProcess] = toProcess;
 
-    const shouldDivideNumber =
+    const shouldSubtractNumber =
       isNumber(input) && (firstToProcess == null || isNumber(firstToProcess));
-    const shouldDivideImperial =
+    const shouldSubtractImperial =
       isImperial(workingValue) &&
       (firstToProcess == null || isImperial(firstToProcess));
-    const shouldDivideMetric =
+    const shouldSubtractMetric =
       isMetric(workingValue) &&
       (firstToProcess == null || isMetric(firstToProcess));
 
-    if (shouldDivideNumber) {
+    if (shouldSubtractNumber) {
       addToProcess(input);
       setInputString();
       return;
     }
 
-    if (shouldDivideImperial || shouldDivideMetric) {
+    if (shouldSubtractImperial || shouldSubtractMetric) {
       addToProcess(workingValue);
       setWorkingValue();
     }
   };
 
-  return <Button onClick={() => handleClick()}>/</Button>;
+  return <Button onClick={() => handleClick()}>-</Button>;
 };

@@ -1,10 +1,10 @@
 import React, { useContext } from "react";
 
-import { ValueContext } from "../../../contexts";
-import { Button } from "../Button";
-import { Mode } from "../../../types";
-import { isSame } from "../../../data/Value";
-import { modeMap } from "../../../data/Value/modeMap";
+import { ValueContext } from "../../../../contexts";
+import { Button } from "../../Button";
+import { Mode } from "../../../../types";
+import { isSame } from "../../../../data/Value";
+import { modeMap } from "../../../../data/Value/modeMap";
 
 export const Equals = () => {
   const {

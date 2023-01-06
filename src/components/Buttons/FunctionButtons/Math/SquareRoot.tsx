@@ -1,9 +1,9 @@
 import React, { FC, useContext } from "react";
 
-import { Button } from "../Button";
-import { Mode } from "../../../types";
-import { ValueContext } from "../../../contexts";
-import { squareRoot } from "../../../data";
+import { Button } from "../../Button";
+import { Mode } from "../../../../types";
+import { ValueContext } from "../../../../contexts";
+import { squareRoot } from "../../../../data";
 
 export const SquareRoot: FC = () => {
   const {
