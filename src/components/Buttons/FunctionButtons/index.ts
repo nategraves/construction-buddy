@@ -8,6 +8,7 @@ export * from "./MemoryClear";
 export * from "./MemoryRecall";
 export * from "./Multiply";
 export * from "./Percent";
+export * from "./RightAngle";
 export * from "./SelectResolution";
 export * from "./SelectUnits";
 export * from "./Square";
