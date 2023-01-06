@@ -1,7 +1,9 @@
+import { Value } from "../data";
+
 export type RightAngle = {
-  rise: Maybe<number>;
-  run: Maybe<number>;
-  diagonal: Maybe<number>;
+  rise: Maybe<Value>;
+  run: Maybe<Value>;
+  diagonal: Maybe<Value>;
 };
 
 export const EmptyRightAngle = {

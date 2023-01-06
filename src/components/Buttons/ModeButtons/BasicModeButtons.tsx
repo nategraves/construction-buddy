@@ -4,6 +4,7 @@ import { ValueContext } from "../../../contexts";
 import { Units } from "../../../types";
 import {
   Add,
+  Diagonal,
   Divide,
   Equals,
   MemoryAdd,
@@ -11,6 +12,8 @@ import {
   MemoryRecall,
   Multiply,
   Percent,
+  Rise,
+  Run,
   SelectResolution,
   SelectUnits,
   Square,
@@ -69,6 +72,9 @@ export const BasicModeButtons = () => {
         <MemoryAdd />
         <MemoryRecall />
         <MemoryClear />
+        <Rise />
+        <Run />
+        <Diagonal />
       </div>
     </>
   );
