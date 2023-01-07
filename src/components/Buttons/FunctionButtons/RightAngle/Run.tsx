@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 
 import { ValueContext } from "../../../../contexts";
 import { isSame, square, squareRoot, subtract } from "../../../../data";
+import { Mode, EmptyRightAngle } from "../../../../types";
 import { Button } from "../../Button";
 
 export const Run = () => {
@@ -11,26 +12,13 @@ export const Run = () => {
     workingValue,
     setInput,
     setRightAngle,
+    setTotalValue,
     setWorkingValue,
+    updateMode,
   } = useContext(ValueContext);
 
   const handleClick = () => {
     const { diagonal, rise } = rightAngle;
-
-    if (
-      input == null &&
-      workingValue == null &&
-      diagonal != null &&
-      rise != null
-    ) {
-      const diagonalSquared = square({ value: diagonal });
-      const riseSquared = square({ value: rise });
-      const runSquared = subtract({
-        value: diagonalSquared,
-        toApply: riseSquared,
-      });
-      return squareRoot({ value: runSquared });
-    }
 
     const diagonalMatchesInput = diagonal == null || isSame(input, diagonal);
     const riseMatchesInput = rise == null || isSame(input, rise);
@@ -47,6 +35,18 @@ export const Run = () => {
     if (riseMatchesWorkingValue && diagonalMatchesWorkingValue) {
       setRightAngle({ ...rightAngle, run: workingValue });
       setWorkingValue();
+    }
+
+    if (diagonal != null && rise != null && isSame(diagonal, rise)) {
+      const diagonalSquared = square({ value: diagonal });
+      const riseSquared = square({ value: rise });
+      const runSquared = subtract({
+        value: diagonalSquared,
+        toApply: riseSquared,
+      });
+      setTotalValue(squareRoot({ value: runSquared }));
+      setRightAngle(EmptyRightAngle);
+      updateMode(Mode.equals);
     }
   };
 

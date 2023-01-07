@@ -1,7 +1,8 @@
 import React, { useContext } from "react";
 
 import { ValueContext } from "../../../../contexts";
-import { add, isSame, square, squareRoot, Value } from "../../../../data";
+import { add, isSame, square, squareRoot } from "../../../../data";
+import { Mode } from "../../../../types";
 import { Button } from "../../Button";
 
 export const Diagonal = () => {
@@ -12,7 +13,9 @@ export const Diagonal = () => {
     setError,
     setInput,
     setRightAngle,
+    setTotalValue,
     setWorkingValue,
+    updateMode,
   } = useContext(ValueContext);
 
   const handleClick = () => {
@@ -24,42 +27,29 @@ export const Diagonal = () => {
       return;
     }
 
-    const value: Value = input ?? workingValue;
+    const riseMatchesInput = rise == null || isSame(input, rise);
+    const runMatchesInput = run == null || isSame(input, run);
 
-    const riseMatchesInput = isSame(input, rise);
-    const runMatchesInput = isSame(input, run);
-    const riseMatchesWorkingValue = rise == null || isSame(workingValue, rise);
-    const runMatchesWorkingValue = run == null || isSame(workingValue, run);
-
-    const riseMatchesOne = riseMatchesInput || riseMatchesWorkingValue;
-    const runMatchesOne = runMatchesInput || runMatchesWorkingValue;
-
-    console.log({
-      riseMatchesInput,
-      runMatchesInput,
-      riseMatchesWorkingValue,
-      runMatchesWorkingValue,
-      riseMatchesOne,
-    });
-
-    if (value != null && riseMatchesOne && runMatchesOne) {
-      const riseSquared = square({ value: rise });
-      const runSquared = square({ value: run });
-      const diagonalSquared = add({ value: riseSquared, toApply: runSquared });
-      return squareRoot({ value: diagonalSquared });
-    }
-
-    if (riseMatchesInput && runMatchesInput) {
-      setRightAngle({ ...rightAngle, diagonal: input });
+    if (runMatchesInput && riseMatchesInput) {
+      setRightAngle({ ...rightAngle, rise: input });
       setInput();
     }
 
-    if (
-      (rise == null || riseMatchesWorkingValue) &&
-      (run == null || runMatchesWorkingValue)
-    ) {
-      setRightAngle({ ...rightAngle, diagonal: workingValue });
+    const riseMatchesWorkingValue = rise == null || isSame(workingValue, rise);
+    const runMatchesWorkingValue = run == null || isSame(workingValue, run);
+
+    if (runMatchesWorkingValue && riseMatchesWorkingValue) {
+      setRightAngle({ ...rightAngle, rise: workingValue });
       setWorkingValue();
+    }
+
+    if (rise != null && run != null && isSame(rise, run)) {
+      const riseSquared = square({ value: rise });
+      const runSquared = square({ value: run });
+      const diagonalSquared = add({ value: riseSquared, toApply: runSquared });
+      setTotalValue(squareRoot({ value: diagonalSquared }));
+      setRightAngle({ rise: undefined, run: undefined, diagonal: undefined });
+      updateMode(Mode.equals);
     }
   };
 
