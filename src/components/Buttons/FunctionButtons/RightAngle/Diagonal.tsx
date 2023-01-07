@@ -19,6 +19,7 @@ export const Diagonal = () => {
     const { rise, run } = rightAngle;
 
     if (input != null && workingValue != null) {
+      console.warn("Input and working value present");
       setError(`Please apply ${input} to your working value`);
       return;
     }
