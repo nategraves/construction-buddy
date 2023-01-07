@@ -216,9 +216,8 @@ export const ValueProvider: FC<{ children: ReactNode }> = ({ children }) => {
         }
 
         if (!process.length) {
-          throw new Error(
-            `Unable to apply '${mode}' because toProcess is empty`
-          );
+          console.warn(`Unable to apply '${mode}' because toProcess is empty`);
+          return;
         }
 
         const initial = process.shift();

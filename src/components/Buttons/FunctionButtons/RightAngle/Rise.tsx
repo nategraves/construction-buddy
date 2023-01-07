@@ -11,7 +11,7 @@ export const Rise = () => {
     rightAngle,
     workingValue,
     setError,
-    setInput,
+    setInputString,
     setRightAngle,
     setTotalValue,
     setWorkingValue,
@@ -27,24 +27,21 @@ export const Rise = () => {
       return;
     }
 
-    const diagonalMatchesInput = diagonal == null || isSame(input, diagonal);
-    const runMatchesInput = run == null || isSame(input, run);
+    const value = input ?? workingValue;
 
-    if (runMatchesInput && diagonalMatchesInput) {
-      setRightAngle({ ...rightAngle, rise: input });
-      setInput();
-    }
-
-    const diagonalMatchesWorkingValue =
-      diagonal == null || isSame(workingValue, diagonal);
-    const runMatchesWorkingValue = run == null || isSame(workingValue, run);
-
-    if (runMatchesWorkingValue && diagonalMatchesWorkingValue) {
-      setRightAngle({ ...rightAngle, rise: workingValue });
+    if (
+      value &&
+      (isSame(value, diagonal ?? run) || (diagonal == null && run == null))
+    ) {
+      console.log("matches existing");
+      console.log({ value });
+      setRightAngle({ ...rightAngle, rise: value });
+      setInputString();
       setWorkingValue();
     }
 
-    if (diagonal != null && run != null && isSame(diagonal, run)) {
+    if (diagonal != null && run != null) {
+      console.log("diagonal != null && run != null && isSame(diagonal, run)");
       const diagonalSquared = square({ value: diagonal });
       const runSquared = square({ value: run });
       const riseSquared = subtract({

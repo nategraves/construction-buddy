@@ -10,7 +10,8 @@ export const Run = () => {
     input,
     rightAngle,
     workingValue,
-    setInput,
+    setError,
+    setInputString,
     setRightAngle,
     setTotalValue,
     setWorkingValue,
@@ -20,24 +21,27 @@ export const Run = () => {
   const handleClick = () => {
     const { diagonal, rise } = rightAngle;
 
-    const diagonalMatchesInput = diagonal == null || isSame(input, diagonal);
-    const riseMatchesInput = rise == null || isSame(input, rise);
-
-    if (riseMatchesInput && diagonalMatchesInput) {
-      setRightAngle({ ...rightAngle, run: input });
-      setInput();
+    if (input != null && workingValue != null) {
+      console.warn("Input and working value present");
+      setError(`Please apply ${input} to your working value`);
+      return;
     }
 
-    const diagonalMatchesWorkingValue =
-      diagonal == null || isSame(workingValue, diagonal);
-    const riseMatchesWorkingValue = rise == null || isSame(workingValue, rise);
+    const value = input ?? workingValue;
 
-    if (riseMatchesWorkingValue && diagonalMatchesWorkingValue) {
-      setRightAngle({ ...rightAngle, run: workingValue });
+    if (
+      value &&
+      (isSame(value, diagonal ?? rise) || (diagonal == null && rise == null))
+    ) {
+      console.log("matches existing");
+      console.log({ value });
+      setRightAngle({ ...rightAngle, run: value });
+      setInputString();
       setWorkingValue();
     }
 
-    if (diagonal != null && rise != null && isSame(diagonal, rise)) {
+    if (diagonal != null && rise != null) {
+      console.log("diagonal != null && rise != null && isSame(diagonal, rise)");
       const diagonalSquared = square({ value: diagonal });
       const riseSquared = square({ value: rise });
       const runSquared = subtract({
