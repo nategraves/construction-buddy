@@ -32,8 +32,17 @@ export const Diagonal = () => {
     const runMatchesWorkingValue = run == null || isSame(workingValue, run);
 
     const riseMatchesOne = riseMatchesInput || riseMatchesWorkingValue;
+    const runMatchesOne = runMatchesInput || runMatchesWorkingValue;
 
-    if (value != null && riseMatchesOne != null && run != null) {
+    console.log({
+      riseMatchesInput,
+      runMatchesInput,
+      riseMatchesWorkingValue,
+      runMatchesWorkingValue,
+      riseMatchesOne,
+    });
+
+    if (value != null && riseMatchesOne && runMatchesOne) {
       const riseSquared = square({ value: rise });
       const runSquared = square({ value: run });
       const diagonalSquared = add({ value: riseSquared, toApply: runSquared });
