@@ -1,5 +1,5 @@
-import { Fraction } from "mathjs";
-import { ImperialTarget } from "../../types/ImperialTarget";
+import { Fraction } from 'mathjs';
+import { ImperialTarget } from '~/types';
 
 export type ImperialValue = {
   [ImperialTarget.ft]?: number;

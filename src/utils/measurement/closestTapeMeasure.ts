@@ -1,5 +1,5 @@
-import { fraction, Fraction, number } from "mathjs";
-import { Resolution } from "../../types";
+import { fraction, Fraction, number } from 'mathjs';
+import { Resolution } from '~/types';
 
 export const closestTapeMeasure = ({
   decimal,
@@ -8,8 +8,5 @@ export const closestTapeMeasure = ({
   decimal: number;
   resolution?: Resolution;
 }): Fraction => {
-  return fraction(
-    Math.round(resolution * number(fraction(decimal))),
-    resolution
-  );
+  return fraction(Math.round(resolution * number(fraction(decimal))), resolution);
 };

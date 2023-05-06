@@ -1,11 +1,9 @@
-import { fraction } from "mathjs";
+import { fraction } from 'mathjs';
 
-import { multiply } from "../multiply";
-import { ImperialValue } from "../ImperialValue";
-import { MetricValue } from "../MetricValue";
+import { ImperialValue, MetricValue, multiply } from '~/data';
 
-describe("multiply correctly multiplies", () => {
-  test("number, number", () => {
+describe('multiply correctly multiplies', () => {
+  test('number, number', () => {
     const value = 8;
     const toApply = 2;
     const expected = 16;
@@ -13,15 +11,15 @@ describe("multiply correctly multiplies", () => {
     expect(result).toBe(expected);
   });
 
-  test("ImperialValue,ImperialValue", () => {
+  test('ImperialValue,ImperialValue', () => {
     const value: ImperialValue = { ft: 8, ins: 8, fr: fraction(1, 2) };
     const toApply: ImperialValue = { ft: 2, ins: 2, fr: fraction(1, 3) };
-    const expected = "2751.833333";
+    const expected = '2751.833333';
     const result = multiply({ value, toApply }) as number;
     expect(result.toFixed(6)).toBe(expected);
   });
 
-  test("ImperialValue,Number", () => {
+  test('ImperialValue,Number', () => {
     const value: ImperialValue = { ft: 8, ins: 8, fr: fraction(1, 2) };
     const toApply = 2;
     const expected: ImperialValue = { ft: 17, ins: 5, fr: fraction(0, 1) };
@@ -29,7 +27,7 @@ describe("multiply correctly multiplies", () => {
     expect(JSON.stringify(result)).toBe(JSON.stringify(expected));
   });
 
-  test("MetricValue,MetricValue", () => {
+  test('MetricValue,MetricValue', () => {
     const value: MetricValue = { m: 8, cm: 8, mm: 8 };
     const toApply: MetricValue = { m: 2, cm: 2, mm: 2 };
     const expected = 163539.36;
@@ -37,7 +35,7 @@ describe("multiply correctly multiplies", () => {
     expect(JSON.stringify(result)).toBe(JSON.stringify(expected));
   });
 
-  test("MetricValue,Number", () => {
+  test('MetricValue,Number', () => {
     const value: MetricValue = { m: 8, cm: 8, mm: 2 };
     const toApply: number = 2;
     const expected: MetricValue = { m: 16, cm: 16, mm: 4 };

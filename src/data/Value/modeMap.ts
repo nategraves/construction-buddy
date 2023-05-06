@@ -1,14 +1,14 @@
-import { Mode } from "../../types";
-import { add } from "./add";
-import { divide } from "./divide";
-import { multiply } from "./multiply";
-import { square } from "./square";
-import { squareRoot } from "./squareRoot";
-import { subtract } from "./subtract";
-import { Value } from "./Value";
+import { Mode } from '~/types';
+import { add } from './add';
+import { divide } from './divide';
+import { multiply } from './multiply';
+import { square } from './square';
+import { squareRoot } from './squareRoot';
+import { subtract } from './subtract';
+import { Value } from './Value';
 
 type ModeMapEntry = {
-  [key in Mode]: (params: { value: Value; toApply?: Value }) => Maybe<Value>;
+  [key in Mode]: (params: { value: Value; toApply: Value }) => Maybe<Value>;
 };
 
 export const modeMap: ModeMapEntry = {

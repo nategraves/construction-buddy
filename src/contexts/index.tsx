@@ -1,10 +1,4 @@
-import React, {
-  createContext,
-  FC,
-  ReactNode,
-  useState,
-  useEffect,
-} from "react";
+import React, { createContext, FC, ReactNode, useState, useEffect } from 'react';
 
 import {
   Mode,
@@ -14,7 +8,7 @@ import {
   DisplayValue,
   RightAngle,
   EmptyRightAngle,
-} from "../types";
+} from '~/types';
 import {
   ImperialValue,
   isImperial,
@@ -24,7 +18,7 @@ import {
   MetricValue,
   modeMap,
   Value,
-} from "../data/Value";
+} from '~/data/Value';
 
 export type ToProcess = (ImperialValue | MetricValue | number)[];
 export type Input = Maybe<number | [number] | [number, number]>;
@@ -38,19 +32,19 @@ interface ValueContextProps {
   memory: Value[];
   mode: Maybe<Mode>;
   resolution: Maybe<Resolution>;
-  rightAngle: Maybe<RightAngle>;
+  rightAngle: RightAngle;
   toProcess: ToProcess;
   totalUnits: Maybe<TotalUnits>;
   totalValue: Maybe<Value>;
   units: Maybe<Units>;
   addMemory: (newValue: Value) => Value[];
-  addToProcess: (newToProcess?: Value) => void;
+  addToProcess: (newToProcess: Value) => void;
   recallMemory: () => Maybe<Value>;
   setDisplayValue: (newDisplayValue: DisplayValue) => void;
   setError: (newError: Maybe<string>) => void;
   setInputString: (newInputString?: string) => void;
   setInput: (newInput?: Maybe<number>) => void;
-  setMemory: (newMemory?: Maybe<Value[]>) => void;
+  setMemory: (newMemory?: Value[]) => void;
   setResolution: (newResolution?: Resolution) => void;
   setRightAngle: (newRightAngle: RightAngle) => void;
   setToProcess: (newToProcess?: ToProcess) => void;
@@ -94,32 +88,37 @@ export const ValueContext = createContext<ValueContextProps>({
 });
 
 export const ValueProvider: FC<{ children: ReactNode }> = ({ children }) => {
-  const [displayValue, setDisplayValue] = useState<DisplayValue>(
-    DisplayValue.input
-  );
+  const [displayValue, setDisplayValue] = useState<DisplayValue>(DisplayValue.input);
   const [error, setError] = useState<Maybe<string>>();
-  const [inputString, setInputString] = useState<Maybe<string>>("");
+  const [inputString, setInputString] = useState<Maybe<string>>('');
   const [input, setInput] = useState<Maybe<number>>();
-  const [memory, setMemory] = useState<Value[]>([]);
+  const [memory, _setMemory] = useState<Value[]>([]);
   const [mode, setMode] = useState<Maybe<Mode>>();
   const [workingValue, setWorkingValue] = useState<Maybe<Value>>();
   const [resolution, setResolution] = useState<Maybe<Resolution>>();
   const [rightAngle, setRightAngle] = useState<RightAngle>(EmptyRightAngle);
-  const [toProcess, setToProcess] = useState<ToProcess>([]);
+  const [toProcess, _setToProcess] = useState<ToProcess>([]);
   const [totalUnits, setTotalUnits] = useState<Maybe<TotalUnits>>();
   const [totalValue, setTotalValue] = useState<Maybe<Value>>();
   const [units, setUnits] = useState<Maybe<Units>>(Units.imperial);
 
   const addMemory = (newValue: Value) => {
-    const newMemory = [...memory, newValue];
-    setMemory(newMemory);
-    return newMemory;
+    _setMemory([...memory, newValue]);
+    return memory;
+  };
+
+  const setMemory = (newMemory?: Value[]) => {
+    if (newMemory == null) {
+      _setMemory([]);
+    } else {
+      _setMemory(newMemory);
+    }
   };
 
   const recallMemory = () => {
     const memoryDup = [...memory];
     const lastMemory = memoryDup.pop();
-    setMemory(memoryDup);
+    _setMemory(memoryDup);
     return lastMemory;
   };
 
@@ -129,19 +128,26 @@ export const ValueProvider: FC<{ children: ReactNode }> = ({ children }) => {
     console.log({ toProcess });
     console.log({ totalValue });
     console.log({ rightAngle });
-    if (inputString != null && inputString !== "") {
+    if (inputString != null && inputString !== '') {
       const newInput = parseFloat(inputString);
       console.log({ input: newInput });
       setInput(newInput);
     } else {
       setInput(null);
     }
-  }, [inputString, workingValue, toProcess, totalValue]);
+  }, [inputString, workingValue, toProcess, totalValue, rightAngle]);
 
-  const addToProcess = (newToProcess: Value) =>
-    setToProcess([...(toProcess ?? []), newToProcess]);
+  const addToProcess = (newToProcess: Value) => _setToProcess([...toProcess, newToProcess]);
 
-  const updateMode = (newMode: Mode) => {
+  const setToProcess = (newToProcess?: ToProcess) => {
+    if (newToProcess == null) {
+      _setToProcess([]);
+    } else {
+      _setToProcess(newToProcess);
+    }
+  };
+
+  const updateMode = (newMode?: Mode) => {
     switch (mode) {
       case Mode.add:
         if (input == null && workingValue == null && totalValue != null) {
@@ -153,14 +159,11 @@ export const ValueProvider: FC<{ children: ReactNode }> = ({ children }) => {
         const [firstToProcess] = toProcess;
 
         const shouldAddNumber =
-          isNumber(input) &&
-          (firstToProcess == null || isNumber(firstToProcess));
+          isNumber(input) && (firstToProcess == null || isNumber(firstToProcess));
         const shouldAddImperial =
-          isImperial(workingValue) &&
-          (firstToProcess == null || isImperial(firstToProcess));
+          isImperial(workingValue) && (firstToProcess == null || isImperial(firstToProcess));
         const shouldAddMetric =
-          isMetric(workingValue) &&
-          (firstToProcess == null || isMetric(firstToProcess));
+          isMetric(workingValue) && (firstToProcess == null || isMetric(firstToProcess));
 
         if (shouldAddNumber) {
           addToProcess(input);
@@ -175,7 +178,7 @@ export const ValueProvider: FC<{ children: ReactNode }> = ({ children }) => {
 
         break;
       case Mode.divide:
-        if (input == null && workingValue == null && totalValue !== null) {
+        if (input == null && workingValue == null && totalValue != null) {
           addToProcess(totalValue);
           setTotalValue(null);
           return;
@@ -186,11 +189,9 @@ export const ValueProvider: FC<{ children: ReactNode }> = ({ children }) => {
         const shouldDivideNumber =
           isNumber(input) && (firstToDivide == null || isNumber(firstToDivide));
         const shouldDivideImperial =
-          isImperial(workingValue) &&
-          (firstToDivide == null || isImperial(firstToDivide));
+          isImperial(workingValue) && (firstToDivide == null || isImperial(firstToDivide));
         const shouldDivideMetric =
-          isMetric(workingValue) &&
-          (firstToDivide == null || isMetric(firstToDivide));
+          isMetric(workingValue) && (firstToDivide == null || isMetric(firstToDivide));
 
         if (shouldDivideNumber) {
           addToProcess(input);
@@ -216,21 +217,19 @@ export const ValueProvider: FC<{ children: ReactNode }> = ({ children }) => {
         }
 
         if (!process.length) {
-          throw new Error(
-            `Unable to apply '${mode}' because toProcess is empty`
-          );
+          throw new Error(`Unable to apply '${mode}' because toProcess is empty`);
         }
 
         const initial = process.shift();
 
         if (process.length === 0 && input == null && workingValue == null) {
-          console.warn("Only 1 value in toProcess. Setting as total");
+          console.warn('Only 1 value in toProcess. Setting as total');
           setTotalValue(initial);
-        } else if (process.length === 0 && input != null) {
+        } else if (process.length === 0 && input != null && initial != null) {
           const total = modeMap[mode]({ value: initial, toApply: input });
           setInputString(null);
           setTotalValue(total);
-        } else if (toProcess.length === 0 && workingValue != null) {
+        } else if (toProcess.length === 0 && workingValue != null && initial != null) {
           const total = modeMap[mode]({
             value: initial,
             toApply: workingValue,
@@ -239,11 +238,11 @@ export const ValueProvider: FC<{ children: ReactNode }> = ({ children }) => {
           setTotalValue(total);
         } else {
           console.warn({ initial, toProcess, mode, input });
-          const total = toProcess.reduce((sum, value) => {
-            const newSum = modeMap[mode]({ value: sum, toApply: value });
-            return newSum;
-          }, initial);
-          setTotalValue(total);
+          // const total = toProcess.reduce((sum, value) => {
+          //   const newSum = modeMap[mode]({ value: sum, toApply: value });
+          //   return newSum;
+          // }, initial);
+          // setTotalValue(total);
         }
 
         setToProcess([]);
@@ -270,17 +269,13 @@ export const ValueProvider: FC<{ children: ReactNode }> = ({ children }) => {
           workingValue.mm == null;
 
         if (fillInches) {
-          setWorkingValue({ ...workingValue, ins: input });
+          setWorkingValue({ ...workingValue, ...(input ? { ins: input } : {}) });
         } else if (fillCm) {
-          setWorkingValue({ ...workingValue, cm: input });
+          setWorkingValue({ ...workingValue, ...(input ? { cm: input } : {}) });
         } else if (fillMm) {
-          setWorkingValue({ ...workingValue, mm: input });
+          setWorkingValue({ ...workingValue, ...(input ? { mm: input } : {}) });
         }
-        if (
-          inputString == null &&
-          workingValue == null &&
-          totalValue !== null
-        ) {
+        if (inputString == null && workingValue == null && totalValue != null) {
           addToProcess(totalValue);
           setTotalValue(null);
           return;
@@ -289,14 +284,11 @@ export const ValueProvider: FC<{ children: ReactNode }> = ({ children }) => {
         const [firstToMultiply] = toProcess;
 
         const shouldMultiplyNumber =
-          isNumber(input) &&
-          (firstToMultiply == null || isNumber(firstToMultiply));
+          isNumber(input) && (firstToMultiply == null || isNumber(firstToMultiply));
         const shouldMultiplyImperial =
-          isImperial(workingValue) &&
-          (firstToMultiply == null || isImperial(firstToMultiply));
+          isImperial(workingValue) && (firstToMultiply == null || isImperial(firstToMultiply));
         const shouldMultiplyMetric =
-          isMetric(workingValue) &&
-          (firstToMultiply == null || isMetric(firstToMultiply));
+          isMetric(workingValue) && (firstToMultiply == null || isMetric(firstToMultiply));
 
         if (shouldMultiplyNumber) {
           addToProcess(input);

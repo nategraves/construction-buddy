@@ -1,9 +1,9 @@
-import { flatten } from "./flatten";
-import { Value } from "./Value";
-import { isMetric } from "./isMetric";
-import { isImperial } from "./isImperial";
-import { Units } from "types";
-import { unflatten } from "./unflatten";
+import { flatten } from './flatten';
+import { Value } from './Value';
+import { isMetric } from './isMetric';
+import { isImperial } from './isImperial';
+import { Units } from '~/types';
+import { unflatten } from './unflatten';
 
 export const squareRoot = ({ value }: { value: Value }): Value => {
   const valueFlat = flatten(value);
@@ -13,13 +13,13 @@ export const squareRoot = ({ value }: { value: Value }): Value => {
     result = unflatten({
       value: result,
       units: Units.imperial,
-      includeFt: "ft" in value,
+      includeFt: 'ft' in value,
     });
   } else if (isMetric(value)) {
     result = unflatten({
       value: result,
       units: Units.metric,
-      includeM: "m" in value,
+      includeM: 'm' in value,
     });
   }
 

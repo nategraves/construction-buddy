@@ -1,12 +1,10 @@
-// import { multiply as _multiply } from "mathjs";
-
-import { Value } from "./Value";
-import { isMetric } from "./isMetric";
-import { isNumber } from "./isNumber";
-import { isImperial } from "./isImperial";
-import { flatten } from "./flatten";
-import { unflatten } from "./unflatten";
-import { Units } from "../../types";
+import { Value } from './Value';
+import { isMetric } from './isMetric';
+import { isNumber } from './isNumber';
+import { isImperial } from './isImperial';
+import { flatten } from './flatten';
+import { unflatten } from './unflatten';
+import { Units } from '~/types';
 
 export const multiply = ({
   value,
@@ -14,7 +12,7 @@ export const multiply = ({
 }: {
   value: Value;
   toApply: Value;
-}): Value => {
+}): Value | undefined => {
   const flatValue = flatten(value);
   const flatToApply = flatten(toApply);
 
@@ -32,7 +30,7 @@ export const multiply = ({
     return unflatten({
       value: result,
       units: Units.imperial,
-      includeFt: "ft" in value,
+      includeFt: 'ft' in value,
     });
   }
 
@@ -40,11 +38,13 @@ export const multiply = ({
     return unflatten({
       value: result,
       units: Units.metric,
-      includeM: "m" in value,
+      includeM: 'm' in value,
     });
   }
 
-  if (isNumber(value) && isNumber(toApply)) {
-    return result;
+  if (isNumber(value) && (isImperial(toApply) || isMetric(toApply))) {
+    throw new Error('Cannot multiply a number by a value');
   }
+
+  return result;
 };
