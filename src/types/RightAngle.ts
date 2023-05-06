@@ -1,4 +1,4 @@
-import { Value } from "../data";
+import { Value } from '~/data';
 
 export type RightAngle = {
   rise: Maybe<Value>;

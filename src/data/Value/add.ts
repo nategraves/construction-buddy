@@ -1,18 +1,12 @@
-import { isImperial } from "./isImperial";
-import { isMetric } from "./isMetric";
-import { isNumber } from "./isNumber";
-import { Value } from "./Value";
-import { flatten } from "./flatten";
-import { unflatten } from "./unflatten";
-import { Units } from "../../types";
+import { isImperial } from './isImperial';
+import { isMetric } from './isMetric';
+import { isNumber } from './isNumber';
+import { Value } from './Value';
+import { flatten } from './flatten';
+import { unflatten } from './unflatten';
+import { Units } from '~/types';
 
-export const add = ({
-  value,
-  toApply,
-}: {
-  value: Value;
-  toApply: Value;
-}): Value => {
+export const add = ({ value, toApply }: { value: Value; toApply: Value }): Value => {
   if (isMetric(value) && isMetric(toApply)) {
     return {
       m: (value.m ?? 0) + (toApply.m ?? 0),
@@ -25,7 +19,7 @@ export const add = ({
     const flatToApply = flatten(toApply);
     const total = flatValue + flatToApply;
 
-    const includeFt = "ft" in value || "ft" in toApply;
+    const includeFt = 'ft' in value || 'ft' in toApply;
     return unflatten({
       value: total,
       units: Units.imperial,
@@ -35,4 +29,6 @@ export const add = ({
   if (isNumber(value) && isNumber(toApply)) {
     return value + toApply;
   }
+
+  throw new Error('Cannot add mismatched units');
 };

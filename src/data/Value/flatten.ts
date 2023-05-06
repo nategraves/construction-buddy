@@ -1,6 +1,6 @@
-import { number } from "mathjs";
+import { number } from 'mathjs';
 
-import { isImperial, isNumber, Value } from "./index";
+import { isImperial, isNumber, Value } from './index';
 
 export const flatten = (value: Value): number => {
   if (isNumber(value)) {
@@ -9,10 +9,10 @@ export const flatten = (value: Value): number => {
     const { ft, ins, fr } = value;
     let inches = 0;
 
-    if (ft > 0) {
+    if (ft != null && ft > 0) {
       inches += ft * 12;
     }
-    if (ins > 0) {
+    if (ins != null && ins > 0) {
       inches += ins;
     }
     if (fr) {

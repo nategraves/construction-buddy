@@ -1,8 +1,15 @@
-import { Mode } from "../../types";
+import { Mode } from '~/types';
 
-export const modeSymbolMap = {
-  [Mode.add]: "+",
-  [Mode.divide]: "/",
-  [Mode.subtract]: "-",
-  [Mode.multiply]: "x",
+export const modeSymbolMap: Record<Mode, string> = {
+  [Mode.add]: '+',
+  [Mode.divide]: '/',
+  [Mode.equals]: '=',
+  [Mode.multiply]: 'x',
+  [Mode.subtract]: '-',
+  [Mode.square]: '²',
+  [Mode.squareRoot]: '√',
 };
+
+export function getMode(mode: Mode): string {
+  return modeSymbolMap[mode];
+}

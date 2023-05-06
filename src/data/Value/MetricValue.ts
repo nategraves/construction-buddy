@@ -1,4 +1,4 @@
-import { MetricTarget } from "../../types/MetricTarget";
+import { MetricTarget } from '~/types';
 
 export type MetricValue = {
   [MetricTarget.m]?: number;

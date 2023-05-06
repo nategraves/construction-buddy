@@ -1,19 +1,13 @@
-import { Units } from "../../types";
+import { Units } from '~/types';
 
-import { flatten } from "./flatten";
-import { isImperial } from "./isImperial";
-import { isMetric } from "./isMetric";
-import { isNumber } from "./isNumber";
-import { unflatten } from "./unflatten";
-import { Value } from "./Value";
+import { flatten } from './flatten';
+import { isImperial } from './isImperial';
+import { isMetric } from './isMetric';
+import { isNumber } from './isNumber';
+import { unflatten } from './unflatten';
+import { Value } from './Value';
 
-export const divide = ({
-  value,
-  toApply,
-}: {
-  value: Value;
-  toApply: Value;
-}): Value => {
+export const divide = ({ value, toApply }: { value: Value; toApply: Value }): Value => {
   const flatValue = flatten(value);
   const flatToApply = flatten(toApply);
 
@@ -31,7 +25,7 @@ export const divide = ({
     return unflatten({
       value: result,
       units: Units.metric,
-      includeM: "m" in value,
+      includeM: 'm' in value,
     });
   }
 
@@ -39,7 +33,9 @@ export const divide = ({
     return unflatten({
       value: result,
       units: Units.imperial,
-      includeFt: "ft" in value,
+      includeFt: 'ft' in value,
     });
   }
+
+  throw new Error('Cannot divide by mismatched units');
 };

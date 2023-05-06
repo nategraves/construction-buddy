@@ -1,7 +1,7 @@
-import { fraction, number } from "mathjs";
+import { fraction, number } from 'mathjs';
 
-import { ImperialTarget, MetricTarget } from "../../types";
-import { isImperial, isMetric, isNumber, Value } from "data/Value";
+import { ImperialTarget, MetricTarget } from '~/types';
+import { isMetric, isNumber, Value } from '~/data/Value';
 
 const conversions = {
   [MetricTarget.m]: 3.28, // To feet
@@ -21,7 +21,7 @@ export const convert = (value: Value, resolution: number): Value => {
       (value.cm ?? 0) * conversions[MetricTarget.cm] +
       (value.mm ?? 0) * conversions[MetricTarget.mm];
     const decimal = ins % 1;
-    const fr = ins ? fraction(decimal) : null;
+    const fr = ins ? fraction(decimal) : undefined;
     return {
       ft,
       ins,
@@ -29,11 +29,9 @@ export const convert = (value: Value, resolution: number): Value => {
     };
   }
 
-  if (isImperial(value)) {
-    return {
-      m: (value.ft ?? 0) * conversions[ImperialTarget.ft],
-      cm: (value.ins ?? 0) * conversions[ImperialTarget.ins],
-      mm: (number(value.fr) ?? 0) * conversions[ImperialTarget.ins],
-    };
-  }
+  return {
+    m: (value.ft ?? 0) * conversions[ImperialTarget.ft],
+    cm: (value.ins ?? 0) * conversions[ImperialTarget.ins],
+    mm: (number(value.fr) ?? 0) * conversions[ImperialTarget.ins],
+  };
 };
