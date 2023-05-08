@@ -1,9 +1,9 @@
 import React, { useContext, FC } from 'react';
-import { isImperial, isMetric, isNumber } from '~/data/Value';
-import { Mode } from '~/types';
+import { isImperial, isMetric, isNumber } from 'src/data';
+import { Mode } from 'src/data';
 
-import { ValueContext } from '~/contexts';
-import { Button } from '~/ui';
+import { ValueContext } from 'src/contexts';
+import { Button } from 'src/ui';
 
 export const Multiply: FC = () => {
   const {

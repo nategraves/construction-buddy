@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 
-import { ValueContext } from '~/contexts';
-import { Units } from '~/types';
+import { ValueContext } from 'src/contexts';
+import { Units } from 'src/data';
 
 export function useIsMetric(): boolean {
   const { units } = useContext(ValueContext);

@@ -4,11 +4,11 @@ import {
   // isImperial,
   // isMetric,
   // isNumber
-} from '~/data';
-// import { Mode } from "~/~/~/types";
+} from 'src/data';
+// import { Mode } from "~~src/data";
 
-import { ValueContext } from '~/contexts';
-import { Button } from '~/ui';
+import { ValueContext } from 'src/contexts';
+import { Button } from 'src/ui';
 
 export const Cube: FC = () => {
   const {

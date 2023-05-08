@@ -1,9 +1,9 @@
 import React, { FC, useContext } from 'react';
 
-import { Button } from '~/ui';
-import { Mode } from '~/types';
-import { ValueContext } from '~/contexts';
-import { squareRoot } from '~/data';
+import { Button } from 'src/ui';
+import { Mode } from 'src/data';
+import { ValueContext } from 'src/contexts';
+import { squareRoot } from 'src/data';
 
 export const SquareRoot: FC = () => {
   const {

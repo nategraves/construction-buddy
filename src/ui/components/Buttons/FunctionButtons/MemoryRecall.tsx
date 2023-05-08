@@ -1,8 +1,8 @@
-import { ValueContext } from '~/contexts';
-import { isImperial, isMetric, isNumber } from '~/data';
+import { ValueContext } from 'src/contexts';
+import { isImperial, isMetric, isNumber } from 'src/data';
 import React, { useContext } from 'react';
 
-import { Button } from '~/ui';
+import { Button } from 'src/ui';
 
 export function MemoryRecall() {
   const { recallMemory, setInputString, setWorkingValue } = useContext(ValueContext);

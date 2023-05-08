@@ -1,9 +1,9 @@
 import React, { useContext } from 'react';
 
-import { Button } from '~/ui';
-import { ValueContext } from '~/contexts';
-import { Value, isSame, modeMap } from '~/data';
-import { Mode } from '~/types';
+import { Button } from 'src/ui';
+import { ValueContext } from 'src/contexts';
+import { Value, isSame, modeMap } from 'src/data';
+import { Mode } from 'src/data';
 
 export function Percent() {
   const {
@@ -29,7 +29,7 @@ export function Percent() {
 
     let toProcess = [...initialToProcess];
 
-    const initial = toProcess.shift();
+    const initial: Value | undefined = toProcess.shift();
     console.log({ initial });
 
     if (workingValue) {
@@ -41,7 +41,7 @@ export function Percent() {
       setWorkingValue();
     }
 
-    if (mode == null) {
+    if (mode == null || initial == null) {
       return;
     }
 

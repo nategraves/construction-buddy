@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 
-import { ValueContext } from '~/contexts';
-import { Button } from '~/ui';
+import { ValueContext } from 'src/contexts';
+import { Button } from 'src/ui';
 
 export const Clear = () => {
   const {
@@ -13,9 +13,12 @@ export const Clear = () => {
     setTotalValue,
     setToProcess,
     setWorkingValue,
+    updateMode,
   } = useContext(ValueContext);
 
   const handleClick = () => {
+    updateMode();
+
     if (inputString != null) {
       setInputString();
       return;

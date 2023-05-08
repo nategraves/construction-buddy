@@ -1,9 +1,9 @@
 import React, { useContext } from 'react';
 
-import { EmptyRightAngle, Mode } from '~/types';
-import { ValueContext } from '~/contexts';
-import { isSame, square, squareRoot, subtract } from '~/data';
-import { Button } from '~/ui';
+import { EmptyRightAngle, Mode } from 'src/data';
+import { ValueContext } from 'src/contexts';
+import { isSame, square, squareRoot, subtract } from 'src/data';
+import { Button } from 'src/ui';
 
 export const Rise = () => {
   const {

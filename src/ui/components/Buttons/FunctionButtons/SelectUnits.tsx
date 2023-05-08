@@ -1,12 +1,12 @@
 import React, { ChangeEvent, useContext } from 'react';
-import { Units } from '~/types';
+import { Units } from 'src/data';
 
-import { ValueContext } from '~/contexts';
+import { ValueContext } from 'src/contexts';
 
 export const SelectUnits = () => {
   const { units, setWorkingValue, setTotalValue, setUnits } = useContext(ValueContext);
 
-  const handleChange = (value: Maybe<Units>) => {
+  const handleChange = (value: Units | undefined) => {
     if (value != null) {
       setUnits(value);
       setWorkingValue();
@@ -15,9 +15,9 @@ export const SelectUnits = () => {
   };
 
   units != null && units.charAt(0);
-  const options = Object.values(Units).map((unit: string) => (
-    <option value={unit} key={unit}>
-      {unit.toUpperCase()}
+  const options = Object.values(Units).map((unit: unknown) => (
+    <option value={unit as string} key={unit as string}>
+      {(unit as string).toUpperCase()}
     </option>
   ));
 

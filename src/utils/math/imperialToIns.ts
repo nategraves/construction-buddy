@@ -1,6 +1,6 @@
 import { number } from 'mathjs';
 
-import { ImperialValue } from '~/data';
+import { ImperialValue } from 'src/data';
 
 export const imperialToIns = ({ ft, ins, fr }: ImperialValue) => {
   let inches = 0;

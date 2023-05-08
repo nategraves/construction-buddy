@@ -1,5 +1,5 @@
 import { fraction, Fraction, number } from 'mathjs';
-import { Resolution } from '~/types';
+import { Resolution } from 'src/data';
 
 export const closestTapeMeasure = ({
   decimal,

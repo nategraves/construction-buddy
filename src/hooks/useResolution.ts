@@ -1,9 +1,9 @@
 import { useContext } from 'react';
-import { Resolution } from '~/types/';
 
-import { ValueContext } from '~/contexts';
+import { ValueContext } from 'src/contexts';
+import { Resolution } from 'src/data';
 
-export function useResolution(): Maybe<Resolution> {
+export function useResolution(): Resolution | undefined {
   const { resolution } = useContext(ValueContext);
   return resolution;
 }

@@ -1,11 +1,11 @@
 import React, { ChangeEvent, useContext } from 'react';
-import { Resolution } from '~/types';
-import { ValueContext } from '~/contexts';
+import { ValueContext } from 'src/contexts';
+import { Resolution } from 'src/data';
 
 export const SelectResolution = () => {
   const { resolution, setResolution } = useContext(ValueContext);
 
-  const handleChange = (value: Maybe<Resolution>) => {
+  const handleChange = (value: Resolution | undefined) => {
     setResolution(value ?? undefined);
   };
 

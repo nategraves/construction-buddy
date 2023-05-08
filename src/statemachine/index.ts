@@ -1,15 +1,15 @@
-import { Value } from '~/data';
+import { Value } from 'src/data';
 import { createMachine } from 'xstate';
 
 export const modeMachine = createMachine({
   schema: {
     context: {} as {
-      displayValue: Maybe<Value>;
-      error: Maybe<string>;
-      input: Maybe<number>;
-      inputString: Maybe<string>;
-      totalValue: Maybe<Value>;
-      workingValue: Maybe<Value>;
+      displayValue: Value | undefined;
+      error: string | undefined;
+      input: number | undefined;
+      inputString: string | undefined;
+      totalValue: Value | undefined;
+      workingValue: Value | undefined;
     },
     events: {} as
       | {

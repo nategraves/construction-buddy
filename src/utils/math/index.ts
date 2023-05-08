@@ -1,3 +1,4 @@
-export * from "./convert";
-export * from "./inToCm";
-export * from "./sixtyFourthToDecimal";
+export * from './convert';
+export * from './imperialToIns';
+export * from './inToCm';
+export * from './sixtyFourthToDecimal';

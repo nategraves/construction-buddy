@@ -1,7 +1,7 @@
 import { fraction, number } from 'mathjs';
 
-import { ImperialTarget, MetricTarget } from '~/types';
-import { isMetric, isNumber, Value } from '~/data/Value';
+import { ImperialTarget, MetricTarget, Value } from 'src/data';
+import { isMetric, isNumber } from 'src/data';
 
 const conversions = {
   [MetricTarget.m]: 3.28, // To feet

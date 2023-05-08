@@ -8,8 +8,6 @@ import {
   DisplayValue,
   RightAngle,
   EmptyRightAngle,
-} from '~/types';
-import {
   ImperialValue,
   isImperial,
   isMetric,
@@ -18,32 +16,32 @@ import {
   MetricValue,
   modeMap,
   Value,
-} from '~/data/Value';
+} from 'src/data';
 
 export type ToProcess = (ImperialValue | MetricValue | number)[];
-export type Input = Maybe<number | [number] | [number, number]>;
+export type Input = number | [number] | [number, number] | undefined;
 
 interface ValueContextProps {
   displayValue: DisplayValue;
-  error: Maybe<string>;
-  inputString: Maybe<string>;
-  input: Maybe<number>;
-  workingValue: Maybe<Value>;
+  error: string | undefined;
+  inputString: string | undefined;
+  input: number | undefined;
+  workingValue: Value | undefined;
   memory: Value[];
-  mode: Maybe<Mode>;
-  resolution: Maybe<Resolution>;
+  mode: Mode | undefined;
+  resolution: Resolution;
   rightAngle: RightAngle;
   toProcess: ToProcess;
-  totalUnits: Maybe<TotalUnits>;
-  totalValue: Maybe<Value>;
-  units: Maybe<Units>;
+  totalUnits: TotalUnits | undefined;
+  totalValue: Value | undefined;
+  units: Units | undefined;
   addMemory: (newValue: Value) => Value[];
   addToProcess: (newToProcess: Value) => void;
-  recallMemory: () => Maybe<Value>;
+  recallMemory: () => Value | undefined;
   setDisplayValue: (newDisplayValue: DisplayValue) => void;
-  setError: (newError: Maybe<string>) => void;
+  setError: (newError: string | undefined) => void;
   setInputString: (newInputString?: string) => void;
-  setInput: (newInput?: Maybe<number>) => void;
+  setInput: (newInput?: number | undefined) => void;
   setMemory: (newMemory?: Value[]) => void;
   setResolution: (newResolution?: Resolution) => void;
   setRightAngle: (newRightAngle: RightAngle) => void;
@@ -52,7 +50,7 @@ interface ValueContextProps {
   setTotalValue: (newTotal?: Value) => void;
   setUnits: (newUnits: Units) => void;
   setWorkingValue: (newStored?: Value) => void;
-  updateMode: (newMode?: Mode) => void;
+  updateMode: (newMode?: Mode | undefined) => void;
 }
 
 export const ValueContext = createContext<ValueContextProps>({
@@ -62,7 +60,7 @@ export const ValueContext = createContext<ValueContextProps>({
   input: undefined,
   memory: [],
   mode: undefined,
-  resolution: undefined,
+  resolution: Resolution.sixteenth,
   rightAngle: EmptyRightAngle,
   workingValue: undefined,
   toProcess: [],
@@ -89,18 +87,18 @@ export const ValueContext = createContext<ValueContextProps>({
 
 export const ValueProvider: FC<{ children: ReactNode }> = ({ children }) => {
   const [displayValue, setDisplayValue] = useState<DisplayValue>(DisplayValue.input);
-  const [error, setError] = useState<Maybe<string>>();
-  const [inputString, setInputString] = useState<Maybe<string>>('');
-  const [input, setInput] = useState<Maybe<number>>();
+  const [error, setError] = useState<string | undefined>();
+  const [inputString, setInputString] = useState<string | undefined>('');
+  const [input, setInput] = useState<number | undefined>();
   const [memory, _setMemory] = useState<Value[]>([]);
-  const [mode, setMode] = useState<Maybe<Mode>>();
-  const [workingValue, setWorkingValue] = useState<Maybe<Value>>();
-  const [resolution, setResolution] = useState<Maybe<Resolution>>();
+  const [mode, setMode] = useState<Mode | undefined>();
+  const [workingValue, setWorkingValue] = useState<Value | undefined>();
+  const [resolution, _setResolution] = useState<Resolution>(Resolution.sixteenth);
   const [rightAngle, setRightAngle] = useState<RightAngle>(EmptyRightAngle);
   const [toProcess, _setToProcess] = useState<ToProcess>([]);
-  const [totalUnits, setTotalUnits] = useState<Maybe<TotalUnits>>();
-  const [totalValue, setTotalValue] = useState<Maybe<Value>>();
-  const [units, setUnits] = useState<Maybe<Units>>(Units.imperial);
+  const [totalUnits, setTotalUnits] = useState<TotalUnits | undefined>();
+  const [totalValue, setTotalValue] = useState<Value | undefined>();
+  const [units, setUnits] = useState<Units | undefined>(Units.imperial);
 
   const addMemory = (newValue: Value) => {
     _setMemory([...memory, newValue]);
@@ -113,6 +111,10 @@ export const ValueProvider: FC<{ children: ReactNode }> = ({ children }) => {
     } else {
       _setMemory(newMemory);
     }
+  };
+
+  const setResolution = (newResolution?: Resolution) => {
+    _setResolution(newResolution ?? Resolution.sixteenth);
   };
 
   const recallMemory = () => {
@@ -133,7 +135,7 @@ export const ValueProvider: FC<{ children: ReactNode }> = ({ children }) => {
       console.log({ input: newInput });
       setInput(newInput);
     } else {
-      setInput(null);
+      setInput(undefined);
     }
   }, [inputString, workingValue, toProcess, totalValue, rightAngle]);
 
@@ -152,7 +154,7 @@ export const ValueProvider: FC<{ children: ReactNode }> = ({ children }) => {
       case Mode.add:
         if (input == null && workingValue == null && totalValue != null) {
           addToProcess(totalValue);
-          setTotalValue(null);
+          setTotalValue(undefined);
           return;
         }
 
@@ -167,20 +169,20 @@ export const ValueProvider: FC<{ children: ReactNode }> = ({ children }) => {
 
         if (shouldAddNumber) {
           addToProcess(input);
-          setInputString(null);
+          setInputString(undefined);
           return;
         }
 
         if (shouldAddImperial || shouldAddMetric) {
           addToProcess(workingValue);
-          setWorkingValue(null);
+          setWorkingValue(undefined);
         }
 
         break;
       case Mode.divide:
         if (input == null && workingValue == null && totalValue != null) {
           addToProcess(totalValue);
-          setTotalValue(null);
+          setTotalValue(undefined);
           return;
         }
 
@@ -195,13 +197,13 @@ export const ValueProvider: FC<{ children: ReactNode }> = ({ children }) => {
 
         if (shouldDivideNumber) {
           addToProcess(input);
-          setInputString(null);
+          setInputString(undefined);
           return;
         }
 
         if (shouldDivideImperial || shouldDivideMetric) {
           addToProcess(workingValue);
-          setWorkingValue(null);
+          setWorkingValue(undefined);
         }
         break;
       case Mode.equals:
@@ -213,7 +215,7 @@ export const ValueProvider: FC<{ children: ReactNode }> = ({ children }) => {
           } else {
             process = [workingValue];
           }
-          setWorkingValue(null);
+          setWorkingValue(undefined);
         }
 
         if (!process.length) {
@@ -226,15 +228,15 @@ export const ValueProvider: FC<{ children: ReactNode }> = ({ children }) => {
           console.warn('Only 1 value in toProcess. Setting as total');
           setTotalValue(initial);
         } else if (process.length === 0 && input != null && initial != null) {
-          const total = modeMap[mode]({ value: initial, toApply: input });
-          setInputString(null);
+          const total = modeMap[mode as Mode]({ value: initial, toApply: input });
+          setInputString(undefined);
           setTotalValue(total);
         } else if (toProcess.length === 0 && workingValue != null && initial != null) {
-          const total = modeMap[mode]({
+          const total = modeMap[mode as Mode]({
             value: initial,
             toApply: workingValue,
           });
-          setWorkingValue(null);
+          setWorkingValue(undefined);
           setTotalValue(total);
         } else {
           console.warn({ initial, toProcess, mode, input });
@@ -277,7 +279,7 @@ export const ValueProvider: FC<{ children: ReactNode }> = ({ children }) => {
         }
         if (inputString == null && workingValue == null && totalValue != null) {
           addToProcess(totalValue);
-          setTotalValue(null);
+          setTotalValue(undefined);
           return;
         }
 
@@ -292,13 +294,13 @@ export const ValueProvider: FC<{ children: ReactNode }> = ({ children }) => {
 
         if (shouldMultiplyNumber) {
           addToProcess(input);
-          setInputString(null);
+          setInputString(undefined);
           return;
         }
 
         if (shouldMultiplyImperial || shouldMultiplyMetric) {
           addToProcess(workingValue);
-          setWorkingValue(null);
+          setWorkingValue(undefined);
         }
         break;
 

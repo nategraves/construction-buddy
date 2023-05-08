@@ -1,12 +1,12 @@
 import React, { useState, useContext } from 'react';
 import { fraction } from 'mathjs';
 
-import { ValueContext } from '~/contexts';
-import { isImperial } from '~/data';
-import { Button } from '~/ui';
+import { ValueContext } from 'src/contexts';
+import { isImperial } from 'src/data';
+import { Button, FractionDisplay } from 'src/ui';
 
 export function Fractional() {
-  const [numerator, setNumerator] = useState<Maybe<number>>();
+  const [numerator, setNumerator] = useState<number | undefined>();
   const { input, resolution, setInputString, setWorkingValue, workingValue } =
     useContext(ValueContext);
 
@@ -44,5 +44,9 @@ export function Fractional() {
     setInputString();
   };
 
-  return <Button onClick={() => handleClick()}>X / Y</Button>;
+  return (
+    <Button onClick={() => handleClick()}>
+      <FractionDisplay d={resolution} />
+    </Button>
+  );
 }

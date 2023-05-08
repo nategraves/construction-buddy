@@ -1,9 +1,9 @@
 import React, { useContext, FC } from 'react';
-import { square } from '~/data';
-import { Mode } from '~/types';
+import { square } from 'src/data';
+import { Mode } from 'src/data';
 
-import { ValueContext } from '~/contexts';
-import { Button } from '~/ui';
+import { ValueContext } from 'src/contexts';
+import { Button } from 'src/ui';
 
 export const Square: FC = () => {
   const {

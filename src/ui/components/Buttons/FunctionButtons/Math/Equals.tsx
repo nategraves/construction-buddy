@@ -1,9 +1,9 @@
 import React, { useContext } from 'react';
 
-import { ValueContext } from '~/contexts';
-import { Button } from '~/ui';
-import { Mode } from '~/types';
-import { isSame, modeMap } from '~/data';
+import { ValueContext } from 'src/contexts';
+import { Button } from 'src/ui';
+import { Mode } from 'src/data';
+import { isSame, modeMap } from 'src/data';
 
 export const Equals = () => {
   const {
@@ -52,7 +52,6 @@ export const Equals = () => {
       setTotalValue(total!);
     } else {
       console.warn({ initial, toProcess, mode, input });
-      // @ts-expect-error
       const total = toProcess.reduce((sum, value) => {
         const newSum = modeMap[mode]({ value: sum!, toApply: value });
         return newSum;

@@ -1,12 +1,10 @@
-import React from "react";
-import { Fraction } from "mathjs";
+import React from 'react';
 
-export const FractionDisplay = ({ fraction }: { fraction: Fraction }) => {
-  const { n, d } = fraction;
+export const FractionDisplay = ({ n, d }: { n?: number; d: number }) => {
   return (
-    <div style={{ display: "flex", flexDirection: "column" }}>
-      <span>{n}</span>
-      <hr />
+    <div style={{ display: 'flex', flexDirection: 'column' }}>
+      <span>{n ?? 'X'}</span>
+      <hr style={{ margin: 0 }} />
       <span>{d}</span>
     </div>
   );

@@ -1,9 +1,9 @@
 import React, { useContext } from 'react';
 
-import { isMetric } from '~/data';
-import { DisplayValue } from '~/types';
-import { ValueContext } from '~/contexts';
-import { Button } from '~/ui';
+import { isMetric } from 'src/data';
+import { DisplayValue } from 'src/data';
+import { ValueContext } from 'src/contexts';
+import { Button } from 'src/ui';
 
 export function Millimeters() {
   const { input, workingValue, setDisplayValue, setInputString, setWorkingValue } =

@@ -1,9 +1,9 @@
 import React, { useContext } from 'react';
 
-import { DisplayValue } from '~/types';
-import { ValueContext } from '~/contexts';
-import { isImperial } from '~/data';
-import { Button } from '~/ui';
+import { DisplayValue } from 'src/data';
+import { ValueContext } from 'src/contexts';
+import { isImperial } from 'src/data';
+import { Button } from 'src/ui';
 
 export function Feet() {
   const { input, workingValue, setInputString, setWorkingValue, setDisplayValue } =

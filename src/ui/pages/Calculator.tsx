@@ -1,6 +1,5 @@
 import React from 'react';
-import { BasicModeButtons, NumericButtons } from '~/ui/components';
-import { Display } from '~/ui/sections/Display';
+import { Display, BottomButtons, TopButtons } from 'src/ui';
 
 export function Calculator() {
   return (
@@ -31,8 +30,8 @@ export function Calculator() {
         </h1>
       </div>
       <Display />
-      <BasicModeButtons />
-      <NumericButtons />
+      <TopButtons />
+      <BottomButtons />
     </div>
   );
 }

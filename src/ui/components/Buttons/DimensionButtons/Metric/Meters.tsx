@@ -1,9 +1,9 @@
 import React, { useContext } from 'react';
 
-import { ValueContext } from '~/contexts';
-import { DisplayValue } from '~/types';
-import { isMetric } from '~/data';
-import { Button } from '~/ui';
+import { ValueContext } from 'src/contexts';
+import { DisplayValue } from 'src/data';
+import { isMetric } from 'src/data';
+import { Button } from 'src/ui';
 
 export function Meters() {
   const { input, workingValue, setInputString, setWorkingValue, setDisplayValue } =
