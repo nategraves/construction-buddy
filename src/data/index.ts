@@ -15,6 +15,7 @@ export * from './Mode';
 export * from './modeMap';
 export * from './modeSymbolMap';
 export * from './multiply';
+export * from './Operators';
 export * from './Resolution';
 export * from './square';
 export * from './squareRoot';
