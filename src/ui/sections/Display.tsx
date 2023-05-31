@@ -1,36 +1,40 @@
 import React, { useContext } from 'react';
-import { stringify } from 'src/data/stringify';
 
 import { ValueContext } from 'src/contexts/index';
-import { Preview, TotalUnitsDisplay } from 'src/ui';
+import { Preview, ValueDisplay } from 'src/ui';
+import { Value } from 'src/data';
 
 export function Display() {
   const { inputString, workingValue, totalValue } = useContext(ValueContext);
 
-  const showStored = inputString == null && workingValue != null;
+  const showWorking = inputString == null && workingValue != null;
   const showTotal = inputString == null && workingValue == null && totalValue != null;
 
   return (
     <div
       style={{
-        alignContent: 'center',
+        alignContent: 'flex-start',
         backgroundColor: '#e8eced',
         display: 'flex',
         flexWrap: 'wrap',
         height: '150px',
         width: '100%',
+        padding: '0.5rem',
+        alignItems: 'center',
+        textAlign: 'right',
       }}
     >
       <div style={{ width: '100%', display: 'flex' }}>
         <Preview />
       </div>
       <div style={{ display: 'flex', width: '100%' }}>
-        {inputString != null && <div>{inputString}</div>}
-        {showStored && <div>{stringify({ value: workingValue })}</div>}
+        {inputString != null && (
+          <div style={{ padding: '1rem', justifyContent: 'flex-end' }}>{inputString}</div>
+        )}
+        {showWorking && <ValueDisplay value={workingValue} />}
         {showTotal && (
           <div>
-            <span>{stringify({ value: totalValue })}</span>
-            <TotalUnitsDisplay />
+            <ValueDisplay value={totalValue as Value} />
           </div>
         )}
       </div>

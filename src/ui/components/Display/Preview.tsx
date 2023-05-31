@@ -1,13 +1,14 @@
-import React, { useContext } from 'react';
+import React from 'react';
 
-import { ValueContext } from 'src/contexts';
-import { stringify } from 'src/data';
+import { CalculationStepDisplay } from './CalculationStepDisplay';
 
 export const Preview = () => {
-  const { workingValue } = useContext(ValueContext);
-
-  // TODO: Fix this to account for calculationSteps
-  const all = [workingValue].map((value) => (value ? stringify({ value }) : ''));
-  // .join(` ${mode != null ? modeSymbolMap[mode] : ''} `);
-  return <span>{all}</span>;
+  return (
+    <div
+      className="flex row"
+      style={{ padding: '1rem', justifyContent: 'flex-end', minHeight: '1.3rem' }}
+    >
+      <CalculationStepDisplay />
+    </div>
+  );
 };

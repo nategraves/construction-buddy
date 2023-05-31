@@ -4,7 +4,7 @@ import { Resolution } from './Resolution';
 import { greatestCommonDivisor, leastCommonMultiple } from '../utils/math';
 
 export class Fraction {
-  n: number;
+  n?: number;
   d: number;
 
   constructor(n: number, d: number) {
@@ -30,14 +30,14 @@ export class Fraction {
   static closestTapeMeasure = (decimal: number, resolution: Resolution = Resolution.thirtySecond) =>
     new Fraction(Math.round(resolution * decimal), resolution);
 
-  toDecimal = () => this.n / this.d;
+  toDecimal = () => (this.n ?? 0) / this.d;
 
   add = (other: Fraction) => {
     // Find the least common multiple of the two fractions' denominators
     let lcm = leastCommonMultiple(this.d, other.d);
 
     // Calculate the numerator of the new fraction
-    let newN: number = (lcm / this.d) * this.n + (lcm / other.d) * other.n;
+    let newN: number = (lcm / this.d) * (this.n ?? 0) + (lcm / other.d) * (other.n ?? 0);
 
     // Simplify the new fraction
     const gcd = greatestCommonDivisor(newN, lcm);
@@ -52,7 +52,7 @@ export class Fraction {
     let lcm = leastCommonMultiple(this.d, other.d);
 
     // Calculate the numerators of the new fraction
-    let newN = (lcm / this.d) * this.n - (lcm / other.d) * other.n;
+    let newN = (lcm / this.d) * (this.n ?? 0) - (lcm / other.d) * (other.n ?? 0);
 
     // Simplify the new fraction
     const gcd = greatestCommonDivisor(newN, lcm);
@@ -64,8 +64,8 @@ export class Fraction {
 
   divide = (other: Fraction) => {
     // Calculate the numerators and denominators of the new fraction
-    let newN = this.n * other.d;
-    let newD = this.d * other.n;
+    let newN = (this.n ?? 0) * other.d;
+    let newD = this.d * (other.n ?? 0);
 
     // Simplify the new fraction
     const gcd = greatestCommonDivisor(newN, newD);
@@ -77,7 +77,7 @@ export class Fraction {
 
   multiply = (other: Fraction) => {
     // Calculate the numerators and denominators of the new fraction
-    let newN = this.n * other.n;
+    let newN = (this.n ?? 0) * (other.n ?? 0);
     let newD = this.d * other.d;
 
     // Simplify the new fraction
@@ -93,8 +93,9 @@ export class Fraction {
   toComponent = () => {
     return (
       <div className="flex flex-col">
-        <div>{this.n}</div>
-        <hr />
+        <div>{this.n ?? 'X'}</div>
+        <div>{'⟋'}</div>
+        {/* <hr style={{ margin: 0 }} /> */}
         <div>{this.d}</div>
       </div>
     );

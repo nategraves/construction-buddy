@@ -6,7 +6,7 @@ import { isMetric } from './isMetric';
 export const simplify = (value: Value): Value => {
   if (isImperial(value)) {
     // Convert fractions to inches
-    const frIns = value.fr ? value.fr.n / value.fr.d : 0;
+    const frIns = value.fr ? (value.fr.n ?? 0) / value.fr.d : 0;
     const totalIns = (value.ins ?? 0) + frIns;
 
     // Convert inches to feet and inches
