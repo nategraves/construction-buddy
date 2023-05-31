@@ -4,7 +4,8 @@ import { ValueContext } from 'src/contexts';
 import { Button } from 'src/ui';
 
 export function MemoryAdd() {
-  const { input, workingValue, addMemory, setInput, setWorkingValue } = useContext(ValueContext);
+  const { input, workingValue, addMemory, setInputString, setWorkingValue } =
+    useContext(ValueContext);
 
   const handleClick = () => {
     if (input == null && workingValue == null) {
@@ -13,7 +14,7 @@ export function MemoryAdd() {
 
     if (input != null) {
       addMemory(input);
-      setInput();
+      setInputString();
       return;
     }
 

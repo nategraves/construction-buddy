@@ -2,7 +2,6 @@ import React, { useContext } from 'react';
 
 import { ValueContext } from 'src/contexts';
 import { add, isSame, square, squareRoot } from 'src/data';
-import { Mode } from 'src/data';
 import { Button } from 'src/ui';
 
 export const Diagonal = () => {
@@ -15,7 +14,6 @@ export const Diagonal = () => {
     setRightAngle,
     setTotalValue,
     setWorkingValue,
-    updateMode,
   } = useContext(ValueContext);
 
   const handleClick = () => {
@@ -44,7 +42,6 @@ export const Diagonal = () => {
       const diagonalSquared = add({ value: riseSquared!, toApply: runSquared! });
       setTotalValue(squareRoot({ value: diagonalSquared }));
       setRightAngle({ rise: undefined, run: undefined, diagonal: undefined });
-      updateMode(Mode.equals);
     }
   };
 

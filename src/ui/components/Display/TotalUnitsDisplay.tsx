@@ -1,17 +1,15 @@
 import React, { ReactNode, useContext } from 'react';
-import { Mode } from 'src/data';
 
 import { ValueContext } from 'src/contexts';
 import { isImperial, isMetric } from 'src/data';
 
+// TODO: Fix this to account for postscript
 export const TotalUnitsDisplay = () => {
-  const { totalValue, mode } = useContext(ValueContext);
+  const { totalValue } = useContext(ValueContext);
 
   let totalUnits: ReactNode = null;
 
-  const isSquare = mode === Mode.square;
-
-  if (isSquare && isImperial(totalValue)) {
+  if (isImperial(totalValue)) {
     totalUnits = (
       <span>
         &nbsp;FT<sup>2</sup>
@@ -19,7 +17,7 @@ export const TotalUnitsDisplay = () => {
     );
   }
 
-  if (isSquare && isMetric(totalValue)) {
+  if (isMetric(totalValue)) {
     totalUnits = (
       <span>
         &nbsp;M<sup>2</sup>

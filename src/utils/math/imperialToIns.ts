@@ -1,5 +1,3 @@
-import { number } from 'mathjs';
-
 import { ImperialValue } from 'src/data';
 
 export const imperialToIns = ({ ft, ins, fr }: ImperialValue) => {
@@ -11,7 +9,7 @@ export const imperialToIns = ({ ft, ins, fr }: ImperialValue) => {
     inches += ins;
   }
   if (fr) {
-    inches += number(fr);
+    inches += fr.toDecimal();
   }
   return inches;
 };

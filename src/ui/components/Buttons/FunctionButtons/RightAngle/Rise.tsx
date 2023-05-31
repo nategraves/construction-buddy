@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 
-import { EmptyRightAngle, Mode } from 'src/data';
+import { EmptyRightAngle } from 'src/data';
 import { ValueContext } from 'src/contexts';
 import { isSame, square, squareRoot, subtract } from 'src/data';
 import { Button } from 'src/ui';
@@ -15,7 +15,6 @@ export const Rise = () => {
     setRightAngle,
     setTotalValue,
     setWorkingValue,
-    updateMode,
   } = useContext(ValueContext);
 
   const handleClick = () => {
@@ -47,7 +46,6 @@ export const Rise = () => {
       });
       setTotalValue(squareRoot({ value: riseSquared! }));
       setRightAngle(EmptyRightAngle);
-      updateMode(Mode.equals);
     }
   };
 

@@ -24,5 +24,5 @@ export const subtract = ({ value, toApply }: { value: Value; toApply: Value }) =
     return value - toApply;
   }
 
-  return;
+  throw new Error('Cannot subtract values of different types');
 };

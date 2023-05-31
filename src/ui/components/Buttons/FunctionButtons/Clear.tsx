@@ -6,19 +6,16 @@ import { Button } from 'src/ui';
 export const Clear = () => {
   const {
     inputString,
-    toProcess,
+    calculationSteps,
     totalValue,
     workingValue,
+    clearCalculationSteps,
     setInputString,
     setTotalValue,
-    setToProcess,
     setWorkingValue,
-    updateMode,
   } = useContext(ValueContext);
 
   const handleClick = () => {
-    updateMode();
-
     if (inputString != null) {
       setInputString();
       return;
@@ -27,8 +24,8 @@ export const Clear = () => {
       setWorkingValue();
       return;
     }
-    if (toProcess.length) {
-      setToProcess([]);
+    if (calculationSteps.length > 0) {
+      clearCalculationSteps();
       return;
     }
     if (totalValue) {

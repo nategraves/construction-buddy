@@ -1,6 +1,5 @@
-import { fraction } from 'mathjs';
-
 import { add, ImperialValue, MetricValue } from 'src/data';
+import { Fraction } from '../Fraction';
 
 describe('Add correctly adds', () => {
   test('number, number', () => {
@@ -11,10 +10,10 @@ describe('Add correctly adds', () => {
   });
 
   test('ImperialValue,ImperialValue', () => {
-    const value: ImperialValue = { ft: 1, ins: 1, fr: fraction(1, 3) };
-    const toApply: ImperialValue = { ft: 1, ins: 1, fr: fraction(1, 6) };
+    const value: ImperialValue = { ft: 1, ins: 1, fr: new Fraction(1, 3) };
+    const toApply: ImperialValue = { ft: 1, ins: 1, fr: new Fraction(1, 6) };
     const result = add({ value, toApply });
-    expect(JSON.stringify(result)).toBe(JSON.stringify({ ft: 2, ins: 2, fr: fraction(1, 2) }));
+    expect(JSON.stringify(result)).toBe(JSON.stringify({ ft: 2, ins: 2, fr: new Fraction(1, 2) }));
   });
 
   test('MetricValue,MetricValue', () => {

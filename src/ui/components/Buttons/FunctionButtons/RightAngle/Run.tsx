@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 
 import { ValueContext } from 'src/contexts';
 import { isSame, square, squareRoot, subtract } from 'src/data';
-import { Mode, EmptyRightAngle } from 'src/data';
+import { EmptyRightAngle } from 'src/data';
 import { Button } from 'src/ui';
 
 export const Run = () => {
@@ -15,7 +15,6 @@ export const Run = () => {
     setRightAngle,
     setTotalValue,
     setWorkingValue,
-    updateMode,
   } = useContext(ValueContext);
 
   const handleClick = () => {
@@ -51,7 +50,6 @@ export const Run = () => {
       });
       setTotalValue(squareRoot({ value: runSquared! }));
       setRightAngle(EmptyRightAngle);
-      updateMode(Mode.equals);
     }
   };
 

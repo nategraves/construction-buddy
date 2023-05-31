@@ -5,7 +5,7 @@ import { ValueContext } from 'src/contexts/index';
 import { Preview, TotalUnitsDisplay } from 'src/ui';
 
 export function Display() {
-  const { inputString, mode, workingValue, totalValue } = useContext(ValueContext);
+  const { inputString, workingValue, totalValue } = useContext(ValueContext);
 
   const showStored = inputString == null && workingValue != null;
   const showTotal = inputString == null && workingValue == null && totalValue != null;
@@ -22,7 +22,6 @@ export function Display() {
       }}
     >
       <div style={{ width: '100%', display: 'flex' }}>
-        {mode != null && <div>{mode}</div>}
         <Preview />
       </div>
       <div style={{ display: 'flex', width: '100%' }}>

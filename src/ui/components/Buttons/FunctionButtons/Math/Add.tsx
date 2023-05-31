@@ -1,55 +1,32 @@
 import React, { useContext, FC } from 'react';
-import { isImperial, isMetric, isNumber } from 'src/data';
-import { Mode } from 'src/data';
+import { addAction, Symbols } from 'src/data';
 
 import { ValueContext } from 'src/contexts';
 import { Button } from 'src/ui';
 
 export const Add: FC = () => {
   const {
+    calculationSteps,
     input,
     totalValue,
-    toProcess,
     workingValue,
+    addCalculationStep,
     setInputString,
-    addToProcess,
     setTotalValue,
     setWorkingValue,
-    updateMode,
   } = useContext(ValueContext);
 
-  const handleClick = () => {
-    if (input == null && workingValue == null && totalValue == null) {
-      return;
-    }
+  const handleClick = () =>
+    addAction({
+      calculationSteps,
+      input,
+      totalValue,
+      workingValue,
+      addCalculationStep,
+      setInputString,
+      setTotalValue,
+      setWorkingValue,
+    });
 
-    updateMode(Mode.add);
-
-    if (input == null && workingValue == null && totalValue != null) {
-      addToProcess(totalValue);
-      setTotalValue();
-      return;
-    }
-
-    const [firstToProcess] = toProcess;
-
-    const shouldAddNumber = isNumber(input) && (firstToProcess == null || isNumber(firstToProcess));
-    const shouldAddImperial =
-      isImperial(workingValue) && (firstToProcess == null || isImperial(firstToProcess));
-    const shouldAddMetric =
-      isMetric(workingValue) && (firstToProcess == null || isMetric(firstToProcess));
-
-    if (shouldAddNumber) {
-      addToProcess(input);
-      setInputString();
-      return;
-    }
-
-    if (shouldAddImperial || shouldAddMetric) {
-      addToProcess(workingValue);
-      setWorkingValue();
-    }
-  };
-
-  return <Button onClick={() => handleClick()}>+</Button>;
+  return <Button onClick={() => handleClick()}>{Symbols.add}</Button>;
 };

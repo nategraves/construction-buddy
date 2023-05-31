@@ -1,8 +1,7 @@
 import React, { useState, useContext } from 'react';
-import { fraction } from 'mathjs';
 
 import { ValueContext } from 'src/contexts';
-import { isImperial } from 'src/data';
+import { Fraction, isImperial } from 'src/data';
 import { Button, FractionDisplay } from 'src/ui';
 
 export function Fractional() {
@@ -31,13 +30,13 @@ export function Fractional() {
       setWorkingValue({
         ...workingValue,
         ins: workingValue.ins ?? 0,
-        fr: fraction(numerator, denominator),
+        fr: new Fraction(numerator, denominator),
       });
     } else {
       setWorkingValue({
         ft: 0,
         ins: 0,
-        fr: fraction(numerator, denominator),
+        fr: new Fraction(numerator, denominator),
       });
     }
 

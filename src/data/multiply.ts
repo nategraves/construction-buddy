@@ -6,13 +6,7 @@ import { flatten } from './flatten';
 import { unflatten } from './unflatten';
 import { Units } from './Units';
 
-export const multiply = ({
-  value,
-  toApply,
-}: {
-  value: Value;
-  toApply: Value;
-}): Value | undefined => {
+export const multiply = ({ value, toApply }: { value: Value; toApply: Value }): Value => {
   const flatValue = flatten(value);
   const flatToApply = flatten(toApply);
 
@@ -42,9 +36,17 @@ export const multiply = ({
     });
   }
 
-  if (isNumber(value) && (isImperial(toApply) || isMetric(toApply))) {
-    throw new Error('Cannot multiply a number by a value');
+  if (isMetric(value) && isMetric(toApply)) {
+    // TODO: handle this
   }
 
-  return result;
+  if (isImperial(value) && isImperial(toApply)) {
+    // TODO: handle this
+  }
+
+  if (isNumber(value) && isNumber(toApply)) {
+    return result;
+  }
+
+  throw new Error('Cannot multiply a number by a value');
 };

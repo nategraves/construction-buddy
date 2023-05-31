@@ -1,27 +1,17 @@
 import React, { useContext, FC } from 'react';
 import { square } from 'src/data';
-import { Mode } from 'src/data';
 
 import { ValueContext } from 'src/contexts';
 import { Button } from 'src/ui';
 
 export const Square: FC = () => {
-  const {
-    input,
-    totalValue,
-    workingValue,
-    setInputString,
-    setTotalValue,
-    setWorkingValue,
-    updateMode,
-  } = useContext(ValueContext);
+  const { input, totalValue, workingValue, setInputString, setTotalValue, setWorkingValue } =
+    useContext(ValueContext);
 
   const handleClick = () => {
     if (input == null && workingValue == null && totalValue == null) {
       return;
     }
-
-    updateMode(Mode.square);
 
     if (input != null) {
       setTotalValue(square({ value: input }));
@@ -39,8 +29,6 @@ export const Square: FC = () => {
       setTotalValue(square({ value: totalValue }));
       return;
     }
-
-    updateMode(Mode.equals);
   };
 
   return (

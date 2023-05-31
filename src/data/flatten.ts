@@ -1,6 +1,7 @@
-import { number } from 'mathjs';
-
-import { Value, isImperial, isNumber } from './index';
+import { Value } from './Value';
+import { isImperial } from './isImperial';
+import { isNumber } from './isNumber';
+import { isMetric } from './isMetric';
 
 export const flatten = (value: Value): number => {
   if (isNumber(value)) {
@@ -16,12 +17,14 @@ export const flatten = (value: Value): number => {
       inches += ins;
     }
     if (fr) {
-      inches += number(fr);
+      inches += fr.toDecimal();
     }
 
     return inches;
+  } else if (isMetric(value)) {
+    const { m, cm, mm } = value;
+    return (m ?? 0) * 100 + (cm ?? 0) + (mm ?? 0) * 0.1;
   }
 
-  const { m, cm, mm } = value;
-  return (m ?? 0) * 100 + (cm ?? 0) + (mm ?? 0) * 0.1;
+  throw new Error('Unhandleable value');
 };

@@ -1,56 +1,32 @@
 import React, { useContext, FC } from 'react';
-import { isImperial, isMetric, isNumber } from 'src/data';
-import { Mode } from 'src/data';
+import { divideAction } from 'src/data';
 
 import { ValueContext } from 'src/contexts';
 import { Button } from 'src/ui';
 
 export const Divide: FC = () => {
   const {
+    calculationSteps,
     input,
-    toProcess,
     totalValue,
     workingValue,
-    addToProcess,
+    addCalculationStep,
     setInputString,
-    setWorkingValue,
     setTotalValue,
-    updateMode,
+    setWorkingValue,
   } = useContext(ValueContext);
 
-  const handleClick = () => {
-    if (input == null && workingValue == null && totalValue == null) {
-      return;
-    }
-
-    updateMode(Mode.divide);
-
-    if (input == null && workingValue == null && totalValue != null) {
-      addToProcess(totalValue);
-      setTotalValue();
-      return;
-    }
-
-    const [firstToProcess] = toProcess;
-
-    const shouldDivideNumber =
-      isNumber(input) && (firstToProcess == null || isNumber(firstToProcess));
-    const shouldDivideImperial =
-      isImperial(workingValue) && (firstToProcess == null || isImperial(firstToProcess));
-    const shouldDivideMetric =
-      isMetric(workingValue) && (firstToProcess == null || isMetric(firstToProcess));
-
-    if (shouldDivideNumber) {
-      addToProcess(input);
-      setInputString();
-      return;
-    }
-
-    if (shouldDivideImperial || shouldDivideMetric) {
-      addToProcess(workingValue);
-      setWorkingValue();
-    }
-  };
+  const handleClick = () =>
+    divideAction({
+      calculationSteps,
+      input,
+      totalValue,
+      workingValue,
+      addCalculationStep,
+      setInputString,
+      setTotalValue,
+      setWorkingValue,
+    });
 
   return <Button onClick={() => handleClick()}>/</Button>;
 };

@@ -1,6 +1,4 @@
-import { fraction } from 'mathjs';
-
-import { ImperialValue, MetricValue, subtract } from '../';
+import { Fraction, ImperialValue, MetricValue, subtract } from '../';
 
 describe('Subtract correctly subtracts', () => {
   test('number, number', () => {
@@ -12,9 +10,9 @@ describe('Subtract correctly subtracts', () => {
   });
 
   test('ImperialValue,ImperialValue', () => {
-    const value: ImperialValue = { ft: 3, ins: 3, fr: fraction(1, 3) };
-    const toApply: ImperialValue = { ft: 1, ins: 1, fr: fraction(1, 6) };
-    const expected: ImperialValue = { ft: 2, ins: 2, fr: fraction(11, 64) };
+    const value: ImperialValue = { ft: 3, ins: 3, fr: new Fraction(1, 3) };
+    const toApply: ImperialValue = { ft: 1, ins: 1, fr: new Fraction(1, 6) };
+    const expected: ImperialValue = { ft: 2, ins: 2, fr: new Fraction(11, 64) };
     const result = subtract({ value, toApply });
     expect(JSON.stringify(result)).toBe(JSON.stringify(expected));
   });

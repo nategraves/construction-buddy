@@ -1,6 +1,5 @@
-import { fraction } from 'mathjs';
-
 import { divide, ImperialValue, MetricValue } from 'src/data';
+import { Fraction } from '../Fraction';
 
 describe('divide correctly divides', () => {
   test('number, number', () => {
@@ -12,17 +11,17 @@ describe('divide correctly divides', () => {
   });
 
   test('ImperialValue,ImperialValue', () => {
-    const value: ImperialValue = { ft: 8, ins: 8, fr: fraction(1, 2) };
-    const toApply: ImperialValue = { ft: 2, ins: 2, fr: fraction(1, 3) };
+    const value: ImperialValue = { ft: 8, ins: 8, fr: new Fraction(1, 2) };
+    const toApply: ImperialValue = { ft: 2, ins: 2, fr: new Fraction(1, 3) };
     const expected = '3.968354';
     const result = divide({ value, toApply }) as number;
     expect(result.toFixed(6)).toBe(expected);
   });
 
   test('ImperialValue,Number', () => {
-    const value: ImperialValue = { ft: 8, ins: 8, fr: fraction(1, 2) };
+    const value: ImperialValue = { ft: 8, ins: 8, fr: new Fraction(1, 2) };
     const toApply = 2;
-    const expected: ImperialValue = { ft: 4, ins: 4, fr: fraction(1, 4) };
+    const expected: ImperialValue = { ft: 4, ins: 4, fr: new Fraction(1, 4) };
     const result = divide({ value, toApply }) as ImperialValue;
     expect(JSON.stringify(result)).toBe(JSON.stringify(expected));
   });
@@ -30,7 +29,7 @@ describe('divide correctly divides', () => {
   test('Handles dividing evenly', () => {
     const value: ImperialValue = { ft: 5 };
     const toApply = 5;
-    const expected: ImperialValue = { ft: 1, ins: 0, fr: fraction(0, 1) };
+    const expected: ImperialValue = { ft: 1, ins: 0, fr: new Fraction(0, 1) };
     const result = divide({ value, toApply }) as ImperialValue;
     expect(JSON.stringify(result)).toBe(JSON.stringify(expected));
   });

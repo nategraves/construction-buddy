@@ -1,6 +1,6 @@
 export * from './Clear';
 export * from './Delete';
-export * from './Percent';
+export * from './Math/Percent';
 export * from './Math';
 export * from './MemoryAdd';
 export * from './MemoryClear';
