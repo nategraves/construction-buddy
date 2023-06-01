@@ -4,7 +4,7 @@ import { Value, isImperial, isMetric, isNumber } from 'src/data';
 export function ValueDisplay(props: { value: Value; valueSize?: string; labelSize?: string }) {
   const { labelSize = '1.1rem', value, valueSize = '2rem' } = props;
   if (isNumber(value)) {
-    return <span>{value}</span>;
+    return <div style={{ fontSize: valueSize, fontWeight: 'bold' }}>{value}</div>;
   } else if (isImperial(value)) {
     const { ft, ins, fr } = value;
     return (
