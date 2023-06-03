@@ -1,4 +1,3 @@
-export * from './CalculationStepDisplay';
 export * from './FractionDisplay';
 export * from './ImperialValueDisplay';
 export * from './MetricValueDisplay';
