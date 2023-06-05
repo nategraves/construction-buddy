@@ -4,5 +4,6 @@ export enum Symbols {
   equals = '\u003D',
   multiply = '\u00D7',
   square = '\u00B2',
+  squareRoot = '\u221A',
   subtract = '\u2212',
 }

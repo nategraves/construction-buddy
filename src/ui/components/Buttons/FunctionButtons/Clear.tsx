@@ -20,16 +20,13 @@ export const Clear = () => {
       setInputString();
       return;
     }
-    if (workingValue) {
+    if (workingValue != null || totalValue != null) {
       setWorkingValue();
+      setTotalValue();
       return;
     }
     if (calculationSteps.length > 0) {
       clearCalculationSteps();
-      return;
-    }
-    if (totalValue) {
-      setTotalValue();
     }
   };
 

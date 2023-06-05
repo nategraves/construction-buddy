@@ -1,4 +1,4 @@
-import React, { FC, ReactElement } from "react";
+import React, { FC, ReactElement } from 'react';
 
 interface ButtonProps {
   altFnColor?: string;
@@ -17,39 +17,40 @@ export const Button: FC<ButtonProps> = (props) => {
   const {
     altFnColor,
     altFnText,
-    bgColor = "#2f2f2f",
+    bgColor = '#2f2f2f',
     children,
     disabled,
-    textColor = "#fff",
+    textColor = '#fff',
     size = 48,
     widthMultiple = 1.25,
   } = props;
+  const width = size * widthMultiple;
+  console.log({ width });
+
   return (
     <button
       className="button"
       style={{
-        background: "transparent",
-        display: "flex",
-        flexDirection: "column",
+        background: 'transparent',
+        display: 'flex',
+        flexDirection: 'column',
       }}
       onClick={() => (disabled ? {} : props.onClick())}
     >
       {altFnText != null && (
-        <span style={{ color: altFnColor, textTransform: "uppercase" }}>
-          {altFnText}
-        </span>
+        <span style={{ color: altFnColor, textTransform: 'uppercase' }}>{altFnText}</span>
       )}
       <div
         style={{
-          cursor: disabled ? "default" : "pointer",
-          width: `${size * widthMultiple}px`,
+          cursor: disabled ? 'default' : 'pointer',
+          width: `${width}px`,
           height: `${size}px`,
-          background: disabled ? "#6d6d6d" : bgColor,
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          borderRadius: `${size}px`,
-          fontWeight: "bold",
+          background: disabled ? '#6d6d6d' : bgColor,
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          borderRadius: `${width / 4}px`,
+          fontWeight: 'bold',
         }}
       >
         <span style={{ color: textColor }}>{children}</span>

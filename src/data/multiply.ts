@@ -5,6 +5,7 @@ import { isImperial } from './isImperial';
 import { flatten } from './flatten';
 import { unflatten } from './unflatten';
 import { Units } from './Units';
+import { reduceSquared } from './reduceSquared';
 
 export const multiply = ({ value, toApply }: { value: Value; toApply: Value }): Value => {
   const flatValue = flatten(value);
@@ -16,7 +17,7 @@ export const multiply = ({ value, toApply }: { value: Value; toApply: Value }): 
 
   const result = flatValue * flatToApply;
 
-  if (bothMetric || bothImperial || bothNumber) {
+  if (bothNumber) {
     return result;
   }
 
@@ -36,16 +37,12 @@ export const multiply = ({ value, toApply }: { value: Value; toApply: Value }): 
     });
   }
 
-  if (isMetric(value) && isMetric(toApply)) {
-    // TODO: handle this
+  if (bothMetric) {
+    return reduceSquared(result, Units.metric);
   }
 
-  if (isImperial(value) && isImperial(toApply)) {
-    // TODO: handle this
-  }
-
-  if (isNumber(value) && isNumber(toApply)) {
-    return result;
+  if (bothImperial) {
+    return reduceSquared(result, Units.imperial);
   }
 
   throw new Error('Cannot multiply a number by a value');

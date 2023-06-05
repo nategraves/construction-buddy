@@ -1,5 +1,5 @@
 import React, { useContext, FC } from 'react';
-import { divideAction } from 'src/data';
+import { Symbols, divideAction } from 'src/data';
 
 import { ValueContext } from 'src/contexts';
 import { Button } from 'src/ui';
@@ -28,5 +28,5 @@ export const Divide: FC = () => {
       setWorkingValue,
     });
 
-  return <Button onClick={() => handleClick()}>/</Button>;
+  return <Button onClick={() => handleClick()}>{Symbols.divide}</Button>;
 };

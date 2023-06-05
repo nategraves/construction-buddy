@@ -1,9 +1,8 @@
 import { Symbols } from '../Symbols';
-import { isImperial } from '../isImperial';
-import { isMetric } from '../isMetric';
 import { isSame } from '../isSame';
 import { multiply } from '../multiply';
 import { ActionProps } from './actionType';
+import { fillMeasurement } from './fillMeasurement';
 
 export const multiplyAction = ({
   addCalculationStep,
@@ -19,33 +18,7 @@ export const multiplyAction = ({
     return;
   }
 
-  // If there's input and we have a working value, assume
-  // that we're filling in the next empty measurement
-  const fillNextMeasurement = input != null && workingValue != null;
-  const fillInches =
-    fillNextMeasurement &&
-    isImperial(workingValue) &&
-    workingValue.ft != null &&
-    workingValue.ins == null;
-  const fillCm =
-    fillNextMeasurement &&
-    isMetric(workingValue) &&
-    workingValue.m != null &&
-    workingValue.cm == null;
-  const fillMm =
-    fillNextMeasurement &&
-    isMetric(workingValue) &&
-    workingValue.m != null &&
-    workingValue.cm != null &&
-    workingValue.mm == null;
-
-  if (fillInches) {
-    setWorkingValue({ ...workingValue, ...(input ? { ins: input } : {}) });
-  } else if (fillCm) {
-    setWorkingValue({ ...workingValue, ...(input ? { cm: input } : {}) });
-  } else if (fillMm) {
-    setWorkingValue({ ...workingValue, ...(input ? { mm: input } : {}) });
-  }
+  fillMeasurement({ input, workingValue, setWorkingValue });
 
   const lastStep = calculationSteps[calculationSteps.length - 1];
   const hasInput = input != null;
@@ -72,6 +45,7 @@ export const multiplyAction = ({
     compatibleValues = isSame(workingValue, lastStep.total);
 
     if (compatibleValues) {
+      // TODO: Improve this so that we display ft or m squared with appropriate postscript
       addCalculationStep({
         value: workingValue,
         operator: Symbols.multiply,
@@ -84,9 +58,11 @@ export const multiplyAction = ({
   }
 
   if (hasTotal) {
+    console.log('TOTAL', totalValue);
     compatibleValues = isSame(totalValue, lastStep.total);
 
     if (compatibleValues) {
+      // TODO: Improve this so that we display ft or m squared with appropriate postscript
       addCalculationStep({
         value: totalValue,
         operator: Symbols.multiply,

@@ -1,5 +1,6 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom/client';
+import './fonts/Fira_Sans/FiraSans-Regular.ttf';
 import './index.css';
 import App from './App';
 

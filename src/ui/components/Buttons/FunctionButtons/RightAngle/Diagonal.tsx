@@ -45,5 +45,5 @@ export const Diagonal = () => {
     }
   };
 
-  return <Button onClick={() => handleClick()}>Diagonal</Button>;
+  return <Button onClick={() => handleClick()}>Diag</Button>;
 };

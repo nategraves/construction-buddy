@@ -1,6 +1,8 @@
 import { OperationSymbols, operationsMap } from '../Operations';
 import { Symbols } from '../Symbols';
 import { Value } from '../Value';
+import { isImperial } from '../isImperial';
+import { isMetric } from '../isMetric';
 import { ActionProps } from './actionType';
 
 type EqualsActionProps = ActionProps & {
@@ -23,14 +25,15 @@ export const equalsAction = ({
 
   const stepCount = calculationSteps.length;
   const lastStep = calculationSteps[stepCount - 1];
-  const lastStepOperator = lastStep.operator;
+  const lastTotal = lastStep.total;
+  const lastOperator = lastStep.operator;
 
-  if (lastStepOperator == null) {
+  if (lastOperator == null) {
     // TOOD: Handle error
     return;
   }
 
-  const operation = operationsMap[lastStepOperator as OperationSymbols];
+  const operation = operationsMap[lastOperator as OperationSymbols];
 
   const toApply = input ?? workingValue;
 
@@ -39,15 +42,24 @@ export const equalsAction = ({
     return;
   }
 
-  const total = operation({ value: lastStep.total, toApply: toApply as Value });
+  const bothImperial = isImperial(lastTotal) && isImperial(toApply);
+  const bothMetric = !isMetric(lastTotal) && !isMetric(toApply);
+  const total = operation({ value: lastTotal, toApply: toApply as Value });
+
+  let postscript;
+
+  if (bothImperial || bothMetric) {
+    postscript = Symbols.square;
+  }
 
   addCalculationStep({
     value: toApply,
     operator: Symbols.equals,
     total,
+    postscript,
   });
 
-  setTotalValue(total);
+  // setTotalValue(total);
 
   if (input != null) {
     setInputString();

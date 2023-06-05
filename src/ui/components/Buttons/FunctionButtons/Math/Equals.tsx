@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 
 import { ValueContext } from 'src/contexts';
 import { Button } from 'src/ui';
-import { equalsAction } from 'src/data';
+import { Symbols, equalsAction } from 'src/data';
 
 export const Equals = () => {
   const {
@@ -30,5 +30,5 @@ export const Equals = () => {
       setWorkingValue,
     });
 
-  return <Button onClick={() => handleClick()}>=</Button>;
+  return <Button onClick={() => handleClick()}>{Symbols.equals}</Button>;
 };

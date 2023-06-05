@@ -2,14 +2,22 @@ import React, { useContext } from 'react';
 
 import { ValueContext } from 'src/contexts/index';
 import { Preview, ValueDisplay } from 'src/ui';
-import { Value } from 'src/data';
+import { Symbols } from 'src/data';
 
 export function Display() {
-  const { input, workingValue, totalValue } = useContext(ValueContext);
+  const { input, inputString, workingValue, totalValue, calculationSteps } =
+    useContext(ValueContext);
 
-  // const showWorking = inputString == null && workingValue != null;
-  // const showTotal = inputString == null && workingValue == null && totalValue != null;
-  const emptyInput = input == null && workingValue == null && totalValue == null;
+  console.log({ input, inputString });
+
+  const lastStep = calculationSteps[calculationSteps.length - 1];
+  const lastTotal = lastStep?.total;
+  const lastOperator = lastStep?.operator;
+
+  const value =
+    lastOperator === Symbols.equals ? lastTotal : inputString ?? workingValue ?? totalValue;
+  const prescript = lastOperator === Symbols.equals ? lastStep.prescript : '';
+  const postscript = lastOperator === Symbols.equals ? lastStep.postscript : '';
 
   return (
     <div
@@ -28,17 +36,7 @@ export function Display() {
         <Preview />
       </div>
       <div style={{ display: 'flex', width: '100%', justifyContent: 'flex-end' }}>
-        {!emptyInput && <ValueDisplay value={(input ?? workingValue ?? totalValue) as Value} />}
-
-        {/* {inputString != null && (
-          <div style={{ padding: '1rem', justifyContent: 'flex-end' }}>{inputString}</div>
-        )}
-        {showWorking && <ValueDisplay value={workingValue} />}
-        {showTotal && (
-          <div>
-            <ValueDisplay value={totalValue as Value} />
-          </div>
-        )} */}
+        <ValueDisplay value={value} prescript={prescript} postscript={postscript} />
       </div>
     </div>
   );

@@ -1,13 +1,11 @@
 import React, { useContext } from 'react';
 
 import { isMetric } from 'src/data';
-import { DisplayValue } from 'src/data';
 import { ValueContext } from 'src/contexts';
 import { Button } from 'src/ui';
 
 export function Millimeters() {
-  const { input, workingValue, setDisplayValue, setInputString, setWorkingValue } =
-    useContext(ValueContext);
+  const { input, workingValue, setInputString, setWorkingValue } = useContext(ValueContext);
 
   const handleClick = () => {
     if (input != null) {
@@ -17,7 +15,6 @@ export function Millimeters() {
         setWorkingValue({ mm: input });
       }
       setInputString();
-      setDisplayValue(DisplayValue.workingValue);
     }
   };
 

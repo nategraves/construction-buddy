@@ -1,5 +1,5 @@
 import React, { useContext, FC } from 'react';
-import { subtractAction } from 'src/data';
+import { Symbols, subtractAction } from 'src/data';
 
 import { ValueContext } from 'src/contexts';
 import { Button } from 'src/ui';
@@ -28,5 +28,5 @@ export const Subtract: FC = () => {
       workingValue,
     });
 
-  return <Button onClick={() => handleClick()}>-</Button>;
+  return <Button onClick={() => handleClick()}>{Symbols.subtract}</Button>;
 };
