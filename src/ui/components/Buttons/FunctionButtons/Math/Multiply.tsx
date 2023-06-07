@@ -4,46 +4,59 @@ import { Symbols, multiply } from 'src/data';
 import { ValueContext } from 'src/contexts';
 import { Button } from 'src/ui';
 
-const operator = Symbols.multiply;
+const operation = Symbols.multiply;
 
 export const Multiply: FC = () => {
   const {
     addCalculationStep,
+    addToHistory,
     calculationSteps,
+    clearCalculationSteps,
     input,
     setInputString,
-    setTotalValue,
     setWorkingValue,
-    totalValue,
     workingValue,
   } = useContext(ValueContext);
 
   const handleClick = () => {
-    const value = input ?? workingValue ?? totalValue;
+    const lastStep = calculationSteps[calculationSteps.length - 1];
+    const lastTotal = lastStep?.total;
+    const hasInput = input != null;
+    const hasWorkingValue = workingValue != null;
 
-    if (value == null) {
+    if (!hasInput && !hasWorkingValue && lastTotal == null) {
+      // TODO: Handle error
       return;
     }
 
-    const lastTotal = calculationSteps[calculationSteps.length - 1]?.total;
-
-    if (lastTotal == null) {
+    if (hasInput) {
       addCalculationStep({
-        value,
-        operator,
-        total: value,
+        value: input,
+        operation,
+        total: multiply({ value: lastTotal, toApply: input }),
       });
-    } else {
-      addCalculationStep({
-        value,
-        operator,
-        total: multiply({ value: lastTotal, toApply: value }),
-      });
+      setInputString();
+      return;
     }
 
-    setInputString();
-    setWorkingValue();
-    setTotalValue();
+    if (hasWorkingValue) {
+      addCalculationStep({
+        value: workingValue,
+        operation,
+        total: multiply({ value: lastTotal, toApply: workingValue }),
+      });
+      setWorkingValue();
+    }
+
+    if (lastTotal != null) {
+      addToHistory(calculationSteps);
+      addCalculationStep({
+        value: lastTotal,
+        operation,
+        total: lastTotal,
+      });
+      clearCalculationSteps();
+    }
   };
 
   return <Button onClick={() => handleClick()}>{Symbols.multiply}</Button>;

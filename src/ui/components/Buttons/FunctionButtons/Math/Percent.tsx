@@ -26,12 +26,12 @@ export function Percent() {
 
     const lastStep = calculationSteps[calculationSteps.length - 1];
 
-    if (lastStep.operator == null) {
+    if (lastStep.operation == null) {
       // TODO: handle this
       return;
     }
 
-    const lastOperator = lastStep.operator;
+    const lastOperator = lastStep.operation;
 
     if (lastOperator == null) {
       // TODO: handle this

@@ -3,30 +3,31 @@ import { isSame } from '../isSame';
 import { subtract } from '../subtract';
 import { ActionProps } from './actionType';
 
+type SubtractActionProps = ActionProps;
+
+const operation = Symbols.subtract;
+
 export const subtractAction = ({
   addCalculationStep,
+  addToHistory,
   calculationSteps,
+  clearCalculationSteps,
   input,
   setInputString,
-  setTotalValue,
   setWorkingValue,
-  totalValue,
   workingValue,
-}: ActionProps) => {
-  if (input == null && workingValue == null && totalValue == null) {
-    return;
-  }
-
-  if (input == null && workingValue == null && totalValue != null) {
-    // TODO: Handle error
-    return;
-  }
-
+}: SubtractActionProps) => {
   const lastStep = calculationSteps[calculationSteps.length - 1];
+  const lastTotal = lastStep?.total;
 
   const hasInput = input != null;
   const hasWorkingValue = workingValue != null;
-  const hasTotal = totalValue != null;
+  const hasTotal = lastStep.operation === Symbols.equals && lastTotal != null;
+
+  if (!hasInput && !hasWorkingValue && !hasTotal) {
+    // TODO: Handle error
+    return;
+  }
 
   let compatibleValues;
 
@@ -36,7 +37,7 @@ export const subtractAction = ({
     if (compatibleValues) {
       addCalculationStep({
         value: input,
-        operator: Symbols.subtract,
+        operation,
         total: (lastStep.total as number) - input,
       });
       setInputString();
@@ -50,7 +51,7 @@ export const subtractAction = ({
     if (compatibleValues) {
       addCalculationStep({
         value: workingValue,
-        operator: Symbols.subtract,
+        operation,
         total: subtract({ value: lastStep.total, toApply: workingValue }),
       });
       setWorkingValue();
@@ -59,15 +60,11 @@ export const subtractAction = ({
   }
 
   if (hasTotal) {
-    compatibleValues = isSame(totalValue, lastStep.total);
-
-    if (compatibleValues) {
-      addCalculationStep({
-        value: totalValue,
-        operator: Symbols.subtract,
-        total: subtract({ value: lastStep.total, toApply: totalValue }),
-      });
-      setTotalValue();
-    }
+    addToHistory(calculationSteps);
+    addCalculationStep({
+      value: lastTotal,
+      total: lastTotal,
+    });
+    clearCalculationSteps();
   }
 };

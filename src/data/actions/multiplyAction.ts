@@ -9,21 +9,20 @@ export const multiplyAction = ({
   calculationSteps,
   input,
   setInputString,
-  setTotalValue,
   setWorkingValue,
-  totalValue,
   workingValue,
 }: ActionProps) => {
-  if (input == null && workingValue == null && totalValue == null) {
+  const lastStep = calculationSteps[calculationSteps.length - 1];
+  const lastTotal = lastStep?.total;
+
+  if (input == null && workingValue == null && lastTotal == null) {
     return;
   }
 
   fillMeasurement({ input, workingValue, setWorkingValue });
 
-  const lastStep = calculationSteps[calculationSteps.length - 1];
   const hasInput = input != null;
   const hasWorkingValue = workingValue != null;
-  const hasTotal = totalValue != null;
 
   let compatibleValues;
 
@@ -33,7 +32,7 @@ export const multiplyAction = ({
     if (compatibleValues) {
       addCalculationStep({
         value: input,
-        operator: Symbols.multiply,
+        operation: Symbols.multiply,
         total: (lastStep.total as number) * input,
       });
       setInputString();
@@ -48,7 +47,7 @@ export const multiplyAction = ({
       // TODO: Improve this so that we display ft or m squared with appropriate postscript
       addCalculationStep({
         value: workingValue,
-        operator: Symbols.multiply,
+        operation: Symbols.multiply,
         total: multiply({ value: lastStep.total, toApply: workingValue }),
         postscript: Symbols.square,
       });
@@ -57,21 +56,13 @@ export const multiplyAction = ({
     }
   }
 
-  if (hasTotal) {
-    console.log('TOTAL', totalValue);
-    compatibleValues = isSame(totalValue, lastStep.total);
-
-    if (compatibleValues) {
-      // TODO: Improve this so that we display ft or m squared with appropriate postscript
-      addCalculationStep({
-        value: totalValue,
-        operator: Symbols.multiply,
-        total: multiply({ value: lastStep.total, toApply: totalValue }),
-        postscript: Symbols.square,
-      });
-      setTotalValue();
-      return;
-    }
+  if (lastTotal != null) {
+    addCalculationStep({
+      value: lastTotal,
+      operation: Symbols.multiply,
+      total: lastTotal,
+    });
+    return;
   }
 
   throw new Error('Mulitiplication could not be performed');

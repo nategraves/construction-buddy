@@ -7,24 +7,24 @@ import { Button } from 'src/ui';
 export const Subtract: FC = () => {
   const {
     addCalculationStep,
+    addToHistory,
     calculationSteps,
+    clearCalculationSteps,
     input,
     setInputString,
     setWorkingValue,
-    setTotalValue,
-    totalValue,
     workingValue,
   } = useContext(ValueContext);
 
   const handleClick = () =>
     subtractAction({
       addCalculationStep,
+      addToHistory,
       calculationSteps,
+      clearCalculationSteps,
       input,
       setInputString,
-      setTotalValue,
       setWorkingValue,
-      totalValue,
       workingValue,
     });
 

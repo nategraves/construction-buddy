@@ -1,32 +1,64 @@
 import React, { useContext, FC } from 'react';
-import { square } from 'src/data';
+import { Symbols, square } from 'src/data';
 
 import { ValueContext } from 'src/contexts';
 import { Button } from 'src/ui';
+import { isLabelWithInternallyDisabledControl } from '@testing-library/user-event/dist/utils';
+
+const postscript = Symbols.square;
+const operation = Symbols.equals;
 
 export const Square: FC = () => {
-  const { input, totalValue, workingValue, setInputString, setTotalValue, setWorkingValue } =
-    useContext(ValueContext);
+  const {
+    addCalculationStep,
+    addToHistory,
+    calculationSteps,
+    clearCalculationSteps,
+    input,
+    workingValue,
+    setInputString,
+    setWorkingValue,
+  } = useContext(ValueContext);
 
   const handleClick = () => {
-    if (input == null && workingValue == null && totalValue == null) {
+    const lastStep = calculationSteps[calculationSteps.length - 1];
+    const lastTotal = lastStep?.total;
+    if (input == null && workingValue == null && lastTotal == null) {
+      // TODO: Handle error
       return;
     }
 
     if (input != null) {
-      setTotalValue(square({ value: input }));
+      addCalculationStep({
+        value: input,
+        operation,
+        total: square({ value: input }),
+        postscript,
+      });
       setInputString();
       return;
     }
 
     if (workingValue != null) {
-      setTotalValue(square({ value: workingValue }));
+      addCalculationStep({
+        value: workingValue,
+        operation,
+        total: square({ value: workingValue }),
+        postscript,
+      });
       setWorkingValue();
       return;
     }
 
-    if (totalValue != null) {
-      setTotalValue(square({ value: totalValue }));
+    if (lastTotal != null) {
+      addToHistory(calculationSteps);
+      clearCalculationSteps();
+      addCalculationStep({
+        value: lastTotal,
+        operation,
+        total: square({ value: lastTotal }),
+        postscript,
+      });
       return;
     }
   };

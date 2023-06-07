@@ -2,22 +2,23 @@ import React, { useContext } from 'react';
 
 import { ValueDisplay } from 'src/ui/components/Display/ValueDisplay';
 import { ValueContext } from 'src/contexts';
-import { Symbols } from 'src/data';
+import { Symbols, isImperial, isMetric, isNumber } from 'src/data';
 
 export const Preview = () => {
   const { calculationSteps } = useContext(ValueContext);
+  const valueSize = '1.3rem';
 
   const steps = calculationSteps.map((step) => {
+    const { operation, prescript, postscript, value } = step;
     return (
       <div className="flex row">
-        {step.prescript != null && <div style={{ marginRight: '0.25rem' }}>{step.prescript}</div>}
-        {step.value != null && (
-          <ValueDisplay value={step.value} valueSize="1.3rem" labelSize="0.9rem" />
+        {prescript != null && <div style={{ marginRight: '0.25rem' }}>{prescript}</div>}
+        {(isImperial(value) || isMetric(value)) && (
+          <ValueDisplay value={value} valueSize={valueSize} labelSize="0.9rem" />
         )}
-        {step.operator != null && <div style={{ margin: '0 0.25rem' }}>{step.operator}</div>}
-        {step.postscript != null && step.operator !== Symbols.equals && (
-          <div>{step.postscript}</div>
-        )}
+        {isNumber(value) && <div style={{ fontWeight: 'bold', fontSize: valueSize }}>{value}</div>}
+        {operation != null && <div style={{ margin: '0 0.25rem' }}>{operation}</div>}
+        {postscript != null && operation !== Symbols.equals && <div>{postscript}</div>}
       </div>
     );
   });

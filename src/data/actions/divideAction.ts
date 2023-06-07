@@ -12,34 +12,35 @@ import { ActionProps } from './actionType';
 export const divideAction = ({
   calculationSteps,
   input,
-  totalValue,
   workingValue,
   addCalculationStep,
+  addToHistory,
+  clearCalculationSteps,
   setInputString,
-  setTotalValue,
   setWorkingValue,
 }: ActionProps) => {
-  if (input == null && workingValue == null && totalValue == null) {
-    return;
-  }
-
-  if (input == null && workingValue == null && totalValue != null) {
-    addCalculationStep({
-      value: totalValue,
-      operator: Symbols.divide,
-      total: totalValue,
-    });
-    setTotalValue();
-    return;
-  }
-
   const lastStep = calculationSteps[calculationSteps.length - 1];
-  const lastTotal = lastStep.total;
+  const lastTotal = lastStep?.total;
+
+  if (input == null && workingValue == null && lastTotal == null) {
+    return;
+  }
+
+  if (input == null && workingValue == null && lastTotal != null) {
+    addToHistory(calculationSteps);
+    addCalculationStep({
+      value: lastTotal,
+      operation: Symbols.divide,
+      total: lastTotal,
+    });
+    clearCalculationSteps();
+    return;
+  }
 
   if (input != null) {
     addCalculationStep({
       value: input,
-      operator: Symbols.divide,
+      operation: Symbols.divide,
       total: divide({ value: lastTotal, toApply: input }),
       postscript: lastStep.postscript,
     });
@@ -55,7 +56,7 @@ export const divideAction = ({
       const includeFt = units === Units.imperial && (lastTotal as ImperialValue).ft != null;
       addCalculationStep({
         value: workingValue,
-        operator: Symbols.divide,
+        operation: Symbols.divide,
         total: divide({
           value: unflatten({ value: flatLast, units, includeFt, includeM }),
           toApply: workingValue,
@@ -65,7 +66,7 @@ export const divideAction = ({
     } else {
       addCalculationStep({
         value: workingValue,
-        operator: Symbols.divide,
+        operation: Symbols.divide,
         total: divide({ value: lastTotal, toApply: workingValue }),
       });
     }

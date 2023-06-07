@@ -2,31 +2,31 @@ import { add, isSame, Symbols } from 'src/data';
 import { ActionProps } from './actionType';
 
 export const addAction = ({
+  addToHistory,
   calculationSteps,
+  clearCalculationSteps,
   input,
-  totalValue,
   workingValue,
   addCalculationStep,
   setInputString,
-  setTotalValue,
   setWorkingValue,
 }: ActionProps): void => {
   const hasInput = input != null;
   const hasWorkingValue = workingValue != null;
-  const hasTotal = totalValue != null;
+  const lastStep = calculationSteps[calculationSteps.length - 1];
+  const lastTotal = lastStep?.total;
+  const noSteps = calculationSteps.length === 0;
 
-  if ((!hasWorkingValue && !hasInput && !hasTotal) || (hasInput && hasWorkingValue)) {
+  if (!hasWorkingValue && !hasInput && !lastTotal) {
     // TODO: Handle error
     return;
   }
 
-  const emptySteps = calculationSteps.length === 0;
-
   // No calculation steps with input
-  if (emptySteps && hasInput) {
+  if (noSteps && hasInput) {
     addCalculationStep({
       value: input,
-      operator: Symbols.add,
+      operation: Symbols.add,
       total: input,
     });
     setInputString();
@@ -34,10 +34,10 @@ export const addAction = ({
   }
 
   // No calculation steps with working value
-  if (emptySteps && hasWorkingValue) {
+  if (noSteps && hasWorkingValue) {
     addCalculationStep({
       value: workingValue,
-      operator: Symbols.add,
+      operation: Symbols.add,
       total: workingValue,
     });
     setWorkingValue();
@@ -45,21 +45,21 @@ export const addAction = ({
   }
 
   // No calculation steps with total
-  if (emptySteps && hasTotal) {
+  if (noSteps && lastTotal) {
+    addToHistory(calculationSteps);
     addCalculationStep({
-      value: totalValue,
-      operator: Symbols.add,
-      total: totalValue,
+      value: lastTotal,
+      operation: Symbols.add,
+      total: lastTotal,
     });
-    setTotalValue();
+    clearCalculationSteps();
     return;
   }
 
-  if (emptySteps && !hasInput && !hasWorkingValue && !hasTotal) {
-    throw new Error('No calculation steps and no input, working value, or total');
+  if (noSteps && !hasInput && !hasWorkingValue && lastTotal != null) {
+    throw new Error('No calculation steps and no input or working value');
   }
 
-  const lastStep = calculationSteps[calculationSteps.length - 1];
   let compatibleValue = false;
 
   if (hasInput) {
@@ -68,7 +68,7 @@ export const addAction = ({
       const total = (lastStep.total as number) + input;
       addCalculationStep({
         value: input,
-        operator: Symbols.add,
+        operation: Symbols.add,
         total,
       });
       setInputString();
@@ -83,7 +83,7 @@ export const addAction = ({
       const total = add({ value: workingValue, toApply: lastStep.value });
       addCalculationStep({
         value: workingValue,
-        operator: Symbols.add,
+        operation: Symbols.add,
         total,
       });
       setWorkingValue();
@@ -91,17 +91,19 @@ export const addAction = ({
     }
   }
 
-  if (hasTotal) {
-    compatibleValue = isSame(totalValue, lastStep.value);
+  if (lastTotal != null) {
+    compatibleValue = isSame(lastTotal, lastStep.value);
     if (compatibleValue) {
-      const total = add({ value: totalValue, toApply: lastStep.value });
+      addToHistory(calculationSteps);
       addCalculationStep({
-        value: totalValue,
-        operator: Symbols.add,
-        total,
+        value: lastTotal,
+        operation: Symbols.add,
+        total: lastTotal,
       });
-      setTotalValue();
+      clearCalculationSteps();
       return;
     }
   }
+
+  throw new Error('No compatible value to add');
 };

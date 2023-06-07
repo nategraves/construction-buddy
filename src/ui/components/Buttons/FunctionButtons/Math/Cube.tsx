@@ -1,51 +1,62 @@
 import React, { useContext, FC } from 'react';
-import {
-  multiply,
-  // isImperial,
-  // isMetric,
-  // isNumber
-} from 'src/data';
-// import { Mode } from "~~src/data";
+import { Symbols, multiply } from 'src/data';
 
 import { ValueContext } from 'src/contexts';
 import { Button } from 'src/ui';
 
 export const Cube: FC = () => {
   const {
+    addCalculationStep,
+    calculationSteps,
     input,
     setInputString,
-    // setToProcess,
-    setTotalValue,
     setWorkingValue,
-    // updateMode,
-    // toProcess,
-    totalValue,
     workingValue,
   } = useContext(ValueContext);
 
   const handleClick = () => {
-    if (input == null && workingValue == null && totalValue == null) {
+    const lastStep = calculationSteps[calculationSteps.length - 1];
+    const lastTotal = lastStep?.total;
+
+    if (input == null && workingValue == null && lastTotal == null) {
       return;
     }
 
-    // updateMode(Mode.cube);
-
     if (input != null) {
-      setTotalValue(multiply({ value: input, toApply: input }));
+      const square = multiply({ value: input, toApply: input });
+      addCalculationStep({
+        value: input,
+        operation: Symbols.cube,
+        total: multiply({ value: square, toApply: lastTotal }),
+      });
       setInputString();
       return;
     }
 
     if (workingValue != null) {
-      setTotalValue(multiply({ value: workingValue, toApply: workingValue }));
+      const square = multiply({ value: workingValue, toApply: workingValue });
+      addCalculationStep({
+        value: workingValue,
+        operation: `x${Symbols.cube}`,
+        total: multiply({ value: square, toApply: lastTotal }),
+        postscript: Symbols.cube,
+      });
+
       setWorkingValue();
       return;
     }
 
-    if (totalValue != null) {
-      setTotalValue(multiply({ value: totalValue, toApply: totalValue }));
-      return;
+    if (lastTotal != null) {
+      const square = multiply({ value: lastTotal, toApply: lastTotal });
+      addCalculationStep({
+        value: lastTotal,
+        operation: `x${Symbols.cube}`,
+        total: multiply({ value: square, toApply: lastTotal }),
+        postscript: Symbols.cube,
+      });
     }
+
+    throw new Error('Unhandled cube case');
   };
 
   return <Button onClick={() => handleClick()}>*</Button>;

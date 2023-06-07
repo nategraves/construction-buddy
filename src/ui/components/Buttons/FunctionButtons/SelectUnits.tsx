@@ -4,13 +4,12 @@ import { Units } from 'src/data';
 import { ValueContext } from 'src/contexts';
 
 export const SelectUnits = () => {
-  const { units, setWorkingValue, setTotalValue, setUnits } = useContext(ValueContext);
+  const { units, setWorkingValue, setUnits } = useContext(ValueContext);
 
   const handleChange = (value: Units | undefined) => {
     if (value != null) {
       setUnits(value);
       setWorkingValue();
-      setTotalValue();
     }
   };
 

@@ -16,7 +16,6 @@ export const equalsAction = ({
   addCalculationStep,
   setInputString,
   setWorkingValue,
-  setTotalValue,
 }: EqualsActionProps) => {
   if (calculationSteps.length === 0) {
     // TODO: Handle error
@@ -26,7 +25,7 @@ export const equalsAction = ({
   const stepCount = calculationSteps.length;
   const lastStep = calculationSteps[stepCount - 1];
   const lastTotal = lastStep.total;
-  const lastOperator = lastStep.operator;
+  const lastOperator = lastStep.operation;
 
   if (lastOperator == null) {
     // TOOD: Handle error
@@ -54,7 +53,7 @@ export const equalsAction = ({
 
   addCalculationStep({
     value: toApply,
-    operator: Symbols.equals,
+    operation: Symbols.equals,
     total,
     postscript,
   });
@@ -86,7 +85,7 @@ export const equalsAction = ({
   //   setTotalValue,
   // });
 
-  // const requiresSameValueType = lastStep.operator === Symbols.add || lastStep.operator === Symbols.subtract;
+  // const requiresSameValueType = lastStep.operation === Symbols.add || lastStep.operation === Symbols.subtract;
 
   // let sameValueType;
 

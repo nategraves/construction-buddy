@@ -13,7 +13,6 @@ export const Run = () => {
     setError,
     setInputString,
     setRightAngle,
-    setTotalValue,
     setWorkingValue,
   } = useContext(ValueContext);
 
@@ -48,7 +47,6 @@ export const Run = () => {
         value: diagonalSquared!,
         toApply: riseSquared!,
       });
-      setTotalValue(squareRoot({ value: runSquared! }));
       setRightAngle(EmptyRightAngle);
     }
   };

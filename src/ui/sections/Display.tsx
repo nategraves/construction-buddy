@@ -2,22 +2,23 @@ import React, { useContext } from 'react';
 
 import { ValueContext } from 'src/contexts/index';
 import { Preview, ValueDisplay } from 'src/ui';
-import { Symbols } from 'src/data';
+import { Symbols, isImperial, isMetric } from 'src/data';
 
 export function Display() {
-  const { input, inputString, workingValue, totalValue, calculationSteps } =
-    useContext(ValueContext);
+  const { input, inputString, workingValue, calculationSteps } = useContext(ValueContext);
 
   console.log({ input, inputString });
 
   const lastStep = calculationSteps[calculationSteps.length - 1];
   const lastTotal = lastStep?.total;
-  const lastOperator = lastStep?.operator;
+  const lastOperator = lastStep?.operation;
+  const showTotal = lastOperator === Symbols.equals;
 
-  const value =
-    lastOperator === Symbols.equals ? lastTotal : inputString ?? workingValue ?? totalValue;
+  const value = showTotal ? lastTotal : inputString ?? workingValue;
   const prescript = lastOperator === Symbols.equals ? lastStep.prescript : '';
   const postscript = lastOperator === Symbols.equals ? lastStep.postscript : '';
+
+  const valueSize = '2rem';
 
   return (
     <div
@@ -36,7 +37,15 @@ export function Display() {
         <Preview />
       </div>
       <div style={{ display: 'flex', width: '100%', justifyContent: 'flex-end' }}>
-        <ValueDisplay value={value} prescript={prescript} postscript={postscript} />
+        {(isMetric(value) || isImperial(value)) && (
+          <ValueDisplay
+            value={value}
+            prescript={prescript}
+            postscript={postscript}
+            valueSize={valueSize}
+          />
+        )}
+        {typeof value === 'string' && <div style={{ fontSize: valueSize }}>{value}</div>}
       </div>
     </div>
   );

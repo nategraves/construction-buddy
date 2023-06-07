@@ -7,11 +7,9 @@ export const Clear = () => {
   const {
     inputString,
     calculationSteps,
-    totalValue,
     workingValue,
     clearCalculationSteps,
     setInputString,
-    setTotalValue,
     setWorkingValue,
   } = useContext(ValueContext);
 
@@ -20,9 +18,8 @@ export const Clear = () => {
       setInputString();
       return;
     }
-    if (workingValue != null || totalValue != null) {
+    if (workingValue != null) {
       setWorkingValue();
-      setTotalValue();
       return;
     }
     if (calculationSteps.length > 0) {

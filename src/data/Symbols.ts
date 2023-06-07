@@ -1,5 +1,6 @@
 export enum Symbols {
   add = '\u002B',
+  cube = '\u00B3',
   divide = '\u00F7',
   equals = '\u003D',
   multiply = '\u00D7',

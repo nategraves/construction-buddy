@@ -8,11 +8,11 @@ export const Divide: FC = () => {
   const {
     calculationSteps,
     input,
-    totalValue,
     workingValue,
     addCalculationStep,
+    addToHistory,
+    clearCalculationSteps,
     setInputString,
-    setTotalValue,
     setWorkingValue,
   } = useContext(ValueContext);
 
@@ -20,11 +20,11 @@ export const Divide: FC = () => {
     divideAction({
       calculationSteps,
       input,
-      totalValue,
       workingValue,
       addCalculationStep,
+      addToHistory,
+      clearCalculationSteps,
       setInputString,
-      setTotalValue,
       setWorkingValue,
     });
 

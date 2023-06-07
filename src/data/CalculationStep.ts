@@ -4,6 +4,6 @@ export type CalculationStep = {
   value: Value;
   prescript?: string;
   postscript?: string;
-  operator?: string;
+  operation?: string;
   total: Value;
 };

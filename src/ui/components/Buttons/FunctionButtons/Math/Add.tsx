@@ -6,25 +6,25 @@ import { Button } from 'src/ui';
 
 export const Add: FC = () => {
   const {
+    addToHistory,
     calculationSteps,
+    clearCalculationSteps,
     input,
-    totalValue,
     workingValue,
     addCalculationStep,
     setInputString,
-    setTotalValue,
     setWorkingValue,
   } = useContext(ValueContext);
 
   const handleClick = () =>
     addAction({
+      addToHistory,
       calculationSteps,
+      clearCalculationSteps,
       input,
-      totalValue,
       workingValue,
       addCalculationStep,
       setInputString,
-      setTotalValue,
       setWorkingValue,
     });
 

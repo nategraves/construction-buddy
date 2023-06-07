@@ -1,8 +1,8 @@
 import React from 'react';
-import { isImperial, isMetric, isNumber, Value } from 'src/data';
+import { ImperialValue, isImperial, isMetric, isNumber, MetricValue } from 'src/data';
 
 export function ValueDisplay(props: {
-  value: Value | string | undefined;
+  value: ImperialValue | MetricValue;
   valueSize?: string;
   labelSize?: string;
   prescript?: string;
