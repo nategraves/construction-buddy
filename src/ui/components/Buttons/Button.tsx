@@ -25,7 +25,6 @@ export const Button: FC<ButtonProps> = (props) => {
     widthMultiple = 1.25,
   } = props;
   const width = size * widthMultiple;
-  console.log({ width });
 
   return (
     <button
