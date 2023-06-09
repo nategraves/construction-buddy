@@ -16,7 +16,7 @@ export const SquareRoot: FC = () => {
     workingValue,
   } = useContext(ValueContext);
 
-  const prescript = Symbols.squareRoot;
+  const totalPrescript = Symbols.squareRoot;
   const operation = Symbols.equals;
 
   const handleClick = () => {
@@ -29,7 +29,7 @@ export const SquareRoot: FC = () => {
 
     if (input != null) {
       addCalculationStep({
-        prescript,
+        totalPrescript,
         value: input,
         operation,
         total: squareRoot({ value: input }),
@@ -50,7 +50,7 @@ export const SquareRoot: FC = () => {
 
     if (lastTotal != null) {
       addCalculationStep({
-        prescript,
+        totalPrescript,
         value: lastTotal,
         operation,
         total: squareRoot({ value: lastTotal }),

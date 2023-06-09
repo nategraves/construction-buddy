@@ -39,7 +39,7 @@ export const Cube: FC = () => {
         value: workingValue,
         operation: `x${Symbols.cube}`,
         total: multiply({ value: square, toApply: lastTotal }),
-        postscript: Symbols.cube,
+        totalPostscript: Symbols.cube,
       });
 
       setWorkingValue();
@@ -52,7 +52,7 @@ export const Cube: FC = () => {
         value: lastTotal,
         operation: `x${Symbols.cube}`,
         total: multiply({ value: square, toApply: lastTotal }),
-        postscript: Symbols.cube,
+        totalPostscript: Symbols.cube,
       });
     }
 

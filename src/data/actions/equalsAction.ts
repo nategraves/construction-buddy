@@ -5,18 +5,15 @@ import { isImperial } from '../isImperial';
 import { isMetric } from '../isMetric';
 import { ActionProps } from './actionType';
 
-type EqualsActionProps = ActionProps & {
-  clearCalculationSteps: () => void;
-};
-
 export const equalsAction = ({
   calculationSteps,
+  // clearCalculationSteps,
   input,
   workingValue,
   addCalculationStep,
   setInputString,
   setWorkingValue,
-}: EqualsActionProps) => {
+}: ActionProps) => {
   if (calculationSteps.length === 0) {
     // TODO: Handle error
     return;
@@ -42,23 +39,25 @@ export const equalsAction = ({
   }
 
   const bothImperial = isImperial(lastTotal) && isImperial(toApply);
-  const bothMetric = !isMetric(lastTotal) && !isMetric(toApply);
+  const bothMetric = isMetric(lastTotal) && isMetric(toApply);
   const total = operation({ value: lastTotal, toApply: toApply as Value });
 
-  let postscript;
+  let totalPostscript;
 
-  if (bothImperial || bothMetric) {
-    postscript = Symbols.square;
+  if ((bothImperial || bothMetric) && lastOperator === Symbols.multiply) {
+    totalPostscript = Symbols.square;
+  }
+
+  if ((bothImperial || bothMetric) && lastOperator === Symbols.cube) {
+    totalPostscript = Symbols.cube;
   }
 
   addCalculationStep({
     value: toApply,
     operation: Symbols.equals,
     total,
-    postscript,
+    totalPostscript,
   });
-
-  // setTotalValue(total);
 
   if (input != null) {
     setInputString();

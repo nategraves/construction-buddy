@@ -91,11 +91,13 @@ export class Fraction {
   toString = () => `${this.n}/${this.d}`;
 
   toComponent = () => {
+    if (this.n === 0) {
+      return null;
+    }
     return (
       <div className="flex flex-col">
         <div>{this.n ?? 'X'}</div>
-        <div>{'⟋'}</div>
-        {/* <hr style={{ margin: 0 }} /> */}
+        <hr style={{ margin: 0 }} />
         <div>{this.d}</div>
       </div>
     );

@@ -2,56 +2,31 @@ import React, { useContext } from 'react';
 
 import { Button } from 'src/ui';
 import { ValueContext } from 'src/contexts';
-import { OperationSymbols, operationsMap } from 'src/data';
+import { percentAction } from 'src/data';
 
 export function Percent() {
-  const { calculationSteps, input, addCalculationStep, setInputString } = useContext(ValueContext);
+  const {
+    addToHistory,
+    calculationSteps,
+    clearCalculationSteps,
+    input,
+    addCalculationStep,
+    setInputString,
+    setWorkingValue,
+    workingValue,
+  } = useContext(ValueContext);
 
   const handleClick = () => {
-    if (input == null) {
-      // TODO: handle this
-      return;
-    }
-    const pct = input / 100;
-
-    if (calculationSteps.length === 0) {
-      addCalculationStep({
-        value: pct,
-        total: pct,
-      });
-
-      setInputString();
-      return;
-    }
-
-    const lastStep = calculationSteps[calculationSteps.length - 1];
-
-    if (lastStep.operation == null) {
-      // TODO: handle this
-      return;
-    }
-
-    const lastOperator = lastStep.operation;
-
-    if (lastOperator == null) {
-      // TODO: handle this
-      return;
-    }
-
-    const lastOperatorAction = operationsMap[lastOperator as OperationSymbols];
-
-    const total = lastOperatorAction({
-      value: lastStep.total,
-      toApply: pct,
+    percentAction({
+      addCalculationStep,
+      addToHistory,
+      calculationSteps,
+      clearCalculationSteps,
+      input,
+      setInputString,
+      setWorkingValue,
+      workingValue,
     });
-
-    addCalculationStep({
-      value: input,
-      postscript: '\u0025',
-      total,
-    });
-
-    setInputString();
   };
 
   return <Button onClick={() => handleClick()}>%</Button>;

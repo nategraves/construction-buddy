@@ -5,4 +5,5 @@ export * from './divideAction';
 export * from './equalsAction';
 export * from './fillMeasurement';
 export * from './multiplyAction';
+export * from './percentAction';
 export * from './subtractAction';

@@ -1,4 +1,6 @@
-import { add, ImperialValue, MetricValue } from 'src/data';
+import { add } from '../add';
+import { ImperialValue } from '../ImperialValue';
+import { MetricValue } from '../MetricValue';
 import { Fraction } from '../Fraction';
 
 describe('Add correctly adds', () => {

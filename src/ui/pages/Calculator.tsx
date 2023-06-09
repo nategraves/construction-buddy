@@ -21,7 +21,8 @@ export function Calculator() {
             fontSize: '16px',
             fontWeight: 'bold',
             height: '16px',
-            padding: '15px 0',
+            padding: '8px 0',
+            margin: 0,
             textTransform: 'uppercase',
             textAlign: 'right',
           }}

@@ -3,9 +3,8 @@ import { Symbols, square } from 'src/data';
 
 import { ValueContext } from 'src/contexts';
 import { Button } from 'src/ui';
-import { isLabelWithInternallyDisabledControl } from '@testing-library/user-event/dist/utils';
 
-const postscript = Symbols.square;
+const totalPostscript = Symbols.square;
 const operation = Symbols.equals;
 
 export const Square: FC = () => {
@@ -33,7 +32,7 @@ export const Square: FC = () => {
         value: input,
         operation,
         total: square({ value: input }),
-        postscript,
+        totalPostscript,
       });
       setInputString();
       return;
@@ -44,7 +43,7 @@ export const Square: FC = () => {
         value: workingValue,
         operation,
         total: square({ value: workingValue }),
-        postscript,
+        totalPostscript,
       });
       setWorkingValue();
       return;
@@ -57,7 +56,7 @@ export const Square: FC = () => {
         value: lastTotal,
         operation,
         total: square({ value: lastTotal }),
-        postscript,
+        totalPostscript,
       });
       return;
     }

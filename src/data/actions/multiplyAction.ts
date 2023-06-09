@@ -11,8 +11,10 @@ export const multiplyAction = ({
   setInputString,
   setWorkingValue,
   workingValue,
+  updateCalculationStep,
 }: ActionProps) => {
-  const lastStep = calculationSteps[calculationSteps.length - 1];
+  const lastIndex = calculationSteps.length - 1;
+  const lastStep = calculationSteps[lastIndex];
   const lastTotal = lastStep?.total;
 
   if (input == null && workingValue == null && lastTotal == null) {
@@ -52,6 +54,7 @@ export const multiplyAction = ({
     });
     setInputString();
     setWorkingValue();
+    return;
   }
 
   if (hasInput && hasTotal) {
@@ -68,28 +71,27 @@ export const multiplyAction = ({
     }
   }
 
-  if (hasWorkingValue && lastTotal != null) {
+  if (hasWorkingValue && hasTotal) {
     compatibleValues = isSame(workingValue, lastTotal);
 
     if (compatibleValues) {
-      // TODO: Improve this so that we display ft or m squared with appropriate postscript
       addCalculationStep({
         value: workingValue,
         operation: Symbols.multiply,
         total: multiply({ value: lastTotal, toApply: workingValue }),
-        postscript: Symbols.square,
+        totalPostscript: Symbols.square,
       });
       setWorkingValue();
       return;
     }
   }
 
-  if (hasTotal) {
-    addCalculationStep({
-      value: lastTotal,
+  if (hasTotal && updateCalculationStep != null) {
+    const calculationStep = {
+      ...lastStep,
       operation: Symbols.multiply,
-      total: lastTotal,
-    });
+    };
+    updateCalculationStep(calculationStep, lastIndex);
     return;
   }
 

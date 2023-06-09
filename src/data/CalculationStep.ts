@@ -1,9 +1,11 @@
 import { Value } from './Value';
 
 export type CalculationStep = {
-  value: Value;
-  prescript?: string;
-  postscript?: string;
   operation?: string;
+  totalPrescript?: string;
+  totalPostscript?: string;
   total: Value;
+  value: Value;
+  valuePostscript?: string;
+  valuePrescript?: string;
 };

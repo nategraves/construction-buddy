@@ -41,6 +41,7 @@ export interface ValueContextProps {
   setRightAngle: (newRightAngle: RightAngle) => void;
   setUnits: (newUnits: Units) => void;
   setWorkingValue: (newStored?: Value) => void;
+  updateCalculationStep: (calculationStep: CalculationStep, index: number) => void;
 }
 
 export const ValueContext = createContext<ValueContextProps>({
@@ -68,6 +69,7 @@ export const ValueContext = createContext<ValueContextProps>({
   setRightAngle: (newRightAngle) => {},
   setWorkingValue: () => {},
   setUnits: () => {},
+  updateCalculationStep: (calculationStep, index) => {},
 });
 
 export const ValueProvider: FC<{ children: ReactNode }> = ({ children }) => {
@@ -97,7 +99,14 @@ export const ValueProvider: FC<{ children: ReactNode }> = ({ children }) => {
   }, [inputString, workingValue, calculationSteps, rightAngle]);
 
   const addCalculationStep = (calculationStep: CalculationStep) => {
+    console.log({ calculationStep });
     _setCalculationSteps([...calculationSteps, calculationStep]);
+  };
+
+  const updateCalculationStep = (calculationStep: CalculationStep, index: number) => {
+    const calculationStepsDup = [...calculationSteps];
+    calculationStepsDup[index] = calculationStep;
+    _setCalculationSteps(calculationStepsDup);
   };
 
   const addMemory = (newValue: Value) => {
@@ -159,6 +168,7 @@ export const ValueProvider: FC<{ children: ReactNode }> = ({ children }) => {
         setRightAngle,
         setUnits,
         setWorkingValue,
+        updateCalculationStep,
       }}
     >
       {children}

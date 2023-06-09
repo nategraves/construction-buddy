@@ -11,4 +11,5 @@ export type ActionProps = {
   addCalculationStep: (calculationStep: CalculationStep) => void;
   setInputString: (newInputString?: string) => void;
   setWorkingValue: (newStored?: Value) => void;
+  updateCalculationStep?: (calculationStep: CalculationStep, index: number) => void;
 };

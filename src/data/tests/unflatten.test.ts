@@ -1,5 +1,8 @@
-import { Fraction, Units } from 'src/data';
-import { ImperialValue, MetricValue, unflatten } from 'src/data';
+import { ImperialValue } from '../ImperialValue';
+import { MetricValue } from '../MetricValue';
+import { Fraction } from '../Fraction';
+import { unflatten } from '../unflatten';
+import { Units } from '../Units';
 
 describe('unflatten correctly converts', () => {
   test('30 to 2ft-6ins with ft', () => {

@@ -16,7 +16,8 @@ export const Equals = () => {
     setWorkingValue,
   } = useContext(ValueContext);
 
-  const handleClick = () =>
+  const handleClick = () => {
+    console.log('poo');
     equalsAction({
       addToHistory,
       calculationSteps,
@@ -27,6 +28,7 @@ export const Equals = () => {
       setInputString,
       setWorkingValue,
     });
+  };
 
-  return <Button onClick={() => handleClick()}>{Symbols.equals}</Button>;
+  return <Button onClick={handleClick}>{Symbols.equals}</Button>;
 };

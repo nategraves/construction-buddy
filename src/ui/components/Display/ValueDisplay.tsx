@@ -1,12 +1,12 @@
 import React from 'react';
-import { ImperialValue, isImperial, isMetric, isNumber, MetricValue } from 'src/data';
+import { isImperial, isMetric, isNumber, Value } from 'src/data';
 
 export function ValueDisplay(props: {
-  value: ImperialValue | MetricValue;
-  valueSize?: string;
   labelSize?: string;
   prescript?: string;
   postscript?: string;
+  value: Value | string;
+  valueSize?: string;
 }) {
   const { labelSize = '1.1rem', value, valueSize = '2rem', prescript, postscript } = props;
 
@@ -23,26 +23,22 @@ export function ValueDisplay(props: {
   } else if (isImperial(value)) {
     const { ft, ins, fr } = value;
     return (
-      <div className="flex flex-row" style={{ alignContent: 'center', fontSize: valueSize }}>
+      <div
+        className="flex flex-row"
+        style={{ alignContent: 'center', fontSize: valueSize, fontWeight: 'bold' }}
+      >
         {prescript != null && <div style={{ fontSize: labelSize }}>{prescript}</div>}
         {ft != null && (
-          <div
-            className="flex row"
-            style={{
-              fontWeight: 'bold',
-              marginRight: '0.25rem',
-            }}
-          >
-            <div>{ft}</div>
-            <div style={{ marginLeft: '0 0.5rem', fontSize: labelSize }}>ft</div>
+          <div className="flex row">
+            <div style={{ marginRight: '0.25rem' }}>{ft}</div>
+            <div style={{ fontSize: labelSize }}>ft</div>
           </div>
         )}
         {ins != null && (
           <div
             className="flex row"
             style={{
-              fontWeight: 'bold',
-              marginRight: '0.25rem',
+              marginLeft: '0.25rem',
             }}
           >
             <div>{ins}</div>
@@ -53,7 +49,7 @@ export function ValueDisplay(props: {
           <div
             className="flex row"
             style={{
-              fontWeight: 'bold',
+              marginLeft: '0.25rem',
             }}
           >
             {fr.toComponent()}

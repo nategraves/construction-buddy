@@ -42,14 +42,14 @@ export const divideAction = ({
       value: input,
       operation: Symbols.divide,
       total: divide({ value: lastTotal, toApply: input }),
-      postscript: lastStep.postscript,
+      totalPostscript: lastStep.totalPostscript,
     });
     setInputString();
     return;
   }
 
   if (workingValue != null && isSame(workingValue, lastTotal)) {
-    if (lastStep.postscript === Symbols.square) {
+    if (lastStep.totalPostscript === Symbols.square) {
       const flatLast = flatten(lastTotal) * flatten(lastTotal);
       const units = isImperial(lastTotal) ? Units.imperial : Units.metric;
       const includeM = units === Units.metric && (lastTotal as MetricValue).m != null;
@@ -61,7 +61,7 @@ export const divideAction = ({
           value: unflatten({ value: flatLast, units, includeFt, includeM }),
           toApply: workingValue,
         }),
-        postscript: undefined,
+        totalPostscript: undefined,
       });
     } else {
       addCalculationStep({

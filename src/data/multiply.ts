@@ -29,11 +29,27 @@ export const multiply = ({ value, toApply }: { value: Value; toApply: Value }): 
     });
   }
 
+  if (isNumber(value) && isImperial(toApply)) {
+    return unflatten({
+      value: result,
+      units: Units.imperial,
+      includeFt: 'ft' in toApply,
+    });
+  }
+
   if (isMetric(value) && isNumber(toApply)) {
     return unflatten({
       value: result,
       units: Units.metric,
       includeM: 'm' in value,
+    });
+  }
+
+  if (isNumber(value) && isMetric(toApply)) {
+    return unflatten({
+      value: result,
+      units: Units.metric,
+      includeM: 'm' in toApply,
     });
   }
 
@@ -45,5 +61,5 @@ export const multiply = ({ value, toApply }: { value: Value; toApply: Value }): 
     return reduceSquared(result, Units.imperial);
   }
 
-  throw new Error('Cannot multiply a number by a value');
+  throw new Error('Unhandled multiplication case');
 };
