@@ -35,7 +35,14 @@ export const CalculationSteps = () => {
 
   return (
     <div
-      style={{ width: '100%', display: 'flex', justifyContent: 'flex-end', minHeight: '1.3rem' }}
+      id="calculation-steps"
+      style={{
+        width: '100%',
+        display: 'flex',
+        justifyContent: 'flex-end',
+        minHeight: '1.3rem',
+        flex: '0 0 auto',
+      }}
     >
       {steps}
     </div>

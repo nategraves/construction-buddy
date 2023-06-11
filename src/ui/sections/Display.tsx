@@ -25,20 +25,21 @@ export function Display() {
         backgroundColor: '#e8eced',
         display: 'flex',
         flexWrap: 'wrap',
+        flexDirection: 'column',
         height: '120px',
-        width: '100%',
-        padding: '0.5rem',
         justifyContent: 'flex-end',
+        padding: '0.5rem',
+        width: '100%',
       }}
     >
       <CalculationSteps />
-      {value != null && (
-        <MainDisplay
-          value={postscript?.includes(Symbols.percent) && isNumber(value) ? value * 100 : value}
-          // prescript={prescript}
-          // postscript={postscript}
-        />
-      )}
+      <MainDisplay
+        value={
+          postscript?.includes(Symbols.percent) && isNumber(value) ? (value as number) * 100 : value
+        }
+        // prescript={prescript}
+        // postscript={postscript}
+      />
     </div>
   );
 }

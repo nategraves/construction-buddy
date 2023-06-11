@@ -28,13 +28,13 @@ export function ValueDisplay(props: {
         style={{ alignContent: 'center', fontSize: valueSize, fontWeight: 'bold' }}
       >
         {prescript != null && <div style={{ fontSize: labelSize }}>{prescript}</div>}
-        {ft != null && (
+        {ft != null && ft !== 0 && (
           <div className="flex row">
             <div style={{ marginRight: '0.25rem' }}>{ft}</div>
             <div style={{ fontSize: labelSize }}>ft</div>
           </div>
         )}
-        {ins != null && (
+        {ins != null && ins !== 0 && (
           <div
             className="flex row"
             style={{

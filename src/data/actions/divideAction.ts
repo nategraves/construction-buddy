@@ -22,11 +22,19 @@ export const divideAction = ({
   const lastStep = calculationSteps[calculationSteps.length - 1];
   const lastTotal = lastStep?.total;
 
-  if (input == null && workingValue == null && lastTotal == null) {
+  const hasInput = input != null;
+  const hasWorkingValue = workingValue != null;
+  const hasTotal = lastTotal != null;
+
+  if (!hasInput && !hasWorkingValue && !hasTotal) {
     return;
   }
 
-  if (input == null && workingValue == null && lastTotal != null) {
+  if (hasInput && hasWorkingValue) {
+    throw new Error('Cannot have both input and working value');
+  }
+
+  if (!hasInput && !hasWorkingValue && hasTotal) {
     addToHistory(calculationSteps);
     addCalculationStep({
       value: lastTotal,
@@ -37,14 +45,25 @@ export const divideAction = ({
     return;
   }
 
-  if (input != null) {
+  if (hasInput) {
     addCalculationStep({
       value: input,
       operation: Symbols.divide,
-      total: divide({ value: lastTotal, toApply: input }),
-      totalPostscript: lastStep.totalPostscript,
+      total: hasTotal ? divide({ value: lastTotal, toApply: input }) : input,
+      totalPostscript: lastStep?.totalPostscript ?? undefined,
     });
     setInputString();
+    return;
+  }
+
+  if (hasWorkingValue) {
+    addCalculationStep({
+      value: workingValue,
+      operation: Symbols.divide,
+      total: hasTotal ? divide({ value: lastTotal, toApply: workingValue }) : workingValue,
+      totalPostscript: lastStep?.totalPostscript ?? undefined,
+    });
+    setWorkingValue();
     return;
   }
 

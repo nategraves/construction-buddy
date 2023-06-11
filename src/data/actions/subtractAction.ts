@@ -22,44 +22,39 @@ export const subtractAction = ({
 
   const hasInput = input != null;
   const hasWorkingValue = workingValue != null;
-  const hasTotal = lastStep.operation === Symbols.equals && lastTotal != null;
+  const hasTotal = lastTotal != null;
 
   if (!hasInput && !hasWorkingValue && !hasTotal) {
     // TODO: Handle error
     return;
   }
 
-  let compatibleValues;
-
   if (hasInput) {
-    compatibleValues = isSame(input, lastStep.total);
+    addCalculationStep({
+      value: input,
+      operation,
+      total: hasTotal && isSame(input, lastTotal) ? (lastTotal as number) - input : input,
+    });
 
-    if (compatibleValues) {
-      addCalculationStep({
-        value: input,
-        operation,
-        total: (lastStep.total as number) - input,
-      });
-      setInputString();
-      return;
-    }
+    setInputString();
+    return;
   }
 
   if (hasWorkingValue) {
-    compatibleValues = isSame(workingValue, lastStep.total);
+    addCalculationStep({
+      value: workingValue,
+      operation,
+      total:
+        hasTotal && isSame(workingValue, lastTotal)
+          ? subtract({ value: lastTotal, toApply: workingValue })
+          : workingValue,
+    });
 
-    if (compatibleValues) {
-      addCalculationStep({
-        value: workingValue,
-        operation,
-        total: subtract({ value: lastStep.total, toApply: workingValue }),
-      });
-      setWorkingValue();
-      return;
-    }
+    setWorkingValue();
+    return;
   }
 
-  if (hasTotal) {
+  if (hasTotal && !hasInput && !hasWorkingValue) {
     addToHistory(calculationSteps);
     addCalculationStep({
       value: lastTotal,
