@@ -1,6 +1,6 @@
 import { ActionProps } from './actionType';
 import { Symbols } from 'src/data/Symbols';
-import { operationsMap, OperationSymbols } from 'src/data/Operations';
+import { operationsMap, OperationSymbols } from 'src/data/types/Operations';
 
 export const percentAction = ({
   addCalculationStep,

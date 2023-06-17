@@ -1,5 +1,5 @@
 import React from 'react';
-import { isImperial, isMetric, isNumber, MetricValue, Value } from 'src/data';
+import { isImperial, isMetric, isNumber, Value } from 'src/data';
 
 export function ValueDisplay(props: {
   labelSize?: string;
@@ -24,7 +24,7 @@ export function ValueDisplay(props: {
     const { ft, ins, fr } = value;
     return (
       <div
-        className="flex flex-row"
+        className="flex row"
         style={{ alignContent: 'center', fontSize: valueSize, fontWeight: 'bold' }}
       >
         {prescript != null && <div style={{ fontSize: labelSize }}>{prescript}</div>}
@@ -47,7 +47,6 @@ export function ValueDisplay(props: {
         )}
         {fr != null && (
           <div
-            className="flex row"
             style={{
               marginLeft: '0.25rem',
             }}
@@ -60,8 +59,8 @@ export function ValueDisplay(props: {
     );
   } else if (isMetric(value)) {
     return (
-      <div className="flex flex-row">
-        <div>{(value as MetricValue.m}m</div>
+      <div className="flex row">
+        <div>{value.m}m</div>
         <div>{value.cm}cm</div>
         <div>{value.mm}mm</div>
       </div>

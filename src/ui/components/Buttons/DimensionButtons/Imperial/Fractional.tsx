@@ -14,15 +14,9 @@ export function Fractional() {
       return;
     }
 
-    if (numerator == null) {
-      setNumerator(input);
-      setInputString();
-      return;
-    }
-
     const denominator = resolution ?? input;
 
-    if (!denominator) {
+    if (denominator == null) {
       return;
     }
 
@@ -30,14 +24,18 @@ export function Fractional() {
       setWorkingValue({
         ...workingValue,
         ins: workingValue.ins ?? 0,
-        fr: new Fraction(numerator, denominator),
+        fr: new Fraction(input, denominator),
       });
     } else {
       setWorkingValue({
         ft: 0,
         ins: 0,
-        fr: new Fraction(numerator, denominator),
+        fr: new Fraction(input, denominator),
       });
+    }
+
+    if (numerator == null) {
+      setNumerator(input);
     }
 
     setInputString();
@@ -45,7 +43,7 @@ export function Fractional() {
 
   return (
     <Button onClick={() => handleClick()}>
-      <FractionDisplay d={resolution} />
+      <FractionDisplay d={resolution} displayNPlaceholder={true} />
     </Button>
   );
 }

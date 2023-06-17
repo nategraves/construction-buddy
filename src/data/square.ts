@@ -1,9 +1,9 @@
 import { isImperial } from './isImperial';
 import { isMetric } from './isMetric';
-import { Value } from './Value';
+import { Value } from './types/Value';
 import { flatten } from './flatten';
 import { unflatten } from './unflatten';
-import { Units } from './Units';
+import { Units } from './types/Units';
 import { isNumber } from './isNumber';
 
 export const square = ({ value }: { value: Value }) => {

@@ -15,7 +15,7 @@ export function Display() {
   const showTotal = lastTotal != null && lastOperator === Symbols.equals;
 
   const value = showTotal ? lastTotal : inputString ?? workingValue;
-  const prescript = showTotal ? lastStep?.totalPrescript : lastStep?.valuePrescript;
+  // const prescript = showTotal ? lastStep?.totalPrescript : lastStep?.valuePrescript;
   const postscript = showTotal ? lastStep?.totalPostscript : lastStep?.valuePostscript;
 
   return (

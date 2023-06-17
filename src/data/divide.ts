@@ -1,11 +1,11 @@
-import { Units } from './Units';
+import { Units } from './types/Units';
 
 import { flatten } from './flatten';
 import { isImperial } from './isImperial';
 import { isMetric } from './isMetric';
 import { isNumber } from './isNumber';
 import { unflatten } from './unflatten';
-import { Value } from './Value';
+import { Value } from './types/Value';
 
 export const divide = ({ value, toApply }: { value: Value; toApply: Value }): Value => {
   const flatValue = flatten(value);

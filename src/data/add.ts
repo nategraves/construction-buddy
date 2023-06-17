@@ -1,10 +1,10 @@
 import { isImperial } from './isImperial';
 import { isMetric } from './isMetric';
 import { isNumber } from './isNumber';
-import { Value } from './Value';
+import { Value } from './types/Value';
 import { flatten } from './flatten';
 import { unflatten } from './unflatten';
-import { Units } from './Units';
+import { Units } from './types/Units';
 
 export const add = ({ value, toApply }: { value: Value; toApply: Value }): Value => {
   if (isMetric(value) && isMetric(toApply)) {

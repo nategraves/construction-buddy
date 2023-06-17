@@ -1,8 +1,8 @@
 import { flatten } from './flatten';
-import { Value } from './Value';
+import { Value } from './types/Value';
 import { isMetric } from './isMetric';
 import { isImperial } from './isImperial';
-import { Units } from './Units';
+import { Units } from './types/Units';
 import { unflatten } from './unflatten';
 
 export const squareRoot = ({ value }: { value: Value }): Value => {

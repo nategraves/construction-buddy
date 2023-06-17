@@ -1,6 +1,6 @@
 import { add } from '../add';
-import { ImperialValue } from '../ImperialValue';
-import { MetricValue } from '../MetricValue';
+import { ImperialValue } from '../types/ImperialValue';
+import { MetricValue } from '../types/MetricValue';
 import { Fraction } from '../Fraction';
 
 describe('Add correctly adds', () => {

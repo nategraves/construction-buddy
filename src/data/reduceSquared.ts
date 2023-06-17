@@ -1,5 +1,5 @@
-import { Units } from './Units';
-import { Value } from './Value';
+import { Units } from './types/Units';
+import { Value } from './types/Value';
 
 export const reduceSquared = (value: number, units?: Units): Value => {
   let result;

@@ -1,8 +1,9 @@
 import React, { useContext } from 'react';
 
-import { EmptyRightAngle } from 'src/data';
+// import { EmptyRightAngle } from 'src/data';
 import { ValueContext } from 'src/contexts';
-import { isSame, square, squareRoot, subtract } from 'src/data';
+import { isSame } from 'src/data';
+// import { isSame, square, squareRoot, subtract } from 'src/data';
 import { Button } from 'src/ui';
 
 export const Rise = () => {
@@ -37,13 +38,13 @@ export const Rise = () => {
 
     if (diagonal != null && run != null) {
       console.log('diagonal != null && run != null && isSame(diagonal, run)');
-      const diagonalSquared = square({ value: diagonal });
-      const runSquared = square({ value: run });
-      const riseSquared = subtract({
-        value: diagonalSquared!,
-        toApply: runSquared!,
-      });
-      setRightAngle(EmptyRightAngle);
+      // const diagonalSquared = square({ value: diagonal });
+      // const runSquared = square({ value: run });
+      // const riseSquared = subtract({
+      //   value: diagonalSquared!,
+      //   toApply: runSquared!,
+      // });
+      // setRightAngle(EmptyRightAngle);
     }
   };
 

@@ -1,4 +1,4 @@
-import { ImperialValue } from './ImperialValue';
+import { ImperialValue } from './types/ImperialValue';
 import { Fraction } from './Fraction';
 
 export const toggleFeetAndInches = (value: ImperialValue): ImperialValue => {

@@ -1,6 +1,6 @@
 import { Fraction, Units } from 'src/data';
-import { ImperialValue } from './ImperialValue';
-import { MetricValue } from './MetricValue';
+import { ImperialValue } from './types/ImperialValue';
+import { MetricValue } from './types/MetricValue';
 
 export const unflatten = ({
   value,

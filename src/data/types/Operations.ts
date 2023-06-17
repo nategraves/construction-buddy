@@ -1,9 +1,9 @@
 import { Value } from './Value';
-import { add } from './add';
-import { divide } from './divide';
-import { multiply } from './multiply';
-import { subtract } from './subtract';
-import { Symbols } from './Symbols';
+import { add } from '../add';
+import { divide } from '../divide';
+import { multiply } from '../multiply';
+import { subtract } from '../subtract';
+import { Symbols } from '../Symbols';
 
 export type OperationSymbols = Symbols.add | Symbols.subtract | Symbols.multiply | Symbols.divide;
 

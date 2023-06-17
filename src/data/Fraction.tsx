@@ -95,7 +95,7 @@ export class Fraction {
       return null;
     }
     return (
-      <div className="flex flex-col">
+      <div className="flex col" style={{ alignItems: 'center' }}>
         <div>{this.n ?? 'X'}</div>
         <hr style={{ margin: 0 }} />
         <div>{this.d}</div>

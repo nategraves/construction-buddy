@@ -1,5 +1,5 @@
 import { CalculationStep } from '../types/CalculationStep';
-import { Value } from '../Value';
+import { Value } from '../types/Value';
 import { ValueContextProps } from 'src/contexts';
 
 export type ActionProps = {

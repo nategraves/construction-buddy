@@ -1,6 +1,6 @@
-import { OperationSymbols, operationsMap } from '../Operations';
+import { OperationSymbols, operationsMap } from '../types/Operations';
 import { Symbols } from '../Symbols';
-import { Value } from '../Value';
+import { Value } from '../types/Value';
 import { isImperial } from '../isImperial';
 import { isMetric } from '../isMetric';
 import { ActionProps } from './actionType';

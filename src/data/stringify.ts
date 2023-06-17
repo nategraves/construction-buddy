@@ -1,4 +1,4 @@
-import { Value } from './Value';
+import { Value } from './types/Value';
 import { isNumber } from './isNumber';
 import { isImperial } from './isImperial';
 

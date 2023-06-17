@@ -1,10 +1,10 @@
-import { Value } from './Value';
+import { Value } from './types/Value';
 import { isMetric } from './isMetric';
 import { isNumber } from './isNumber';
 import { isImperial } from './isImperial';
 import { flatten } from './flatten';
 import { unflatten } from './unflatten';
-import { Units } from './Units';
+import { Units } from './types/Units';
 import { reduceSquared } from './reduceSquared';
 
 export const multiply = ({ value, toApply }: { value: Value; toApply: Value }): Value => {

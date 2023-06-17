@@ -1,5 +1,5 @@
-import { ImperialValue } from './ImperialValue';
-import { Value } from './Value';
+import { ImperialValue } from './types/ImperialValue';
+import { Value } from './types/Value';
 
 export function isImperial(value: Value | string | undefined): value is ImperialValue {
   if (value == null || typeof value === 'number' || typeof value === 'string') {

@@ -1,5 +1,5 @@
 import { Fraction } from './Fraction';
-import { Value } from './Value';
+import { Value } from './types/Value';
 import { isImperial } from './isImperial';
 import { isMetric } from './isMetric';
 
