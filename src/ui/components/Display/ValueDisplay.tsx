@@ -1,5 +1,5 @@
 import React from 'react';
-import { isImperial, isMetric, isNumber, Value } from 'src/data';
+import { isImperial, isMetric, isNumber, MetricValue, Value } from 'src/data';
 
 export function ValueDisplay(props: {
   labelSize?: string;
@@ -61,7 +61,7 @@ export function ValueDisplay(props: {
   } else if (isMetric(value)) {
     return (
       <div className="flex flex-row">
-        <div>{value.m}m</div>
+        <div>{(value as MetricValue.m}m</div>
         <div>{value.cm}cm</div>
         <div>{value.mm}mm</div>
       </div>

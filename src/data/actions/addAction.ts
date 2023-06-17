@@ -63,9 +63,9 @@ export const addAction = ({
   let compatibleValue = false;
 
   if (hasInput) {
-    compatibleValue = isSame(input, lastStep.value);
+    compatibleValue = isSame(input, lastTotal);
     if (compatibleValue) {
-      const total = (lastStep.total as number) + input;
+      const total = (lastTotal as number) + input;
       addCalculationStep({
         value: input,
         operation: Symbols.add,
@@ -78,9 +78,9 @@ export const addAction = ({
   }
 
   if (hasWorkingValue) {
-    compatibleValue = isSame(workingValue, lastStep.value);
+    compatibleValue = isSame(workingValue, lastTotal);
     if (compatibleValue) {
-      const total = add({ value: workingValue, toApply: lastStep.value });
+      const total = add({ value: lastTotal, toApply: workingValue });
       addCalculationStep({
         value: workingValue,
         operation: Symbols.add,
@@ -92,7 +92,7 @@ export const addAction = ({
   }
 
   if (lastTotal != null) {
-    compatibleValue = isSame(lastTotal, lastStep.value);
+    compatibleValue = isSame(lastTotal, lastTotal);
     if (compatibleValue) {
       addToHistory(calculationSteps);
       addCalculationStep({

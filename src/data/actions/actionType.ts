@@ -1,4 +1,4 @@
-import { CalculationStep } from '../CalculationStep';
+import { CalculationStep } from '../types/CalculationStep';
 import { Value } from '../Value';
 import { ValueContextProps } from 'src/contexts';
 

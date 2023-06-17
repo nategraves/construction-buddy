@@ -1,5 +1,5 @@
 import { Symbols } from '../Symbols';
-import { OperationSymbols } from '../Operations';
+import { OperationSymbols } from '../types/Operations';
 import { ActionProps } from './actionType';
 import { addAction } from './addAction';
 import { divideAction } from './divideAction';

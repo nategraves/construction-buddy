@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Resolution } from './Resolution';
+import { Resolution } from './types/Resolution';
 import { greatestCommonDivisor, leastCommonMultiple } from '../utils/math';
 
 export class Fraction {

@@ -1,7 +1,7 @@
-import { ImperialValue } from '../ImperialValue';
-import { MetricValue } from '../MetricValue';
+import { ImperialValue } from '../types/ImperialValue';
+import { MetricValue } from '../types/MetricValue';
 import { Symbols } from '../Symbols';
-import { Units } from '../Units';
+import { Units } from '../types/Units';
 import { divide } from '../divide';
 import { flatten } from '../flatten';
 import { isImperial } from '../isImperial';
@@ -56,7 +56,15 @@ export const divideAction = ({
     return;
   }
 
-  if (hasWorkingValue) {
+  if (hasWorkingValue && hasTotal) {
+    addCalculationStep({
+      value: workingValue,
+      operation: Symbols.divide,
+      total: hasTotal ? divide({ value: lastTotal, toApply: workingValue }) : workingValue,
+    });
+    setWorkingValue();
+    return;
+  } else if (hasWorkingValue) {
     addCalculationStep({
       value: workingValue,
       operation: Symbols.divide,
