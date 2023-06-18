@@ -1,5 +1,6 @@
 import React, { useContext, FC } from 'react';
-import { Symbols, square } from 'src/data';
+import { square } from 'src/data';
+import { Symbols } from 'src/data/Symbols';
 
 import { ValueContext } from 'src/contexts';
 import { Button } from 'src/ui';

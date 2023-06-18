@@ -43,7 +43,8 @@ export function Fractional() {
 
   return (
     <Button onClick={() => handleClick()}>
-      <FractionDisplay d={resolution} displayNPlaceholder={true} />
+      Fraction
+      {/* <FractionDisplay d={resolution} displayNPlaceholder={true} /> */}
     </Button>
   );
 }

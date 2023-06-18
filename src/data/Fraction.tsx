@@ -2,6 +2,7 @@ import React from 'react';
 
 import { Resolution } from './types/Resolution';
 import { greatestCommonDivisor, leastCommonMultiple } from '../utils/math';
+import { FractionDisplay } from 'src/ui';
 
 export class Fraction {
   n?: number;
@@ -94,12 +95,6 @@ export class Fraction {
     if (this.n === 0) {
       return null;
     }
-    return (
-      <div className="flex col" style={{ alignItems: 'center' }}>
-        <div>{this.n ?? 'X'}</div>
-        <hr style={{ margin: 0 }} />
-        <div>{this.d}</div>
-      </div>
-    );
+    return <FractionDisplay d={this.d} n={this.n} />;
   };
 }
