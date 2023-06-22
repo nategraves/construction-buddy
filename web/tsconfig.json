@@ -30,7 +30,7 @@
     "noUnusedParameters": false,
     "outDir": "build/",
     "paths": {
-      "~/*": ["./src/*"]
+      "src/*": ["./src/*"]
     },
     "target": "ES2021",
     "resolveJsonModule": true,
