@@ -98,7 +98,7 @@ export const ValueProvider: FC<{ children: ReactNode }> = ({ children }) => {
   const [units, setUnits] = useState<Units>(Units.imperial);
 
   const setInputString = (newInputString?: string) => {
-    console.log(`Setting context value for inputString: ${newInputString}`);
+    // console.log(`Setting context value for inputString: ${newInputString}`);
     _setInputString(newInputString);
   };
 
@@ -111,13 +111,13 @@ export const ValueProvider: FC<{ children: ReactNode }> = ({ children }) => {
     } else {
       setInput(undefined);
     }
-    console.log({ input: newInput });
-    console.log({ workingValue });
+    // console.log({ input: newInput });
+    // console.log({ workingValue });
     console.log({ calculationSteps });
   }, [inputString, workingValue, calculationSteps, rightAngle]);
 
   const addCalculationStep = (calculationStep: CalculationStep) => {
-    console.log({ calculationStep });
+    // console.log({ calculationStep });
     _setCalculationSteps([...calculationSteps, calculationStep]);
   };
 

@@ -102,7 +102,6 @@ export class Fraction {
     if (this.n === 0) {
       return null;
     }
-    console.log({ fontSize });
     return (
       <FractionDisplay
         d={this.d}

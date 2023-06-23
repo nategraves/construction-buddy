@@ -26,7 +26,7 @@ export const Button: FC<ButtonProps> = (props) => {
     fontSize = 16,
     size = 42,
     textColor = '#fff',
-    widthMultiple = 1.25,
+    widthMultiple = 1.33,
     onPress,
   } = props;
   const width = size * widthMultiple;

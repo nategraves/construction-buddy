@@ -36,7 +36,7 @@ export const NumericButton = (props: Props) => {
   };
 
   return (
-    <Button onPress={() => handleButtonPress()}>
+    <Button onPress={() => handleButtonPress()} widthMultiple={1.25}>
       <Text color="#ffffff">{value}</Text>
     </Button>
   );

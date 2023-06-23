@@ -1,5 +1,6 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet } from 'react-native';
+import { Box, Text } from 'native-base';
 
 import { Symbols } from 'src/data';
 
@@ -41,13 +42,13 @@ export const FractionDisplay = ({
   });
 
   return (
-    <View style={styles.outerContainer}>
+    <Box style={styles.outerContainer}>
       {/* <Text style={{ ...styles.valueText, left: 0, top: 0 }}>{numerator}</Text> */}
       <Text style={{ ...styles.valueText }}>{numerator}</Text>
       {/* <Text style={{ ...styles.valueText, left: 10, top: 6, fontSize: 30 }}>
         {Symbols.fraction}
       </Text> */}
-      <View
+      <Box
         style={{
           borderBottomColor: color,
           borderBottomWidth: fontSize > 20 ? 2 : 1,
@@ -56,6 +57,6 @@ export const FractionDisplay = ({
       />
       <Text style={{ ...styles.valueText }}>{d}</Text>
       {/* <Text style={{ ...styles.valueText, right: 0, bottom: 0 }}>{d}</Text> */}
-    </View>
+    </Box>
   );
 };

@@ -16,10 +16,14 @@ export const MainDisplay = ({ value, valueSize }: MainDisplayProps) => {
       id="main-display"
       flexDir="row"
       width="100%"
-      flex={2}
+      height="100"
+      flexGrow={2}
+      flexShrink={0}
       justifyContent="flex-end"
       alignItems="center"
       paddingX={2}
+      backgroundColor="rgb(231, 231, 242)"
+      // backgroundColor="#00f"
     >
       {value != null && (
         <ValueDisplay

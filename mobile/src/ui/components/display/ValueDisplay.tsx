@@ -2,6 +2,7 @@ import React from 'react';
 import { Box, Text } from 'native-base';
 
 import { isImperial, isMetric, isNumber, Value } from 'src/data';
+import { truncateNumber } from 'src/utils';
 
 export function ValueDisplay(props: {
   labelSize?: number;
@@ -24,7 +25,17 @@ export function ValueDisplay(props: {
 
   if (isNumber(value)) {
     return (
-      <Text style={{ fontSize: valueSize, fontWeight: 'bold' }}>{value}</Text>
+      <Box
+        width="100%"
+        height="100%"
+        flexDirection="row"
+        justifyContent="flex-end"
+        alignItems="flex-end"
+      >
+        <Text style={{ fontSize: 30, fontWeight: 'bold' }}>
+          {truncateNumber(value, 3).toString()}
+        </Text>
+      </Box>
     );
   } else if (typeof value === 'string') {
     // const decimalIndex = value.indexOf('.');

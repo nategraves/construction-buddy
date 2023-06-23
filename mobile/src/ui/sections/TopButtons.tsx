@@ -1,5 +1,5 @@
-import React, { useContext } from 'react';
-import { StyleSheet, View } from 'react-native';
+import React, { ReactNode, useContext } from 'react';
+import { Box } from 'native-base';
 
 import {
   Clear,
@@ -18,38 +18,51 @@ import {
 import { ValueContext } from 'src/contexts';
 import { Units } from 'src/data';
 
-const partialRowStyles = StyleSheet.create({
-  buttonRow: {
-    flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    margin: 4,
-  },
-});
+// const partialRowStyles = StyleSheet.create({
+//   buttonRow: {
+//     flex: 1,
+//     flexDirection: 'row',
+//     justifyContent: 'space-between',
+//     alignItems: 'center',
+//     margin: 4,
+//   },
+// });
+
+const ButtonRow = ({ children }: { children: ReactNode | ReactNode[] }) => {
+  return (
+    <Box
+      flexDirection="row"
+      justifyContent="space-between"
+      alignItems="center"
+      m={4}
+    >
+      {children}
+    </Box>
+  );
+};
 
 export const TopButtons = () => {
   const { units } = useContext(ValueContext);
   return (
-    <View style={{ flex: 1, backgroundColor: '#212121', padding: 8 }}>
-      <View style={partialRowStyles.buttonRow}>
+    <Box backgroundColor="#212121" padding={4} flexDir="column">
+      <ButtonRow>
         <SelectUnits />
         {units === Units.imperial && <SelectResolution />}
-      </View>
-      <View style={partialRowStyles.buttonRow}>
+      </ButtonRow>
+      <ButtonRow>
         <Rise />
         <Run />
         <Diagonal />
         <Clear />
         <Percent />
-      </View>
-      <View style={partialRowStyles.buttonRow}>
+      </ButtonRow>
+      <ButtonRow>
         <Square />
         <SquareRoot />
         <MemoryAdd />
         <MemoryRecall />
         <MemoryClear />
-      </View>
-    </View>
+      </ButtonRow>
+    </Box>
   );
 };

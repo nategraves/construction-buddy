@@ -13,6 +13,7 @@ export const equalsAction = ({
   addCalculationStep,
   setInputString,
   setWorkingValue,
+  updateCalculationStep,
 }: ActionProps) => {
   if (calculationSteps.length === 0) {
     // TODO: Handle error
@@ -20,7 +21,8 @@ export const equalsAction = ({
   }
 
   const stepCount = calculationSteps.length;
-  const lastStep = calculationSteps[stepCount - 1];
+  const lastIndex = stepCount - 1;
+  const lastStep = calculationSteps[lastIndex];
   const lastTotal = lastStep.total;
   const lastOperator = lastStep.operation;
 
@@ -34,6 +36,11 @@ export const equalsAction = ({
   const toApply = input ?? workingValue;
 
   if (toApply == null) {
+    lastStep.operation = Symbols.equals;
+    if (updateCalculationStep != null) {
+      updateCalculationStep(lastStep, lastIndex);
+    }
+
     // TODO: handle error
     return;
   }
